@@ -23,11 +23,16 @@ Portfolio site for Sathila De Silva: Home plus three case studies (MEGT, Pearl, 
 5. Commit after each approved section.
 6. Update the Progress section below after each step: section started, section approved, page done.
 
+## Gotchas
+
+- The dev server sometimes keeps serving old component styles after an edit. If a style change doesn't show, restart it: `npx astro dev stop`, `rm -rf node_modules/.vite .astro`, then `npx astro dev --host`.
+
 ## Open questions
 
 Built with these defaults until the user confirms:
 - `grey00` in DESIGN.md (violet-300) is treated as `tertiary-300`.
 - Gradient directions: brand is confirmed (149deg, from the logo SVG). "Fintech" runs left to right (90deg) and info-card icon top to bottom (180deg), unconfirmed.
+- Footer social links: LinkedIn, Instagram and Dribbble URLs still to come (placeholders in `src/components/Footer.astro`, no link yet). The footer icons are placeholders too and may be replaced.
 - On mobile only `number-xl` shrinks (to 56/72.8), so `number-l` (80) is larger than `number-xl` there. Left as specified.
 
 ## Progress
@@ -46,7 +51,7 @@ Status values: `not started` · `in progress` · `approved`
 | Hero | approved |
 | Work | approved |
 | Clients and Brands | approved |
-| Footer (shared by all pages) | not started |
+| Footer (shared by all pages) | approved |
 
 ### MEGT case study
 | Section | Status |

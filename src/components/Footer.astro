@@ -1,0 +1,80 @@
+---
+// Footer, shared by every page (DESIGN.md › Components › Footer).
+// Icons are exported from Figma with the brand gradient; the circles are CSS.
+import LinkedIn from '../assets/icons/linkedin.svg';
+import Mail from '../assets/icons/mail.svg';
+import Instagram from '../assets/icons/instagram.svg';
+import Dribbble from '../assets/icons/dribbble.svg';
+
+// TODO: add the LinkedIn, Instagram and Dribbble URLs. Until then those icons
+// render without a link.
+const socials = [
+  { label: 'LinkedIn', icon: LinkedIn, href: null },
+  { label: 'Email', icon: Mail, href: 'mailto:sathilasilva@yahoo.com' },
+  { label: 'Instagram', icon: Instagram, href: null },
+  { label: 'Dribbble', icon: Dribbble, href: null },
+];
+---
+
+<footer class="footer">
+  <div class="content">
+    <ul role="list" class="socials">
+      {socials.map(({ label, icon: Icon, href }) => (
+        <li>
+          <a
+            class="social"
+            href={href ?? undefined}
+            aria-label={label}
+            {...(href?.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          >
+            <Icon width={24} height={24} aria-hidden="true" />
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <p class="text-body-m">© 2026 Sathila De Silva. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  /* Fixed-height band (316px) with the content centred, 80px below the last section. */
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--footer-height);
+    margin-top: var(--space-80);
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+  }
+
+  /* As in Figma: the group is centred, and the icons and copyright line inside it
+     share a left edge. */
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-56);
+  }
+
+  .socials {
+    display: flex;
+    gap: var(--space-40);
+  }
+
+  .social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+    background-color: var(--bg-icon-subtle);
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  /* Not designed in Figma: a small lift on hover, no new colours. */
+  .social[href]:hover {
+    transform: scale(1.06);
+  }
+</style>

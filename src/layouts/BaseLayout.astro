@@ -2,6 +2,7 @@
 import '../styles/tokens.css';
 import '../styles/base.css';
 import TopNav from '../components/TopNav.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
@@ -34,5 +35,6 @@ const {
   <body>
     <TopNav />
     <slot />
+    <Footer />
   </body>
 </html>

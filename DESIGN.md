@@ -861,8 +861,9 @@ scroll (IntersectionObserver).
 
 **Footer** (every page): white, 316px tall, content centred, gap 56. Social
 icons: 44px circles, `bg-icon-subtle`, 24px brand-gradient icon, gap 40
-(LinkedIn, Mail, Instagram, Dribbble). Then "© {year} Sathila De Silva. All
-rights reserved." (`body-m`, `text-secondary`, 16px icon, gap 8).
+(LinkedIn, Mail, Instagram, Dribbble). Then "© 2026 Sathila De Silva. All
+rights reserved." (`body-m`, `text-secondary`), with © as a text character
+rather than an icon (the user's decision), left-aligned with the icon row.
 
 **Button** (not used on current screens): `button-primary` per front matter,
 padding 12/24, `rounded.full`, with the contrast note in Colors.
