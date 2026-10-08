@@ -591,7 +591,8 @@ belongs to the image.
 
 ### Gradients
 - **Brand gradient** on the "S" logo mark and the footer social icons:
-  `#333333 0% → #759563 54% → #DFEE09 100%`.
+  `#333333 0% → #759563 54% → #DFEE09 @ 65% opacity 100%`, running diagonally
+  top-left to bottom-right (CSS `149deg`), as in the exported logo SVG.
 - **"Fintech" highlight** in the Home hero: `#333333 0% → #759563 54% → #B4B975 100%`.
 - **Info-card icons** (MEGT): `#FACAFF → #C90FD7` (pink to violet).
 

@@ -226,8 +226,8 @@
 
   /* ── Gradients (only on the elements listed in DESIGN.md) ────────── */
 
-  /* "S" logo mark, footer social icons */
-  --gradient-brand: linear-gradient(90deg, #333333 0%, #759563 54%, #DFEE09 100%);
+  /* "S" logo mark, footer social icons. Direction and end opacity from the exported logo SVG. */
+  --gradient-brand: linear-gradient(149deg, #333333 0%, #759563 54%, rgb(223 238 9 / 0.65) 100%);
   /* "Fintech" highlight in the Home hero */
   --gradient-fintech: linear-gradient(90deg, #333333 0%, #759563 54%, #B4B975 100%);
   /* MEGT info-card icons */

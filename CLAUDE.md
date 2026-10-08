@@ -27,7 +27,7 @@ Portfolio site for Sathila De Silva: Home plus three case studies (MEGT, Pearl, 
 
 Built with these defaults until the user confirms:
 - `grey00` in DESIGN.md (violet-300) is treated as `tertiary-300`.
-- Gradient directions aren't in DESIGN.md: brand and "Fintech" run left to right (90deg), info-card icon top to bottom (180deg).
+- Gradient directions: brand is confirmed (149deg, from the logo SVG). "Fintech" runs left to right (90deg) and info-card icon top to bottom (180deg), unconfirmed.
 - On mobile only `number-xl` shrinks (to 56/72.8), so `number-l` (80) is larger than `number-xl` there. Left as specified.
 
 ## Progress
@@ -42,7 +42,7 @@ Status values: `not started` · `in progress` · `approved`
 ### Home
 | Section | Status |
 |---|---|
-| Top nav (shared by all pages) | not started |
+| Top nav (shared by all pages) | approved |
 | Hero | not started |
 | Work | not started |
 | Clients and Brands | not started |
