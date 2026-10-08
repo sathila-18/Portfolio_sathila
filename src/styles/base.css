@@ -86,7 +86,6 @@ h4,
 h5,
 h6 {
   font-weight: var(--weight-medium);
-  text-wrap: balance;
 }
 
 h1 { font-size: var(--h1-size); line-height: var(--h1-line); }
@@ -96,9 +95,7 @@ h4 { font-size: var(--h4-size); line-height: var(--h4-line); }
 h5 { font-size: var(--h5-size); line-height: var(--h5-line); }
 h6 { font-size: var(--h6-size); line-height: var(--h6-line); }
 
-p {
-  text-wrap: pretty;
-}
+/* Text wraps normally (no balance/pretty) so line breaks match Figma. */
 
 /* Text above 48px: hold optical size at the cap (see --opsz-max in tokens.css). */
 h1,

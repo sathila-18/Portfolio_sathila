@@ -44,7 +44,7 @@ Status values: `not started` · `in progress` · `approved`
 |---|---|
 | Top nav (shared by all pages) | approved |
 | Hero | approved |
-| Work | not started |
+| Work | approved |
 | Clients and Brands | not started |
 | Footer (shared by all pages) | not started |
 

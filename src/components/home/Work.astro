@@ -1,0 +1,65 @@
+---
+// Home › Work (DESIGN.md › Layout › Home, item 3).
+// Card visuals are cropped from the 2× Figma render (design-reference/PortfolioHome.png),
+// since DESIGN.md asks for each visual as one image.
+import ProjectCard from './ProjectCard.astro';
+import sampath from '../../assets/images/home/work-sampath.png';
+import batelco from '../../assets/images/home/work-batelco.png';
+import megt from '../../assets/images/home/work-megt.png';
+---
+
+<section class="work container" aria-labelledby="work-title">
+  <h2 id="work-title" class="visually-hidden">Selected work</h2>
+
+  <div class="grid">
+    <ProjectCard
+      href="/sampath"
+      image={sampath}
+      alt="Sampath Design System cover: the title over an octagon of flowing orange fabric."
+      category="Fintech • Design system • Mobile app"
+      title="The app was broken. Users had no choice but to adapt."
+      width={576}
+      radius="lg"
+    />
+    <ProjectCard
+      href="/pearl"
+      image={batelco}
+      alt="Batelco Design System cover: a badge usage guideline card over soft violet waves."
+      category="Telecommunication • Design system • Mobile App • Web • Enterprise"
+      title="One system, three surfaces, and no time to build them one at a time"
+      width={576}
+    />
+    <div class="full">
+      <ProjectCard
+        href="/megt"
+        image={megt}
+        alt="The MEGT form builder in a browser window over a blue sky."
+        category="Enterprise • Product Design • Web App"
+        title="Replacing Google Forms and spreadsheets with a node-based form builder designed for case workers who can't afford to break it."
+        width={1200}
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .work {
+    margin-top: var(--space-120);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-48);
+  }
+
+  .full {
+    grid-column: 1 / -1;
+  }
+
+  @media (max-width: 767px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

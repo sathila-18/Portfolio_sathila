@@ -1,0 +1,79 @@
+---
+// Home › Work › Project card (DESIGN.md › Components › Project card).
+// The whole card is one link. Hover: media scales to 1.02 (no title underline, per the user).
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  href: string;
+  image: ImageMetadata;
+  alt: string;
+  category: string;
+  title: string;
+  /** Media width in the design (576 half, 1200 full). Height follows the image. */
+  width: number;
+  /** Sampath uses rounded.lg in Figma; the others use rounded.md. */
+  radius?: 'md' | 'lg';
+}
+
+const { href, image, alt, category, title, width, radius = 'md' } = Astro.props;
+---
+
+<a class="card" href={href}>
+  <div class="media" style={`--media-radius: var(--radius-${radius})`}>
+    <Image
+      src={image}
+      alt={alt}
+      widths={[width, width * 2]}
+      sizes={`(min-width: 1264px) ${width}px, (min-width: 768px) 50vw, 100vw`}
+    />
+  </div>
+  <div class="text">
+    <p class="category text-title-m">{category}</p>
+    <h3 class="title text-h6">{title}</h3>
+  </div>
+</a>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    border-radius: var(--radius-md);
+  }
+
+  .media {
+    overflow: hidden;
+    border-radius: var(--media-radius);
+    background-color: var(--bg-subtle);
+  }
+
+  .media img {
+    width: 100%;
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  /* text-label on white is 4.06:1; DESIGN.md keeps it to this 14px Medium category line. */
+  .category {
+    color: var(--text-label);
+  }
+
+  .title {
+    max-width: 900px;
+    color: var(--text-primary);
+  }
+
+  .card:hover .media img {
+    transform: scale(1.02);
+  }
+
+  .card:focus-visible {
+    outline-offset: var(--space-4);
+  }
+</style>

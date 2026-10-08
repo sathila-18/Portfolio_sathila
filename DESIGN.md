@@ -822,8 +822,8 @@ Two links fit, so no hamburger is needed.
   Export the visual as one image.
 - Text box, gap 8: category line (`title-m`, `text-label`, "A • B • C"),
   then title (`h6`, `text-primary`, max ~900px).
-- The whole card is one link. Hover: media scales to 1.02 over 200ms, and the
-  title underlines.
+- The whole card is one link. Hover: media scales to 1.02 over 200ms. No
+  underline on the title.
 - Mobile: single column.
 
 **Client-logo tile**: 138×64, `bg-subtle`, `rounded.sm`, logo centred at its
