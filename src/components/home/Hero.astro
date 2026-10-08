@@ -1,0 +1,201 @@
+---
+// Home › Hero (DESIGN.md › Layout › Home, item 2).
+import { Image } from 'astro:assets';
+import avatar from '../../assets/images/home/09_hero-section__avatar.jpg';
+
+// The last word of the lead line types through these, in order.
+const sectors = ['Fintech', 'Telco', 'Enterprise', 'Aviation'];
+const sectorList = `${sectors.slice(0, -1).join(', ')} and ${sectors.at(-1)}`;
+---
+
+<section class="hero container" aria-labelledby="hero-title">
+  <div class="eyebrow">
+    <p class="text-h6">I am Sathila De Silva</p>
+    <Image
+      class="avatar"
+      src={avatar}
+      alt="Photo of Sathila"
+      width={116}
+      densities={[1, 2]}
+      loading="eager"
+    />
+  </div>
+
+  <h1 id="hero-title" class="headline">
+    Designing products and the systems that hold them together.
+  </h1>
+
+  <p class="lead">
+    <span class="text-body-xl">5 years of shipping products and design systems for</span>{' '}
+    <span class="visually-hidden">{sectorList}</span>
+    <!-- Every word sits invisibly in the same grid cell so the slot is as wide as the
+         longest one and the line never reflows while typing. -->
+    <span class="sector text-h5" aria-hidden="true" data-words={JSON.stringify(sectors)}>
+      {sectors.map((word) => <span class="sizer">{word}</span>)}
+      <span class="typed"><span class="word">{sectors[0]}</span><span class="caret"></span></span>
+    </span>
+  </p>
+</section>
+
+<style>
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+    padding-top: var(--space-172);
+  }
+
+  .eyebrow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-40);
+    color: var(--text-tertiary);
+  }
+
+  /* The 63px pill overhangs the 36px eyebrow line equally above and below,
+     so it doesn't push the headline down. */
+  .avatar {
+    width: 116px;
+    height: 63px;
+    margin-block: calc((var(--h6-line) - 63px) / 2);
+    border-radius: var(--radius-full);
+    background-color: var(--bg-subtle);
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+
+  .headline {
+    max-width: 930px;
+    color: var(--text-primary);
+  }
+
+  /* Centred, not baseline-aligned, to match the Figma auto layout. */
+  .lead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--space-12);
+    color: var(--text-secondary);
+  }
+
+  .sector {
+    display: inline-grid;
+  }
+
+  /* Mobile: h5 matches body-xl in size, so let the word flow inline after "for". */
+  @media (max-width: 767px) {
+    .lead {
+      display: block;
+    }
+  }
+
+  .sizer,
+  .typed {
+    grid-area: 1 / 1;
+  }
+
+  .sizer {
+    visibility: hidden;
+  }
+
+  .typed {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+  }
+
+  .word {
+    background: var(--gradient-fintech);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .caret {
+    width: var(--space-2);
+    height: 0.9em;
+    margin-left: var(--space-2);
+    background-color: var(--text-tertiary);
+    animation: blink 1s steps(1) infinite;
+  }
+
+  /* Hold the caret solid while letters are moving. */
+  .sector[data-typing] .caret {
+    animation: none;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  /* Reduced motion: stays on the first word with no caret (the script doesn't run). */
+  @media (prefers-reduced-motion: reduce) {
+    .caret {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const TYPE_MS = 90;
+  const DELETE_MS = 50;
+  const HOLD_MS = 2500;
+  const GAP_MS = 300;
+
+  const sector = document.querySelector<HTMLElement>('.hero .sector');
+  const wordEl = sector?.querySelector<HTMLElement>('.word');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (sector && wordEl && !reduceMotion) {
+    const words: string[] = JSON.parse(sector.dataset.words ?? '[]');
+    let index = 0;
+    let timer: number | undefined;
+
+    const wait = (ms: number) =>
+      new Promise<void>((resolve) => {
+        timer = window.setTimeout(resolve, ms);
+      });
+
+    const setTyping = (on: boolean) => sector.toggleAttribute('data-typing', on);
+
+    async function run() {
+      for (;;) {
+        await wait(HOLD_MS);
+
+        setTyping(true);
+        for (let text = words[index]; text.length > 0; ) {
+          text = text.slice(0, -1);
+          wordEl!.textContent = text;
+          await wait(DELETE_MS);
+        }
+
+        setTyping(false);
+        await wait(GAP_MS);
+
+        index = (index + 1) % words.length;
+        const next = words[index];
+        setTyping(true);
+        for (let i = 1; i <= next.length; i++) {
+          wordEl!.textContent = next.slice(0, i);
+          await wait(TYPE_MS);
+        }
+        setTyping(false);
+      }
+    }
+
+    // Pause while the tab is hidden; restart from a full word when it comes back.
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        window.clearTimeout(timer);
+        timer = undefined;
+      } else {
+        wordEl.textContent = words[index];
+        setTyping(false);
+        run();
+      }
+    });
+
+    run();
+  }
+</script>

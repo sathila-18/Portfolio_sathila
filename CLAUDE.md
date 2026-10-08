@@ -43,7 +43,7 @@ Status values: `not started` · `in progress` · `approved`
 | Section | Status |
 |---|---|
 | Top nav (shared by all pages) | approved |
-| Hero | not started |
+| Hero | approved |
 | Work | not started |
 | Clients and Brands | not started |
 | Footer (shared by all pages) | not started |

@@ -239,6 +239,10 @@
   /* Pearl "The Exception" section only, set in italic. */
   --font-code: "Google Sans Code", ui-monospace, monospace;
 
+  /* Optical size: auto up to 48, held at 48 above that. Measured against the Figma
+     renders: auto matches at 32px and below; at 90px only a cap of 48 matches (±1%). */
+  --opsz-max: 48;
+
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;

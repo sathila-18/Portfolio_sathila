@@ -100,6 +100,17 @@ p {
   text-wrap: pretty;
 }
 
+/* Text above 48px: hold optical size at the cap (see --opsz-max in tokens.css). */
+h1,
+h2,
+.text-h1,
+.text-h2,
+.text-number-xl,
+.text-number-l,
+.text-number-m {
+  font-variation-settings: "opsz" var(--opsz-max);
+}
+
 /* ── Links and focus ───────────────────────────────────────────── */
 
 a {
