@@ -827,7 +827,11 @@ Two links fit, so no hamburger is needed.
 - Mobile: single column.
 
 **Client-logo tile**: 138×64, `bg-subtle`, `rounded.sm`, logo centred at its
-original colours and proportions. Row gap 40. Wrap on smaller screens.
+original colours and proportions. Row gap 40. The tiles run as a looped
+carousel (about 40px/s, easing down to about 10px/s on mouse hover) on every screen size, and can
+be swiped or dragged in either direction with a little momentum. It keeps
+running with reduced motion on, by the user's decision: the one exception to
+the reduced-motion rule.
 
 **Section heading** (MEGT): vertical stack, gap 8: eyebrow (`label-m`,
 `text-tertiary`), then heading (`h2`, `text-heading-brand`, max ~690px). Lead

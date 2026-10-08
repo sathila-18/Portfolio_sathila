@@ -45,7 +45,7 @@ Status values: `not started` · `in progress` · `approved`
 | Top nav (shared by all pages) | approved |
 | Hero | approved |
 | Work | approved |
-| Clients and Brands | not started |
+| Clients and Brands | approved |
 | Footer (shared by all pages) | not started |
 
 ### MEGT case study

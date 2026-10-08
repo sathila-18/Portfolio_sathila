@@ -1,0 +1,211 @@
+---
+// Home › Clients and Brands (DESIGN.md › Layout › Home, item 4; Components › Client-logo tile).
+// The tiles run as a looped carousel that can also be swiped or dragged. The logos
+// are exported at 2×, so each one shows at half its pixel size, centred in a 138×64 tile.
+import { Image } from 'astro:assets';
+import etihad from '../../assets/images/home/logos/Etihad_logo.png';
+import batelco from '../../assets/images/home/logos/batelco_logo.png';
+import ooredoo from '../../assets/images/home/logos/ooredoo_logo.png';
+import sampath from '../../assets/images/home/logos/sampath_logo.png';
+import du from '../../assets/images/home/logos/du_logo.png';
+import lbFinance from '../../assets/images/home/logos/LB_logo.png';
+import sltMobitel from '../../assets/images/home/logos/SLTMOBITEL_logo.png';
+import payLater from '../../assets/images/home/logos/paylater_logo.png';
+
+const logos = [
+  { src: etihad, name: 'Etihad Guest' },
+  { src: batelco, name: 'Batelco' },
+  { src: ooredoo, name: 'Ooredoo' },
+  { src: sampath, name: 'Sampath Bank' },
+  { src: du, name: 'du' },
+  { src: lbFinance, name: 'LB Finance' },
+  { src: sltMobitel, name: 'SLT-Mobitel' },
+  { src: payLater, name: 'PayLater' },
+];
+---
+
+<section class="clients" aria-labelledby="clients-title">
+  <div class="container">
+    <!-- Figma reads "Cleints and Brands" (typo); corrected here. -->
+    <h2 id="clients-title" class="text-h4">Clients and Brands</h2>
+  </div>
+
+  <!-- Three identical groups: wherever the loop is, the row covers the screen on both
+       sides, including while it's dragged. Only the first group is read out. -->
+  <div class="marquee">
+    <div class="track">
+      {[0, 1, 2].map((copy) => (
+        <ul role="list" class="group" aria-hidden={copy > 0 ? 'true' : undefined}>
+          {logos.map(({ src, name }) => (
+            <li class="tile">
+              <Image
+                src={src}
+                alt={copy === 0 ? name : ''}
+                width={src.width / 2}
+                densities={[1, 2]}
+                draggable="false"
+              />
+            </li>
+          ))}
+        </ul>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .clients {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-48);
+    margin-top: var(--space-80);
+  }
+
+  h2 {
+    color: var(--text-primary);
+  }
+
+  /* Full-bleed so tiles enter and leave at the screen edges, not the container's.
+     pan-y keeps vertical page scrolling on touch; horizontal swipes move the row. */
+  .marquee {
+    overflow: hidden;
+    touch-action: pan-y;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .marquee[data-dragging] {
+    cursor: grabbing;
+  }
+
+  /* One group = 8 tiles + 8 gaps. The second group starts at the container's left
+     edge, as in the design; the script moves the row from there. */
+  .track {
+    --group-width: calc(8 * (138px + var(--space-40)));
+
+    display: flex;
+    width: max-content;
+    margin-left: calc(max(var(--gutter), (100% - var(--container-max)) / 2) - var(--group-width));
+    will-change: transform;
+  }
+
+  /* The trailing padding equals the gap, so the seam between groups matches. */
+  .group {
+    display: flex;
+    gap: var(--space-40);
+    padding-right: var(--space-40);
+  }
+
+  .tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 138px;
+    height: var(--space-64);
+    border-radius: var(--radius-sm);
+    background-color: var(--bg-subtle);
+  }
+
+  .tile img {
+    -webkit-user-drag: none;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  // Auto-scrolls left at a steady speed; swipe or drag to move it, with a little
+  // momentum on release. Eases to a quarter speed while a mouse hovers it. Keeps
+  // running with reduced motion on (the user's call; see DESIGN.md › Client-logo tile).
+  const SPEED = 0.04; // px per ms (≈ 40px/s, one loop ≈ 36s)
+  const HOVER_SPEED = SPEED / 4; // ≈ 10px/s while a mouse is over it
+  const EASE = 0.06; // how quickly speed eases toward its target, per 16ms frame
+  const FRICTION = 0.95; // momentum kept per 16ms frame
+
+  const marquee = document.querySelector<HTMLElement>('.clients .marquee');
+  const track = marquee?.querySelector<HTMLElement>('.track');
+  const group = track?.querySelector<HTMLElement>('.group');
+
+  if (marquee && track && group) {
+    let groupWidth = group.offsetWidth;
+    let margin = parseFloat(getComputedStyle(track).marginLeft);
+    // Left edge of the row. Kept in [-groupWidth, 0) so both sides stay covered.
+    let left = margin;
+    let momentum = 0;
+    let hovering = false;
+    let speed = SPEED;
+    let dragging = false;
+    let lastX = 0;
+    let lastMoveTime = 0;
+    let dragVelocity = 0;
+    let lastFrame = performance.now();
+
+    const wrap = (value: number) => ((value % groupWidth) - groupWidth) % groupWidth;
+
+    function frame() {
+      // Real elapsed time, clamped so a long pause (hidden tab) doesn't jump the row.
+      const now = performance.now();
+      const dt = Math.min(Math.max(now - lastFrame, 0), 50);
+      lastFrame = now;
+
+      if (!dragging) {
+        // Ease between full and hover speed instead of switching abruptly.
+        const target = hovering ? HOVER_SPEED : SPEED;
+        speed += (target - speed) * (1 - Math.pow(1 - EASE, dt / 16));
+        left -= speed * dt;
+        left += momentum * dt;
+        momentum *= Math.pow(FRICTION, dt / 16);
+        if (Math.abs(momentum) < 0.001) momentum = 0;
+      }
+
+      left = wrap(left);
+      track!.style.transform = `translate3d(${left - margin}px, 0, 0)`;
+      requestAnimationFrame(frame);
+    }
+
+    marquee.addEventListener('pointerenter', (e) => {
+      if (e.pointerType === 'mouse') hovering = true;
+    });
+    marquee.addEventListener('pointerleave', (e) => {
+      if (e.pointerType === 'mouse') hovering = false;
+    });
+
+    marquee.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      momentum = 0;
+      dragVelocity = 0;
+      lastX = e.clientX;
+      lastMoveTime = e.timeStamp;
+      marquee.setPointerCapture(e.pointerId);
+      marquee.toggleAttribute('data-dragging', true);
+    });
+
+    marquee.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - lastX;
+      const dt = Math.max(e.timeStamp - lastMoveTime, 1);
+      left += dx;
+      dragVelocity = dx / dt;
+      lastX = e.clientX;
+      lastMoveTime = e.timeStamp;
+    });
+
+    const endDrag = (e: PointerEvent) => {
+      if (!dragging) return;
+      dragging = false;
+      // Only carry momentum if the pointer was still moving when released.
+      momentum = e.timeStamp - lastMoveTime < 80 ? dragVelocity : 0;
+      marquee.toggleAttribute('data-dragging', false);
+    };
+    marquee.addEventListener('pointerup', endDrag);
+    marquee.addEventListener('pointercancel', endDrag);
+
+    new ResizeObserver(() => {
+      groupWidth = group.offsetWidth;
+      margin = parseFloat(getComputedStyle(track).marginLeft);
+    }).observe(marquee);
+
+    requestAnimationFrame(frame);
+  }
+</script>
