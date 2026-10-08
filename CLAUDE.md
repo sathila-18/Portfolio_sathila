@@ -7,7 +7,7 @@ Portfolio site for Sathila De Silva: Home plus three case studies (MEGT, Pearl, 
 - **DESIGN.md**: follow it strictly. Use only its tokens (colours, typography, spacing, radii, components). Never hardcode values that aren't tokens. Snap off-scale values using its rules.
 - **Figma details per page**: before each page, the user provides design details from Figma. These are the source of truth for that page. Where they conflict with DESIGN.md, ask before building.
 - **design-reference/**: full-page reference screenshots (`PortfolioHome.png`, `MEGT.png`, `Pearl.png`, `Sampath.png`), exported at 2×.
-- **assets/**: images, in `assets/images/<page>/`. Client logos are in `assets/images/home/logos/`. See `assets/images/index.csv`, which maps every image to its Figma layer path and the size it's shown at in the design.
+- **src/assets/**: images, in `src/assets/images/<page>/`, imported through Astro so they get resized and converted to WebP. Client logos are in `src/assets/images/home/logos/`. See `src/assets/images/index.csv`, which maps every image to its Figma layer path and the size it's shown at in the design.
 
 ## Stack
 
@@ -23,6 +23,13 @@ Portfolio site for Sathila De Silva: Home plus three case studies (MEGT, Pearl, 
 5. Commit after each approved section.
 6. Update the Progress section below after each step: section started, section approved, page done.
 
+## Open questions
+
+Built with these defaults until the user confirms:
+- `grey00` in DESIGN.md (violet-300) is treated as `tertiary-300`.
+- Gradient directions aren't in DESIGN.md: brand and "Fintech" run left to right (90deg), info-card icon top to bottom (180deg).
+- On mobile only `number-xl` shrinks (to 56/72.8), so `number-l` (80) is larger than `number-xl` there. Left as specified.
+
 ## Progress
 
 Status values: `not started` · `in progress` · `approved`
@@ -30,7 +37,7 @@ Status values: `not started` · `in progress` · `approved`
 ### Setup
 | Section | Status |
 |---|---|
-| Astro project scaffold, tokens and base styles from DESIGN.md | not started |
+| Astro project scaffold, tokens and base styles from DESIGN.md | approved |
 
 ### Home
 | Section | Status |
