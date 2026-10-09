@@ -1,0 +1,241 @@
+---
+// Sampath › 02 — The plan changed (Figma frame "Frame 1853320920"): dark text band,
+// then a band of two Figma variables screenshots that bleed off its bottom edge.
+import { Image } from 'astro:assets';
+import Section from './Section.astro';
+import Palette from '../../assets/icons/sampath/palette.svg';
+import colours from '../../assets/images/sampath/02_transition-image-replace-with-figma-foundations-__screenshot-2026-09-09-at-22-28-24-1.png';
+import typography from '../../assets/images/sampath/03_transition-image-replace-with-figma-foundations-__screenshot-2026-09-09-at-22-31-38-1.png';
+---
+
+<Section tone="dark" labelledby="plan-changed-title" tightBottom>
+  <h2 id="plan-changed-title">
+    <span class="line">The plan changed.</span> <span class="line">The deadline didn't.</span>
+  </h2>
+
+  <div class="cols">
+    <div class="left">
+      <p class="quote text-h6">Build the system and design the final UI simultaneously.</p>
+      <p class="text-body-xl body">
+        The team used an AI-generated prototype to get client direction approved fast. Developers
+        needed Figma. Component-level specs, no exceptions. The brief changed mid-project and the
+        deadline didn't move.
+      </p>
+    </div>
+
+    <div class="right">
+      <div class="point">
+        <h3 class="text-title-l">What the AI screens got right</h3>
+        <p class="text-body-l body">
+          A fast, approvable direction. The client could see the product's intent. Enough to move
+          things forward.
+        </p>
+      </div>
+      <div class="point">
+        <h3 class="text-title-l">What they missed</h3>
+        <p class="text-body-l body">
+          Unwanted extra steps in flows. No edge cases or negative scenarios. None of it visible at
+          a glance, only when working closely through the UI in Figma.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full width under both columns. -->
+  <p class="note">
+    <span class="note-icon" aria-hidden="true"><Palette width={24} height={24} /></span>
+    <span class="text-body-m">
+      My ownership from this point — Figma design system and all final UI delivery.
+    </span>
+  </p>
+</Section>
+
+<div class="shots" data-dark-hero>
+  <!-- On mobile this becomes a swipeable row, so it's focusable for keyboard scrolling. -->
+  <div class="canvas" role="region" aria-label="Figma variables screenshots" tabindex="0">
+    <Image
+      class="shot shot-colours"
+      src={colours}
+      alt="Figma variables: the Sampath Bank colour collection with light and dark values"
+      widths={[800, 1600]}
+      sizes="(max-width: 767px) 85vw, (min-width: 1920px) 784px, 41vw"
+    />
+    <Image
+      class="shot shot-type"
+      src={typography}
+      alt="Figma variables: Sampath Bank alias typography for mobile"
+      widths={[810, 1620]}
+      sizes="(max-width: 767px) 85vw, (min-width: 1920px) 810px, 42vw"
+    />
+  </div>
+</div>
+
+<style>
+  h2 {
+    color: var(--text-sampath-secondary);
+  }
+
+  /* Two lines from tablet up, as in Figma; on mobile it wraps naturally. */
+  @media (min-width: 768px) {
+    .line {
+      display: block;
+    }
+  }
+
+  .cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-40);
+    margin-top: var(--space-72);
+  }
+
+  .left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-32);
+  }
+
+  /* Figma left padding 22, snapped to 24. */
+  .quote {
+    padding-left: var(--space-24);
+    border-left: 2px solid var(--border-sampath);
+    color: var(--text-sampath-secondary);
+  }
+
+  /* Figma text width inside the 516 column. */
+  .left .body {
+    max-width: 494px;
+  }
+
+  .body {
+    color: var(--text-light);
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  .point {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  h3 {
+    color: var(--text-sampath-secondary);
+  }
+
+  /* Figma: padding 20/16 and radius 10, snapped to 24/16 and rounded.sm. */
+  .note {
+    display: flex;
+    margin-top: var(--space-40);
+    align-items: center;
+    gap: var(--space-12);
+    padding: var(--space-16) var(--space-24);
+    border: 0.5px solid var(--sampath-note-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--sampath-note-bg);
+    color: var(--text-white);
+  }
+
+  /* Figma radius 5, snapped to rounded.sm. */
+  .note-icon {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background-color: var(--sampath-note-icon-bg);
+  }
+
+  /* Mobile: columns stack. */
+  @media (max-width: 767px) {
+    .cols {
+      grid-template-columns: 1fr;
+      margin-top: var(--space-48);
+    }
+  }
+
+  /* ── Screenshot band ───────────────────────────────────────────────
+     A 1920 × 523 Figma canvas, scaled with the viewport. Positions are the Figma
+     frame values as percentages: the shots start 41px down and run off the bottom.
+     Shots keep their own proportions; only the band's bottom edge cuts them. */
+
+  .shots {
+    overflow: hidden;
+    background-color: var(--sampath-bg-darker);
+  }
+
+  .canvas {
+    position: relative;
+    max-width: var(--width-1920);
+    margin-inline: auto;
+    aspect-ratio: 1920 / 523;
+  }
+
+  .shot {
+    position: absolute;
+    top: calc(41 / 523 * 100%);
+    height: auto;
+  }
+
+  /* At x 132, 749 wide (Figma crops its left edge; shown uncropped at the user's request). */
+  .shot-colours {
+    left: calc(132 / 1920 * 100%);
+    width: calc(749 / 1920 * 100%);
+  }
+
+  /* At x 978, 810 wide. */
+  .shot-type {
+    left: calc(978 / 1920 * 100%);
+    width: calc(810 / 1920 * 100%);
+  }
+
+  /* Mobile: a swipeable row instead of the scaled canvas (confirmed by the user).
+     Each shot is 85% wide so the next one peeks in. The row is exactly as tall as the
+     first shot (2222 × 1600), so it ends flush with the band; the taller second shot
+     runs off the bottom, as on desktop. */
+  @media (max-width: 767px) {
+    .shots {
+      container-type: inline-size;
+    }
+
+    .canvas {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-16);
+      aspect-ratio: auto;
+      height: calc(var(--space-32) + (100cqw - 2 * var(--gutter)) * 0.85 * 1600 / 2222);
+      padding: var(--space-32) var(--gutter) 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: var(--gutter);
+      scrollbar-width: none;
+    }
+
+    .canvas::-webkit-scrollbar {
+      display: none;
+    }
+
+    .shot {
+      position: static;
+      flex: none;
+      width: 85%;
+      scroll-snap-align: start;
+    }
+  }
+</style>
+
+<script>
+  // Mobile browsers (Safari especially) restore a swiped row's position on reload or
+  // when coming back to the page. Always start on the first screenshot.
+  const row = document.querySelector<HTMLElement>('.shots .canvas');
+  const reset = () => row?.scrollTo({ left: 0 });
+
+  reset();
+  window.addEventListener('pageshow', reset);
+</script>

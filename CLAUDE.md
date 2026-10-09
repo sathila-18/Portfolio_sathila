@@ -91,7 +91,7 @@ Status values: `not started` · `in progress` · `approved`
 |---|---|
 | Hero | approved |
 | 01 · Starting Point | approved |
-| 02 · The plan changed (Figma frame "Frame 1853320920") | not started |
+| 02 · The plan changed (Figma frame "Frame 1853320920") | approved |
 | 03 · Building the System | not started |
 | 04 · Components | not started |
 | Transition image band | not started |

@@ -782,6 +782,19 @@ every page.
      at the row's right end from tablet up, centred on the tile; on mobile the
      badge sits above the text, gap 8, with the tile top-aligned (confirmed by
      the user).
+   - **02 — The plan changed** (dark): `h2` on two lines, 72 below a two-column
+     row (gap 40). Left: pull quote (`h6`, 2px `border-sampath` left rule,
+     padding-left 24) and a `body-xl` paragraph. Right (gap 24): two
+     `title-l` + `body-l` points. Then, 40 below both columns and full width
+     (moved by the user from the right column), an ownership note
+     (`sampath-note-*`, `rounded.sm`, padding 16/24, 44px icon box, `body-m` in
+     `text-white`). 56 from the note to the screenshot band on every screen size.
+     Followed by a full-bleed `sampath-bg-darker` band of two Figma screenshots
+     laid out on a 1920×523 canvas that scales with the viewport, bleeding off
+     the bottom. Columns stack on mobile. On mobile the screenshots become a
+     swipeable row (confirmed by the user): each 85% wide, gap 16, snapping, top
+     padding 32, row exactly as tall as the first screenshot. Screenshots are never cropped at the sides (the
+     user asked; Figma crops the left one); only the band's bottom edge cuts them.
 4. **Footer**.
 
 ### Pearl case study (page background `pearl-bg`, no sidebar)
@@ -838,7 +851,8 @@ Two links fit, so no hamburger is needed.
   (hover `text-off-white`) and a `fg-white` logo, and returns to the default
   style once the photo has scrolled past.
   The page sets `darkHero` on the layout and marks each dark region
-  `data-dark-hero` (optionally with a media query it applies at).
+  `data-dark-hero` (optionally with a media query it applies at). On Sampath
+  this covers the hero photo, every dark section and the screenshot bands.
 
 **Project card** (Home): vertical stack, gap 16.
 - Media: `bg-subtle` well containing the project visual. 576×537 (half) or

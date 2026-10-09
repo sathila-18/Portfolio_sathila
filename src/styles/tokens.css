@@ -232,6 +232,12 @@
   --sampath-badge-bg: var(--sampath-blue-100);
   --sampath-badge-text: var(--sampath-blue-900);
   --sampath-badge-border: #F7D5B8;
+  /* Sampath "The plan changed": ownership note on the dark band (sampath-blue-500 tints). */
+  --sampath-note-bg: rgb(109 62 240 / 0.16);
+  --sampath-note-border: rgb(109 62 240 / 0.2);
+  --sampath-note-icon-bg: rgb(109 62 240 / 0.15);
+  /* Sampath screenshot bands (darker than sampath-bg-dark). */
+  --sampath-bg-darker: #0E0E10;
 
   /* ── Gradients (only on the elements listed in DESIGN.md) ────────── */
 

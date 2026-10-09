@@ -5,13 +5,20 @@ interface Props {
   tone: 'warm' | 'dark';
   /** id of the section heading, for aria-labelledby. */
   labelledby: string;
+  /** Bottom padding of 56 instead of 120 (80 on mobile), e.g. when an image band follows. */
+  tightBottom?: boolean;
 }
 
-const { tone, labelledby } = Astro.props;
+const { tone, labelledby, tightBottom = false } = Astro.props;
 ---
 
-<section class:list={['band', tone]} aria-labelledby={labelledby}>
-  <div class="inner">
+<!-- Dark bands also switch the top nav to white while they're behind it. -->
+<section
+  class:list={['band', tone]}
+  aria-labelledby={labelledby}
+  data-dark-hero={tone === 'dark' ? '' : undefined}
+>
+  <div class:list={['inner', { 'tight-bottom': tightBottom }]}>
     <slot />
   </div>
 </section>
@@ -43,5 +50,9 @@ const { tone, labelledby } = Astro.props;
     .inner {
       padding-block: var(--space-80);
     }
+  }
+
+  .inner.tight-bottom {
+    padding-bottom: var(--space-56);
   }
 </style>
