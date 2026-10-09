@@ -89,7 +89,7 @@ Status values: `not started` · `in progress` · `approved`
 ### Sampath case study
 | Section | Status |
 |---|---|
-| Hero | not started |
+| Hero | approved |
 | 01 · Starting Point | not started |
 | 02 · The plan changed (Figma frame "Frame 1853320920") | not started |
 | 03 · Building the System | not started |

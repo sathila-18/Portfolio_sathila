@@ -7,10 +7,16 @@ const links = [
   { label: 'Contact', href: 'mailto:sathilasilva@yahoo.com' },
 ];
 
+interface Props {
+  /** The page has dark regions marked `data-dark-hero`; go white while one is behind the nav. */
+  watchDark?: boolean;
+}
+
+const { watchDark = false } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="top-nav">
+<header class="top-nav" data-watch-dark={watchDark ? '' : undefined}>
   <a class="logo" href="/" aria-label="Sathila De Silva, home">
     <Logo width={18} height={24} aria-hidden="true" />
   </a>
@@ -70,6 +76,24 @@ const currentPath = Astro.url.pathname;
     color: var(--text-primary);
   }
 
+  /* While a dark region (Sampath hero photo) is behind the nav: white links and logo. Not designed in Figma;
+     DESIGN.md › Components › Top nav recommendation. */
+  .logo :global(path) {
+    transition: fill var(--duration-base) var(--ease-out);
+  }
+
+  [data-on-dark] .logo :global(path) {
+    fill: var(--fg-white);
+  }
+
+  [data-on-dark] nav a {
+    color: var(--text-white);
+  }
+
+  [data-on-dark] nav a:hover {
+    color: var(--text-off-white);
+  }
+
   /* Desktop: full-width nav with 120px side padding (wider than the 1200 container). */
   @media (min-width: 1200px) {
     .top-nav {
@@ -77,3 +101,37 @@ const currentPath = Astro.url.pathname;
     }
   }
 </style>
+
+<script>
+  // Keep the white style only while the nav overlaps a dark region. Each region is marked
+  // `data-dark-hero`; a value, if given, is a media query that must match for it to count.
+  const nav = document.querySelector<HTMLElement>('.top-nav[data-watch-dark]');
+  const regions = [...document.querySelectorAll<HTMLElement>('[data-dark-hero]')];
+
+  if (nav && regions.length) {
+    let queued = false;
+
+    const update = () => {
+      queued = false;
+      const line = nav.offsetHeight;
+      const overDark = regions.some((region) => {
+        const query = region.dataset.darkHero;
+        if (query && !window.matchMedia(query).matches) return false;
+        const { top, bottom } = region.getBoundingClientRect();
+        return top < line && bottom > line;
+      });
+      nav.toggleAttribute('data-on-dark', overDark);
+    };
+
+    const queue = () => {
+      if (!queued) {
+        queued = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    update();
+  }
+</script>

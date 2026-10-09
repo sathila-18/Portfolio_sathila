@@ -1,0 +1,294 @@
+---
+// Sampath › Hero (DESIGN.md › Layout › Sampath case study, item 2).
+import { Image } from 'astro:assets';
+import photo from '../../assets/images/sampath/01_hero__hero.png';
+import overlay from '../../assets/images/sampath/00_hero__hero-meta-overlay.png';
+
+// Joins items with the Figma separator ("  ·  "); the non-breaking spaces keep each dot
+// on the line before it when the text wraps.
+const list = (...items: string[]) => items.join('\u00a0\u00a0·  ');
+
+// Each value: an optional emphasised first line, then the regular line.
+const meta = [
+  { label: 'Role', lead: 'Design system lead', text: 'Final UI delivery' },
+  { label: 'Timeline', lead: '3 months', text: 'system ready in 2.5 days' },
+  { label: 'Industry', text: list('Digital banking', 'Sri Lanka') },
+  { label: 'Tools', text: list('Figma', 'Figma Variables', 'Claude', 'Notion') },
+];
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <!-- The photo fills the whole hero from tablet up; on mobile it fills only the stage
+       and the metadata band sits below it on a light background. -->
+  <div class="stage" data-dark-hero>
+    <Image
+      class="photo"
+      src={photo}
+      alt="Two people laughing while using their phones"
+      widths={[photo.width]}
+      loading="eager"
+      fetchpriority="high"
+    />
+
+    <div class="intro container">
+      <p class="eyebrow text-h6">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="eyebrow-text">{list('Design system', 'Fintech', 'Sri Lanka', '2025')}</span>
+      </p>
+      <h1 id="hero-title" class="title">
+        <span class="line">Sampath</span> <span class="line">Design System</span>
+      </h1>
+    </div>
+  </div>
+
+  <!-- Dark (over the photo) from tablet up only; keep in step with the mobile breakpoint below. -->
+  <div class="meta" data-dark-hero="(min-width: 768px)">
+    <Image class="meta-overlay" src={overlay} alt="" aria-hidden="true" loading="eager" />
+    <dl class="cells">
+      {meta.map(({ label, lead, text }) => (
+        <div class="cell">
+          <dt class="text-label-s">{label}</dt>
+          <dd>
+            {lead && <span class="lead text-label-l">{lead}</span>}
+            <span class="value text-body-l">{text}</span>
+          </dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    min-height: 887px;
+    /* Starts below the fixed nav so the nav never covers the photo at the top of the page. */
+    margin-top: var(--nav-height);
+    overflow: hidden;
+    background-color: var(--sampath-bg-dark);
+    color: var(--text-white);
+  }
+
+  .stage {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .photo {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Figma: content starts 318px down (279 padding + centring); snapped to 240 + 80.
+     The bottom padding matches the 52px spacer (snapped to 48) so the glow centres on the block. */
+  .intro {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-24);
+    padding-top: calc(var(--space-240) + var(--space-80));
+    padding-bottom: var(--space-48);
+    text-align: center;
+  }
+
+  .intro::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: calc(var(--space-240) + var(--space-80));
+    left: 50%;
+    width: 480px;
+    aspect-ratio: 1;
+    translate: -50% calc(-50% + var(--glow-offset));
+    background: var(--gradient-sampath-hero-glow);
+    pointer-events: none;
+    /* Half the eyebrow + gap + title + bottom space puts the glow on the block's centre. */
+    --glow-offset: calc((var(--h6-line) + var(--space-24) + 2 * var(--h1-line) + var(--space-48)) / 2);
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    color: var(--text-sampath-secondary);
+  }
+
+  .eyebrow-text {
+    white-space: pre-wrap;
+  }
+
+  .dot {
+    flex: none;
+    width: var(--space-8);
+    height: var(--space-8);
+    border-radius: var(--radius-full);
+    background-color: var(--fg-sampath);
+  }
+
+  .title {
+    color: var(--text-white);
+  }
+
+  /* Two lines from tablet up, as in Figma; on mobile the title wraps naturally. */
+  @media (min-width: 768px) {
+    .line {
+      display: block;
+    }
+  }
+
+  /* ── Metadata band ─────────────────────────────────────────────── */
+
+  .meta {
+    position: relative;
+    padding-inline: var(--space-80);
+    border-top: 1px solid var(--sampath-border-warm);
+    -webkit-backdrop-filter: blur(var(--sampath-hero-meta-blur));
+    backdrop-filter: blur(var(--sampath-hero-meta-blur));
+  }
+
+  .cells {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .meta-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+  }
+
+  .cell {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    padding: var(--space-32);
+  }
+
+  .cell + .cell {
+    border-left: 1px solid var(--sampath-border-white-subtle);
+  }
+
+  dt {
+    color: var(--text-white);
+    text-transform: uppercase;
+  }
+
+  dd {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+
+  .lead {
+    color: var(--text-white);
+  }
+
+  .value {
+    color: var(--sampath-text-white-muted);
+    white-space: pre-wrap;
+  }
+
+  /* Tablet: two by two, dividers on the inner edges only. */
+  @media (max-width: 1199px) {
+    .hero {
+      min-height: 0;
+    }
+
+    .intro {
+      padding-top: var(--space-120);
+      padding-bottom: var(--space-120);
+    }
+
+    .intro::before {
+      top: var(--space-120);
+    }
+
+    .meta {
+      padding-inline: var(--gutter);
+    }
+
+    .cells {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cell + .cell {
+      border-left: 0;
+    }
+
+    .cell:nth-child(odd) + .cell {
+      border-left: 1px solid var(--sampath-border-white-subtle);
+    }
+
+    .cell:nth-child(n + 3) {
+      border-top: 1px solid var(--sampath-border-white-subtle);
+    }
+  }
+
+  /* Mobile: the band moves out of the photo onto a light background, one column,
+     dividers between rows. Text uses the light-background tokens. */
+  @media (max-width: 767px) {
+    .hero {
+      background-color: var(--sampath-bg-warm);
+    }
+
+    .stage {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .meta {
+      border-top: 0;
+      border-bottom: 1px solid var(--sampath-border-warm);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+
+    .meta-overlay {
+      display: none;
+    }
+
+    dt {
+      color: var(--text-tertiary);
+    }
+
+    .lead {
+      color: var(--text-primary);
+    }
+
+    .value {
+      color: var(--text-secondary);
+    }
+
+    .cells {
+      grid-template-columns: 1fr;
+    }
+
+    .cell {
+      padding-inline: 0;
+    }
+
+    .cell:nth-child(odd) + .cell {
+      border-left: 0;
+    }
+
+    .cell + .cell {
+      border-top: 1px solid var(--sampath-border-warm);
+    }
+  }
+</style>

@@ -595,6 +595,8 @@ belongs to the image.
   top-left to bottom-right (CSS `149deg`), as in the exported logo SVG.
 - **"Fintech" highlight** in the Home hero: `#333333 0% → #759563 54% → #B4B975 100%`.
 - **Info-card icons** (MEGT): `#FACAFF → #C90FD7` (pink to violet).
+- **Sampath hero glow**: radial `#272727 → transparent`, a ~240px circle centred
+  behind the hero title so the white type stays legible over the photo.
 
 Use gradients only on these elements. Never on large surfaces or body text.
 
@@ -749,12 +751,20 @@ every page.
 7. **Footer**.
 
 ### Sampath case study (no sidebar)
-1. **Top nav** over a dark image hero. See Components for the nav on dark heroes.
+1. **Top nav** above the hero (the hero starts below it). See Components for the
+   nav on dark heroes.
 2. **Hero**: full-bleed dark image, 887px tall, content **centred**. Eyebrow
    (`h6`, `text-sampath-secondary`) with an 8px `fg-sampath` dot, then the `h1`
    title in `text-white`. Below that, a translucent metadata band of 4 cells
    (label `label-s` uppercase in white; value: first line `label-l`, then
-   `body-l`, in white at 70%).
+   `body-l`, in white at 70%). The band is the Figma overlay image under a 40px
+   backdrop blur, with a `sampath-border-warm` top hairline and 1px white-10%
+   dividers between all four cells. Padding 32 (snapped from 28), band side
+   padding 80 (snapped from 88).
+   *Mobile (confirmed by the user):* the band moves out of the photo and sits
+   below it on `sampath-bg-warm`, one cell per row with `sampath-border-warm`
+   dividers. Label `text-tertiary`; value first line `text-primary`, then
+   `text-secondary`.
 3. **Numbered sections** ("01 — Starting Point" … "08 — Reflection"): full-bleed
    bands alternating `sampath-bg-warm` and `sampath-bg-dark`. Inside each, a
    1200 container with 64px side padding and 120px top and bottom padding.
@@ -812,9 +822,13 @@ Text links on the right (Home, Contact): `label-l`, `text-tertiary`, gap 40,
 vertically centred. Height 88, padding 32/120. Translucent white with blur,
 fixed to the top. Hover: `text-primary`. Mobile: same links with 16px padding.
 Two links fit, so no hamburger is needed.
-- *On dark heroes (Sampath), not designed in Figma. Recommendation:* use
-  `text-white` links and a white logo while the nav overlaps the hero, then
-  switch to the default style once the page scrolls past it.
+- *On dark heroes (Sampath), not designed in Figma. Confirmed by the user:*
+  the hero starts below the nav (never under it at the top of the page). When
+  the hero photo scrolls behind the fixed nav, the nav uses `text-white` links
+  (hover `text-off-white`) and a `fg-white` logo, and returns to the default
+  style once the photo has scrolled past.
+  The page sets `darkHero` on the layout and marks each dark region
+  `data-dark-hero` (optionally with a media query it applies at).
 
 **Project card** (Home): vertical stack, gap 16.
 - Media: `bg-subtle` well containing the project visual. 576×537 (half) or

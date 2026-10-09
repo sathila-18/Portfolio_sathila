@@ -223,6 +223,10 @@
   --sampath-bg-dark: #141416;
   --sampath-bg-dark-alt: #313136;
   --sampath-card-dark: #3C3C41;
+  /* Sampath hero metadata band: values in white at 70%, cell dividers in white at 10%. */
+  --sampath-text-white-muted: rgb(255 255 255 / 0.7);
+  --sampath-border-white-subtle: rgb(255 255 255 / 0.1);
+  --sampath-hero-meta-blur: 40px;
 
   /* ── Gradients (only on the elements listed in DESIGN.md) ────────── */
 
@@ -232,6 +236,8 @@
   --gradient-fintech: linear-gradient(90deg, #333333 0%, #759563 54%, #B4B975 100%);
   /* MEGT info-card icons */
   --gradient-info-icon: linear-gradient(180deg, #FACAFF 0%, #C90FD7 100%);
+  /* Sampath hero: dark glow behind the title (Figma: 237px circle, centred on the title block) */
+  --gradient-sampath-hero-glow: radial-gradient(circle 240px at center, #272727 0%, rgb(39 39 39 / 0) 100%);
 
   /* ── Typography ────────────────────────────────────────────────── */
 
