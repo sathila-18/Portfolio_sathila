@@ -1,0 +1,401 @@
+---
+// Sampath › 04 — Components: intro, then three label/content rows (Anatomy, Focus ring,
+// Current scale) separated by rules.
+//
+// The anatomy panel is rebuilt from its Figma layers on an 864 × 472 canvas (`--u` is one
+// Figma pixel). The before/after input fields recreate Sampath's own component as a picture
+// of it, so their colours are image content, not UI tokens (DESIGN.md › Colors).
+import { Image } from 'astro:assets';
+import Section from './Section.astro';
+import Slots from '../../assets/icons/sampath/slots.svg';
+import docPage from '../../assets/images/sampath/08_04-components__image-178.png';
+import propsPanel from '../../assets/images/sampath/09_04-components__screenshot-2026-09-09-at-23-54-36-1.png';
+
+const stats = [
+  { value: '100', label: 'Components' },
+  { value: '1,453', label: 'Variants' },
+  { value: '471', label: 'Variables' },
+];
+---
+
+<Section tone="dark" labelledby="components-title">
+  <div class="text">
+    <h2 id="components-title">
+      <span class="line">One base. Every change,</span> <span class="line">everywhere, instantly.</span>
+    </h2>
+    <p class="text-body-xl lead">
+      Components with most number variables starts from a base that controls every element
+      through Boolean properties. State and style variants layer on top.
+    </p>
+  </div>
+
+  <div class="rows">
+    <!-- Component · Anatomy -->
+    <div class="row">
+      <div class="row-label">
+        <p class="text-label-m eyebrow">Component</p>
+        <h3 class="text-title-l">Anatomy</h3>
+      </div>
+      <div class="row-content">
+        <figure class="figure">
+          <div
+            class="panel"
+            role="img"
+            aria-label="The Input field base component in Figma, with its properties panel showing the Boolean properties that switch each element on and off."
+          >
+            <div class="doc">
+              <Image src={docPage} alt="" widths={[637, 1274]} sizes="(min-width: 1200px) 637px, 74vw" />
+            </div>
+            <Image class="props" src={propsPanel} alt="" widths={[730, 1460]} sizes="(min-width: 1200px) 730px, 85vw" />
+          </div>
+        </figure>
+        <p class="note">
+          <span class="note-icon" aria-hidden="true"><Slots width={24} height={24} /></span>
+          <span class="text-body-m">
+            Figma Slots — more control without detaching components or building too many
+            variants.
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Real example · Focus ring -->
+    <div class="row">
+      <div class="row-label">
+        <p class="text-label-m eyebrow">Real example</p>
+        <h3 class="text-title-l">Focus ring</h3>
+      </div>
+      <div class="row-content">
+        <p class="text-body-l body">
+          The AI prototype had a focus ring on input and search fields with more visual depth, a
+          soft glow visible in focus and typing states. When I built the component I added a
+          simple outline instead. I only noticed the difference after all the input field
+          variants were already done, normal, dropdown, password, and search. I updated the base
+          component with the focus ring and it came through on every variant, every state,
+          without touching a single one individually.
+        </p>
+        <div class="ba">
+          <div class="ba-card">
+            <h4 class="text-title-m">Before · Simple outline</h4>
+            <div class="field field-before" aria-hidden="true">
+              <span class="field-label">Label text</span>
+              <span class="field-value">Placeholder text<span class="caret"></span></span>
+            </div>
+            <p class="text-body-l caption">1.5px border</p>
+          </div>
+          <div class="ba-card">
+            <h4 class="text-title-m">After · Focus ring with glow</h4>
+            <div class="field field-after" aria-hidden="true">
+              <span class="field-label">Label text</span>
+              <span class="field-value">Placeholder text<span class="caret"></span></span>
+            </div>
+            <p class="text-body-l caption">Orange border · soft glow · base component</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- System · Current scale -->
+    <div class="row row-system">
+      <div class="row-label">
+        <p class="text-label-m eyebrow">System</p>
+        <h3 class="text-title-l">Current scale</h3>
+      </div>
+      <div class="row-content scale">
+        <dl class="stats">
+          {stats.map(({ value, label }) => (
+            <div class="stat">
+              <dt class="text-label-m">{label}</dt>
+              <dd class="text-number-l">{value}</dd>
+            </div>
+          ))}
+        </dl>
+        <p class="text-body-l body">System is live and these numbers are still growing.</p>
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  /* ── Intro ─────────────────────────────────────────────────────── */
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  h2,
+  h3 {
+    color: var(--text-sampath-secondary);
+  }
+
+  /* Two lines from tablet up, as in Figma; on mobile it wraps naturally. */
+  @media (min-width: 768px) {
+    .line {
+      display: block;
+    }
+  }
+
+  .lead {
+    max-width: 500px;
+    color: var(--text-light);
+  }
+
+  /* ── Rows: 160 label column, 48 gap, content ───────────────────── */
+
+  /* Rules between rows only (Figma's rule above the first row was removed by the user, and
+     the second row's extra hairline dropped as a duplicate). Rows have 48 padding; 56 either
+     side of each rule. */
+  .rows {
+    margin-top: var(--space-56);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: var(--space-48);
+    padding-block: var(--space-48);
+  }
+
+  hr {
+    margin-block: var(--space-56);
+    border: 0;
+    border-top: 1px solid var(--sampath-card-dark);
+  }
+
+  .row-label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .eyebrow {
+    color: var(--text-sampath);
+  }
+
+  .row-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    min-width: 0;
+  }
+
+  .body {
+    color: var(--text-light);
+  }
+
+  /* ── Anatomy panel: 864 × 472 canvas ───────────────────────────── */
+
+  .figure {
+    container-type: inline-size;
+  }
+
+  /* Figma radius 10, snapped to rounded.sm. */
+  .panel {
+    --u: calc(100cqw / 864);
+    position: relative;
+    aspect-ratio: 864 / 472;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background-color: var(--sampath-card-dark);
+  }
+
+  /* The doc page, cropped to its top 312px. */
+  .doc {
+    position: absolute;
+    left: calc(53 * var(--u));
+    top: calc(71 * var(--u));
+    width: calc(637 * var(--u));
+    height: calc(312 * var(--u));
+    overflow: hidden;
+  }
+
+  .doc img {
+    width: 100%;
+  }
+
+  /* The properties panel: the right-hand 230px of the screenshot. */
+  .props {
+    position: absolute;
+    left: calc(575 * var(--u));
+    top: calc(16 * var(--u));
+    width: calc(230 * var(--u));
+    height: calc(422 * var(--u));
+    border-radius: calc(12 * var(--u));
+    object-fit: cover;
+    object-position: 100% 0;
+  }
+
+  /* Same note as "The plan changed". Figma: padding 20/16, radii 10 and 5, snapped. */
+  .note {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+    padding: var(--space-16) var(--space-24);
+    border: 0.5px solid var(--sampath-note-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--sampath-note-bg);
+    color: var(--text-sampath-secondary);
+  }
+
+  .note-icon {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background-color: var(--sampath-note-icon-bg);
+  }
+
+  /* ── Before / after ────────────────────────────────────────────── */
+
+  .ba {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-24);
+  }
+
+  .ba-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+    padding: var(--space-24);
+    border-radius: var(--radius-md);
+    background-color: var(--sampath-card-translucent);
+  }
+
+  h4 {
+    color: var(--text-white);
+  }
+
+  .caption {
+    color: var(--text-sampath-secondary);
+  }
+
+  /* Sampath's input field, 343 wide, 56 tall (Figma uses Hanken Grotesk; set in the site font). */
+  .field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    max-width: 343px;
+    height: 56px;
+    padding-inline: var(--space-16);
+    border-radius: var(--radius-full);
+    background-color: #1E1E21;
+  }
+
+  .field-label {
+    color: #F47921;
+    font-size: var(--label-s-size);
+    font-weight: var(--weight-semibold);
+    line-height: var(--label-s-line);
+  }
+
+  .field-value {
+    display: flex;
+    align-items: center;
+    color: #FDFBFA;
+    font-size: var(--body-l-size);
+    line-height: var(--body-l-line);
+    white-space: nowrap;
+  }
+
+  .caret {
+    width: 2px;
+    height: 24px;
+    border-radius: var(--radius-full);
+    background-color: #F6944D;
+  }
+
+  .field-before {
+    border: 0.5px solid #F57921;
+  }
+
+  .field-after {
+    border: 2px solid #F47921;
+    box-shadow: 0 0 0 4px rgb(242 103 34 / 0.12);
+  }
+
+  /* ── Current scale ─────────────────────────────────────────────── */
+
+  .scale {
+    align-items: center;
+  }
+
+  /* Figma padding 22/20, snapped to 24. */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: var(--space-16);
+    padding: var(--space-24);
+  }
+
+  dt {
+    color: var(--text-white);
+  }
+
+  dd {
+    margin: 0;
+    color: var(--text-sampath-secondary);
+  }
+
+  /* ── Tablet: the label sits above its content ──────────────────── */
+
+  @media (max-width: 1199px) {
+    .row {
+      grid-template-columns: 1fr;
+      gap: var(--space-24);
+    }
+  }
+
+  /* ── Mobile ────────────────────────────────────────────────────── */
+
+  @media (max-width: 767px) {
+    .ba,
+    .stats {
+      grid-template-columns: 1fr;
+    }
+
+    /* 32 from each rule to the content around it (confirmed by the user); the intro keeps
+       the same 64 above the first row. */
+    .rows {
+      margin-top: var(--space-32);
+      padding-top: var(--space-32);
+    }
+
+    .row {
+      padding-block: 0;
+    }
+
+    hr {
+      margin-block: var(--space-32);
+    }
+
+    /* System row: everything centred (confirmed by the user). */
+    .row-system {
+      text-align: center;
+    }
+
+    .row-system .row-label {
+      align-items: center;
+    }
+
+    .stat {
+      padding-block: var(--space-16);
+    }
+  }
+</style>

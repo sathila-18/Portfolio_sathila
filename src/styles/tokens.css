@@ -240,6 +240,8 @@
   --sampath-note-icon-bg-light: rgb(109 62 240 / 0.08);
   /* Sampath screenshot bands (darker than sampath-bg-dark). */
   --sampath-bg-darker: #0E0E10;
+  /* Sampath "Components": before/after cards on the dark band (#F0EDE8 at 11%). */
+  --sampath-card-translucent: rgb(240 237 232 / 0.11);
 
   /* ── Gradients (only on the elements listed in DESIGN.md) ────────── */
 

@@ -803,6 +803,17 @@ every page.
      below two `body-l` paragraphs (gap 32). Ends with a white token-insight
      note, 56 below the Icons paragraphs (32 on mobile). Panels are rebuilt from the Figma layers on a 1072×520 canvas that
      scales with the width (chips set in Google Sans Flex, not Inter).
+   - **04 — Components** (dark): `h2` (two lines) + `body-xl` lead in
+     `text-light`, then three rows (label column 160: `label-m` `text-sampath`
+     + `title-l`; gap 48; padding 48) with `sampath-card-dark` rules between
+     rows only (56 either side; no rule above the first row, removed by the user). Anatomy: an 864×472 panel
+     rebuilt from its Figma layers, then the ownership-style note. Focus ring:
+     `body-l` paragraph, then before/after cards (`sampath-card-translucent`,
+     `rounded.md`, padding 24) with Sampath's input field recreated in HTML.
+     Current scale: three `number-l` stats with `label-m` labels. Rows stack
+     their label above the content below 1200; cards and stats stack on mobile.
+     Mobile (confirmed by the user): 32 from each rule to the content on either
+     side, and the System row is centred.
 4. **Footer**.
 
 ### Pearl case study (page background `pearl-bg`, no sidebar)
