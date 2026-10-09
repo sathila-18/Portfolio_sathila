@@ -227,6 +227,11 @@
   --sampath-text-white-muted: rgb(255 255 255 / 0.7);
   --sampath-border-white-subtle: rgb(255 255 255 / 0.1);
   --sampath-hero-meta-blur: 40px;
+  /* Sampath "Starting Point" list: icon tiles and category badges. */
+  --sampath-icon-tile-bg: #F6E5DB;
+  --sampath-badge-bg: var(--sampath-blue-100);
+  --sampath-badge-text: var(--sampath-blue-900);
+  --sampath-badge-border: #F7D5B8;
 
   /* ── Gradients (only on the elements listed in DESIGN.md) ────────── */
 

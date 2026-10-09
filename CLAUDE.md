@@ -90,7 +90,7 @@ Status values: `not started` · `in progress` · `approved`
 | Section | Status |
 |---|---|
 | Hero | approved |
-| 01 · Starting Point | not started |
+| 01 · Starting Point | approved |
 | 02 · The plan changed (Figma frame "Frame 1853320920") | not started |
 | 03 · Building the System | not started |
 | 04 · Components | not started |

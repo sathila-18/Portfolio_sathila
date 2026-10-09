@@ -772,6 +772,16 @@ every page.
      `text-sampath`.
    - Dark sections: headings (`h2`) `text-sampath-secondary`, body `text-light`,
      eyebrows `text-sampath`.
+   - Tablet and mobile: side padding follows the gutter; mobile vertical
+     padding 80 (recommendation).
+   - **01 — Starting Point**: `h2` + `body-xl` lead (560 wide, gap 24), then 32
+     below, a list of rows (`sampath-border-warm` hairlines, padding 16,
+     gap 16; no numbers, removed by the user): 44px icon tile
+     (`sampath-icon-tile-bg`, `rounded.sm`, 24px orange icon), text `title-l`
+     `text-primary`, with a pill badge (`label-s`, `sampath-badge-*`, padding 4/8)
+     at the row's right end from tablet up, centred on the tile; on mobile the
+     badge sits above the text, gap 8, with the tile top-aligned (confirmed by
+     the user).
 4. **Footer**.
 
 ### Pearl case study (page background `pearl-bg`, no sidebar)

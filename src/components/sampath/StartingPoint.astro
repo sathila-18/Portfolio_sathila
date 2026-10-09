@@ -1,0 +1,128 @@
+---
+// Sampath › 01 — Starting Point: intro text, then the list of what was broken.
+import Section from './Section.astro';
+import BackArrow from '../../assets/icons/sampath/back-arrow.svg';
+import SplitArrows from '../../assets/icons/sampath/split-arrows.svg';
+import Accessibility from '../../assets/icons/sampath/accessibility.svg';
+import Hierarchy from '../../assets/icons/sampath/hierarchy.svg';
+import CloseCircle from '../../assets/icons/sampath/close-circle.svg';
+import AlignRight from '../../assets/icons/sampath/align-right.svg';
+
+const problems = [
+  { icon: BackArrow, text: 'Back icon sat in the centre of the bottom navigation', tag: 'Navigation' },
+  { icon: SplitArrows, text: 'Bottom nav changed its content on every page', tag: 'Navigation' },
+  { icon: Accessibility, text: 'Navigation icons had no text labels', tag: 'Discoverability' },
+  { icon: Hierarchy, text: 'Page title lived inside the bottom nav bar', tag: 'Hierarchy' },
+  { icon: CloseCircle, text: 'A close button was the only way back to home', tag: 'Navigation' },
+  { icon: AlignRight, text: 'More page sat right-aligned with no visual logic', tag: 'Layout' },
+];
+---
+
+<Section tone="warm" labelledby="starting-point-title">
+  <div class="text">
+    <h2 id="starting-point-title">The app was broken. Users had no choice but to adapt.</h2>
+    <p class="text-body-xl lead">
+      I used this app as a customer. I got used to the patterns eventually but I was waiting for
+      a redesign the whole time. These weren't edge cases. They were how the app worked, every
+      session, for every user.
+    </p>
+  </div>
+
+  <ul class="list" role="list">
+    {problems.map(({ icon: Icon, text, tag }) => (
+      <li class="row">
+        <span class="tile" aria-hidden="true">
+          <Icon width={24} height={24} />
+        </span>
+        <span class="body">
+          <span class="badge text-label-s">{tag}</span>
+          <span class="problem text-title-l">{text}</span>
+        </span>
+      </li>
+    ))}
+  </ul>
+</Section>
+
+<style>
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+    /* Figma text box width; the heading wraps into the same three lines naturally. */
+    max-width: 560px;
+  }
+
+  h2 {
+    color: var(--text-primary);
+  }
+
+  .lead {
+    color: var(--text-secondary);
+  }
+
+  .list {
+    margin-top: var(--space-32);
+    border-bottom: 1px solid var(--sampath-border-warm);
+  }
+
+  /* Tile and badge both start at the top of the row. */
+  .row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-16);
+    padding-block: var(--space-16);
+    border-top: 1px solid var(--sampath-border-warm);
+  }
+
+  /* Figma radius 7, snapped to rounded.sm. */
+  .tile {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background-color: var(--sampath-icon-tile-bg);
+  }
+
+  /* Mobile: badge sits above the text. */
+  .body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-8);
+    min-width: 0;
+  }
+
+  .problem {
+    color: var(--text-primary);
+  }
+
+  /* Figma padding 10/3, snapped to 8/4. */
+  .badge {
+    padding: var(--space-4) var(--space-8);
+    border: 0.5px solid var(--sampath-badge-border);
+    border-radius: var(--radius-full);
+    background-color: var(--sampath-badge-bg);
+    color: var(--sampath-badge-text);
+  }
+
+  /* Tablet and up: badge moves to the right end of the row. */
+  @media (min-width: 768px) {
+    /* As tall as the tile, so one-line text and the badge centre on it (as in Figma). */
+    .body {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-16);
+      min-height: 44px;
+    }
+
+    .badge {
+      flex: none;
+      order: 1;
+      white-space: nowrap;
+    }
+  }
+</style>

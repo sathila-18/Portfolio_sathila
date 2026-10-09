@@ -1,0 +1,47 @@
+---
+// Sampath › numbered section band (DESIGN.md › Layout › Sampath case study, item 3):
+// full-bleed warm or dark background, 1200 container with 64px side and 120px vertical padding.
+interface Props {
+  tone: 'warm' | 'dark';
+  /** id of the section heading, for aria-labelledby. */
+  labelledby: string;
+}
+
+const { tone, labelledby } = Astro.props;
+---
+
+<section class:list={['band', tone]} aria-labelledby={labelledby}>
+  <div class="inner">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .warm {
+    background-color: var(--sampath-bg-warm);
+  }
+
+  .dark {
+    background-color: var(--sampath-bg-dark);
+  }
+
+  .inner {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding: var(--space-120) var(--space-64);
+  }
+
+  /* Tablet and mobile: side padding follows the page gutter. */
+  @media (max-width: 1199px) {
+    .inner {
+      padding-inline: var(--gutter);
+    }
+  }
+
+  /* Mobile: shorter vertical padding (recommendation, not in Figma). */
+  @media (max-width: 767px) {
+    .inner {
+      padding-block: var(--space-80);
+    }
+  }
+</style>
