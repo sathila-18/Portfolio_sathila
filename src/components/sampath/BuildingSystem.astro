@@ -1,0 +1,482 @@
+---
+// Sampath › 03 — Building the System: intro, two audit cards, then Color, Typography and
+// Icons, each a 1072 × 520 visual panel with two paragraphs, then the token insight note.
+//
+// The panels are rebuilt from the Figma layers (not flattened screenshots) so they stay sharp.
+// Each is drawn on a 1072 × 520 canvas: `--u` is one Figma pixel, scaled to the panel width.
+// Colours inside the panels are image content, not UI tokens (DESIGN.md › Colors).
+import { Image } from 'astro:assets';
+import Section from './Section.astro';
+import TypeInfo from '../../assets/icons/sampath/type-info.svg';
+import phoneDark from '../../assets/images/sampath/04_03-building-the-system__image-174.png';
+import phoneLight from '../../assets/images/sampath/05_03-building-the-system__image-174.png';
+import typeScale from '../../assets/images/sampath/06_03-building-the-system__image-176.png';
+import iconLibrary from '../../assets/images/sampath/07_03-building-the-system__screenshot-2026-09-09-at-23-29-27-1.png';
+
+const audit = [
+  {
+    label: 'How it started · Design audit',
+    title: 'Used Claude to audit the AI-generated prototype',
+    text: 'Before touching Figma, I ran the prototype through Claude as a design system audit. The output gave a starting list of atoms and molecules that actually existed in the screens, not a generic checklist.',
+  },
+  {
+    label: 'Build order · Atomic approach',
+    title: 'Foundations first. Atoms. Molecules. Organisms.',
+    text: 'Started with the foundations file, primitives and semantics. Then built atoms in Figma. Then molecules from atoms. Then organisms. Every layer above had something solid to stand on.',
+  },
+];
+
+// Colour diagram chips: label, horizontal centre and top, in Figma pixels.
+const chips = [
+  { label: '#F7F3EF', x: 288.5, y: 36 },
+  { label: 'Orange-500', x: 288.5, y: 124 },
+  { label: 'Brand-primary-500', x: 288.5, y: 212 },
+  { label: '#141416', x: 774, y: 36 },
+  { label: 'Woodsmoke-500', x: 774, y: 124 },
+  { label: 'Brand-accent-500', x: 774, y: 212 },
+];
+
+// Connectors: dark lines on the light half, light lines on the dark half.
+const arrow = (x: number, y: number) => `M${x - 4} ${y - 5} L${x} ${y} L${x + 4} ${y - 5}`;
+const darkLines = [
+  `M288.5 83 V121 ${arrow(288.5, 121)}`,
+  `M288.5 171 V209 ${arrow(288.5, 209)}`,
+  'M288.5 259 V270 Q288.5 278 296.5 278 H527.5 Q535.5 278 535.5 286 V297',
+  `M535.5 351 V361 Q535.5 369 527.5 369 H257 Q249 369 249 377 V387 ${arrow(249, 387)}`,
+];
+const lightLines = [
+  `M774 83 V121 ${arrow(774, 121)}`,
+  `M774 171 V209 ${arrow(774, 209)}`,
+  'M774 259 V270 Q774 278 766 278 H543.5 Q535.5 278 535.5 286 V297',
+  `M535.5 351 V361 Q535.5 369 543.5 369 H777 Q785 369 785 377 V387 ${arrow(785, 387)}`,
+];
+---
+
+<Section tone="warm" labelledby="building-system-title">
+  <div class="intro">
+    <div class="text">
+      <h2 id="building-system-title">
+        <span class="line">A strong system starts</span> <span class="line">with strong foundations.</span>
+      </h2>
+      <p class="text-body-xl lead">
+        Three files — foundations, icons, components — kept separate from the start. Changes
+        don't cascade. Developers pull from isolated sources.
+      </p>
+    </div>
+
+    <div class="audit">
+      {audit.map(({ label, title, text }) => (
+        <article class="card">
+          <p class="text-label-m eyebrow">{label}</p>
+          <div class="card-body">
+            <h3 class="text-h6">{title}</h3>
+            <p class="text-body-l body">{text}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <!-- Color -->
+  <div class="topic">
+    <h3 class="text-h4">Color</h3>
+    <div class="topic-body">
+      <figure class="figure">
+        <div
+          class="panel colour"
+          role="img"
+          aria-label="Three-layer colour tokens: #F7F3EF to Orange-500 to Brand-primary-500 in light mode, and #141416 to Woodsmoke-500 to Brand-accent-500 in dark mode, both feeding bg-primary, shown on the light and dark Card details screens."
+        >
+          <div class="dark-half"></div>
+          <div class="phone" style="--x: 140.5">
+            <Image src={phoneLight} alt="" widths={[216, 432]} sizes="(min-width: 1200px) 216px, 20vw" />
+          </div>
+          <div class="phone" style="--x: 676.5">
+            <Image src={phoneDark} alt="" widths={[216, 432]} sizes="(min-width: 1200px) 216px, 20vw" />
+          </div>
+
+          <svg class="lines" viewBox="0 0 1072 520" fill="none" aria-hidden="true">
+            <g class="line-dark">{darkLines.map((d) => <path d={d} />)}</g>
+            <g class="line-light">{lightLines.map((d) => <path d={d} />)}</g>
+          </svg>
+
+          {chips.map(({ label, x, y }) => (
+            <span class="chip" style={`--x: ${x}; --y: ${y}`}>{label}</span>
+          ))}
+          <span class="chip chip-swatches" style="--x: 535.5; --y: 300">
+            <span class="swatch swatch-light"></span>
+            bg-primary
+            <span class="swatch swatch-dark"></span>
+          </span>
+        </div>
+      </figure>
+      <div class="cols">
+        <p>
+          Three layers — primitives carry the hex values, alias maps them to roles, scoped
+          collection assigns intent. Light and dark mode live in layer three, built incrementally
+          as the product grew.
+        </p>
+        <p>
+          The JSON export caught two 900-shade alias tokens that weren't linked correctly. The
+          system ran a quality check on itself.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- Typography -->
+  <div class="topic">
+    <h3 class="text-h4">Typography</h3>
+    <div class="topic-body">
+      <figure class="figure">
+        <div
+          class="panel type"
+          role="img"
+          aria-label="The Sampath mobile type scale in Figma: display and heading styles, with body, label, caption and button styles alongside."
+        >
+          <Image class="type-sheet" src={typeScale} alt="" widths={[633, 1266]} sizes="(min-width: 1200px) 633px, 59vw" />
+          <Image class="type-detail" src={typeScale} alt="" widths={[357, 714]} sizes="(min-width: 1200px) 357px, 34vw" />
+        </div>
+      </figure>
+      <div class="cols">
+        <p>
+          Font sizes, weights, kerning, and line-heights as primitives. Mapped to alias roles — h1
+          through caption. Styles carry the same naming as alias — one source of truth.
+        </p>
+        <p>
+          Research finding: 10px for bottom nav labels, validated against major apps before
+          locking in. Most use 10 to 11px. Captions use 10, 11, and 12px as well.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- Icons -->
+  <div class="topic">
+    <h3 class="text-h4">Icons</h3>
+    <div class="topic-body">
+      <figure class="figure">
+        <div
+          class="panel icons"
+          role="img"
+          aria-label="The Sampath icon library in Figma: a grid of line-style utility icons on a dark background."
+        >
+          <Image class="icon-sheet" src={iconLibrary} alt="" widths={[979, 1236]} sizes="(min-width: 1200px) 979px, 91vw" />
+        </div>
+      </figure>
+      <div class="cols">
+        <p>
+          Iconoir for utility icons. Custom illustrated set for brand-specific contexts. Both use
+          the same fg-* token family.
+        </p>
+        <p>
+          Naming tokens fg-primary rather than icon-primary meant illustrations worked with the
+          same tokens in dark mode. One call, weeks of rework avoided.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <p class="insight">
+    <span class="insight-icon" aria-hidden="true"><TypeInfo width={24} height={24} /></span>
+    <span class="text-body-l">
+      One naming call, weeks of rework avoided. If it had been named icon-primary, illustrations
+      would have needed a separate token set. fg-primary covered both.
+    </span>
+  </p>
+</Section>
+
+<style>
+  /* ── Intro and audit cards ─────────────────────────────────────── */
+
+  /* Figma gap 52, snapped to 48. */
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-48);
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  h2,
+  h3 {
+    color: var(--text-primary);
+  }
+
+  /* Two lines from tablet up, as in Figma; on mobile it wraps naturally. */
+  @media (min-width: 768px) {
+    .line {
+      display: block;
+    }
+  }
+
+  .lead {
+    max-width: 500px;
+    color: var(--text-secondary);
+  }
+
+  .audit {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-24);
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    padding: var(--space-24);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-cards);
+  }
+
+  .eyebrow {
+    color: var(--text-sampath);
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+
+  .body {
+    color: var(--text-secondary);
+  }
+
+  /* ── Topics (Color, Typography, Icons) ─────────────────────────── */
+
+  .topic {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-48);
+    margin-top: var(--space-56);
+  }
+
+  hr {
+    margin-top: var(--space-56);
+    border: 0;
+    border-top: 1px solid var(--sampath-border-warm);
+  }
+
+  .topic-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  /* Figma gap 28, snapped to 32. */
+  .cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-32);
+    color: var(--text-secondary);
+  }
+
+  /* ── Panels: a 1072 × 520 canvas scaled to the content width ──── */
+
+  .figure {
+    container-type: inline-size;
+  }
+
+  /* Figma radius 10, snapped to rounded.sm. */
+  .panel {
+    --u: calc(100cqw / 1072);
+    position: relative;
+    aspect-ratio: 1072 / 520;
+    overflow: hidden;
+    border: 0.5px solid var(--sampath-border-warm);
+    border-radius: var(--radius-sm);
+  }
+
+  /* Colour diagram */
+  .colour {
+    background-color: var(--sampath-bg-warm-alt);
+  }
+
+  .dark-half {
+    position: absolute;
+    inset: 0 0 0 50%;
+    background-color: #191919;
+  }
+
+  .phone {
+    position: absolute;
+    left: calc(var(--x) * var(--u));
+    top: calc(395.5 * var(--u));
+    width: calc(216 * var(--u));
+    height: calc(468 * var(--u));
+    overflow: hidden;
+    border: calc(6 * var(--u)) solid #C0B8D5;
+    border-radius: calc(20 * var(--u));
+  }
+
+  .phone img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .line-dark {
+    stroke: #191919;
+  }
+
+  .line-light {
+    stroke: #EDEAE5;
+  }
+
+  /* Figma chips are Inter 18; set in the site font so no extra font loads. */
+  .chip {
+    position: absolute;
+    left: calc(var(--x) * var(--u));
+    top: calc(var(--y) * var(--u));
+    translate: -50% 0;
+    display: flex;
+    align-items: center;
+    gap: calc(12 * var(--u));
+    padding: calc(12 * var(--u)) calc(16 * var(--u));
+    border-radius: var(--radius-full);
+    background-color: var(--raw-white);
+    filter: drop-shadow(calc(-8 * var(--u)) calc(8 * var(--u)) calc(8 * var(--u)) rgb(0 0 0 / 0.08));
+    color: #141412;
+    font-size: calc(18 * var(--u));
+    font-weight: var(--weight-medium);
+    line-height: calc(20 * var(--u));
+    white-space: nowrap;
+  }
+
+  .chip-swatches {
+    padding: calc(12 * var(--u)) calc(24 * var(--u)) calc(12 * var(--u)) calc(12 * var(--u));
+  }
+
+  .swatch {
+    width: calc(24 * var(--u));
+    height: calc(24 * var(--u));
+    border-radius: var(--radius-full);
+  }
+
+  .swatch-light {
+    background-color: #F7F3EF;
+  }
+
+  .swatch-dark {
+    background-color: #141416;
+  }
+
+  /* Type scale: the full sheet, and a smaller copy of it overlapping on the right. */
+  .type {
+    background-color: var(--sampath-bg-warm-alt);
+  }
+
+  .type-sheet,
+  .type-detail {
+    position: absolute;
+  }
+
+  .type-sheet {
+    left: calc(69 * var(--u));
+    top: calc(30.5 * var(--u));
+    width: calc(633 * var(--u));
+  }
+
+  .type-detail {
+    left: calc(643 * var(--u));
+    top: calc(-284.5 * var(--u));
+    width: calc(357 * var(--u));
+    border-radius: calc(8 * var(--u));
+    box-shadow: var(--shadow-media);
+  }
+
+  /* Icon library: the sheet with fades at the top and bottom. */
+  .icons {
+    background-color: #1E1E1E;
+  }
+
+  .icon-sheet {
+    position: absolute;
+    left: calc(45.5 * var(--u));
+    top: calc(-452.6 * var(--u));
+    width: calc(979 * var(--u));
+  }
+
+  .icons::before,
+  .icons::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    height: calc(181 * var(--u));
+  }
+
+  .icons::before {
+    top: 0;
+    background: linear-gradient(#1E1E1E, rgb(30 30 30 / 0));
+  }
+
+  .icons::after {
+    bottom: 0;
+    background: linear-gradient(rgb(30 30 30 / 0), #1E1E1E);
+  }
+
+  /* ── Token insight ─────────────────────────────────────────────── */
+
+  /* Figma: padding 20/16, radius 10 and icon radius 5, snapped to 24/16 and rounded.sm. */
+  .insight {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-12);
+    margin-top: var(--space-56);
+    padding: var(--space-16) var(--space-24);
+    border: 0.5px solid var(--sampath-border-warm);
+    border-radius: var(--radius-sm);
+    background-color: var(--bg-cards);
+    color: var(--text-secondary);
+  }
+
+  .insight-icon {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background-color: var(--sampath-note-icon-bg-light);
+  }
+
+  /* ── Mobile: cards and paragraph pairs stack ───────────────────── */
+
+  @media (max-width: 767px) {
+    .audit,
+    .cols {
+      grid-template-columns: 1fr;
+    }
+
+    /* Heading sits closer to its panel on mobile (confirmed by the user). */
+    .topic {
+      gap: var(--space-24);
+    }
+
+    /* Token insight sits closer to the Icons paragraphs on mobile (confirmed by the user). */
+    .insight {
+      margin-top: var(--space-32);
+    }
+
+    .cols {
+      gap: var(--space-16);
+    }
+  }
+</style>

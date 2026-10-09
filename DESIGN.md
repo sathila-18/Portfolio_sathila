@@ -795,6 +795,14 @@ every page.
      swipeable row (confirmed by the user): each 85% wide, gap 16, snapping, top
      padding 32, row exactly as tall as the first screenshot. Screenshots are never cropped at the sides (the
      user asked; Figma crops the left one); only the band's bottom edge cuts them.
+   - **03 — Building the System** (warm): `h2` (two lines) + `body-xl` lead
+     (500 wide), 48 below two white audit cards (`rounded.md`, padding 24,
+     `label-m` `text-sampath` eyebrow, `h6` title, `body-l` text). Then Color,
+     Typography and Icons, each 56 apart with `sampath-border-warm` rules
+     between: `h4` title, 48 (24 on mobile) below a 1072×520 visual panel (`rounded.sm`), 24
+     below two `body-l` paragraphs (gap 32). Ends with a white token-insight
+     note, 56 below the Icons paragraphs (32 on mobile). Panels are rebuilt from the Figma layers on a 1072×520 canvas that
+     scales with the width (chips set in Google Sans Flex, not Inter).
 4. **Footer**.
 
 ### Pearl case study (page background `pearl-bg`, no sidebar)

@@ -236,6 +236,8 @@
   --sampath-note-bg: rgb(109 62 240 / 0.16);
   --sampath-note-border: rgb(109 62 240 / 0.2);
   --sampath-note-icon-bg: rgb(109 62 240 / 0.15);
+  /* Same note on a light background ("Building the System" token insight). */
+  --sampath-note-icon-bg-light: rgb(109 62 240 / 0.08);
   /* Sampath screenshot bands (darker than sampath-bg-dark). */
   --sampath-bg-darker: #0E0E10;
 
