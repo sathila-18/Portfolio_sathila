@@ -814,6 +814,14 @@ every page.
      their label above the content below 1200; cards and stats stack on mobile.
      Mobile (confirmed by the user): 32 from each rule to the content on either
      side, and the System row is centred.
+   - **Transition image band** (after Components): full-bleed
+     `sampath-bg-dark-alt`, a collage of 11 component snippets laid out at their
+     Figma positions and crops on a 1920×523 canvas that scales with the
+     viewport. Mobile (confirmed by the user): the band is the full screen height
+     (`100svh`, 16px margins) and the snippets sit in seven stacked rows on a
+     343-wide artboard, with the leftover height shared equally between rows;
+     on short screens the artboard shrinks so everything fits. Each snippet
+     keeps its crop and proportions.
 4. **Footer**.
 
 ### Pearl case study (page background `pearl-bg`, no sidebar)

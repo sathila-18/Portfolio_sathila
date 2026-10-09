@@ -1,0 +1,143 @@
+---
+// Sampath › transition image band (Figma "transition-image [replace with Figma foundations
+// overview]"): a collage of component snippets on a 1920 × 523 canvas that scales with the
+// viewport. `--u` is one Figma pixel. Each snippet is a box at its Figma position; cropped
+// snippets place the image inside the box exactly as Figma does (sizes and offsets in %).
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import i163 from '../../assets/images/sampath/10_transition-image-replace-with-figma-foundations-__image-163.png';
+import i170 from '../../assets/images/sampath/11_transition-image-replace-with-figma-foundations-__image-170.png';
+import i169 from '../../assets/images/sampath/12_transition-image-replace-with-figma-foundations-__image-169.png';
+import i165 from '../../assets/images/sampath/13_transition-image-replace-with-figma-foundations-__image-165.png';
+import i167 from '../../assets/images/sampath/14_transition-image-replace-with-figma-foundations-__image-167.png';
+import i168 from '../../assets/images/sampath/15_transition-image-replace-with-figma-foundations-__image-168.png';
+import i180 from '../../assets/images/sampath/16_transition-image-replace-with-figma-foundations-__image-180.png';
+import i181 from '../../assets/images/sampath/17_transition-image-replace-with-figma-foundations-__image-181.png';
+import i182 from '../../assets/images/sampath/18_transition-image-replace-with-figma-foundations-__image-182.png';
+import i183 from '../../assets/images/sampath/19_transition-image-replace-with-figma-foundations-__image-183.png';
+import i184 from '../../assets/images/sampath/20_transition-image-replace-with-figma-foundations-__image-184.png';
+
+interface Snippet {
+  src: ImageMetadata;
+  /** Box in Figma pixels: x, y, width, height. */
+  box: [number, number, number, number];
+  /** Image inside the box, in % of the box: width, height, left, top. Omitted = fills it. */
+  crop?: [number, number, number, number];
+  /** Mobile: x (on a 343-wide artboard), scale of the Figma box, row (0–6), and the item's
+      offset from the top of its row. Rows are spread evenly down the screen. */
+  mobile: [number, number, number, number];
+}
+
+// Height of each mobile row on the artboard (its tallest item); they total 688.
+const rowHeights = [98, 112.5, 53.5, 88, 40, 164.5, 131];
+const rowStart = (row: number) => rowHeights.slice(0, row).reduce((a, b) => a + b, 0);
+const mobileStyle = ({ mobile: [x, scale, row, dy] }: { mobile: Snippet['mobile'] }) =>
+  `--mx: ${x}; --ms: ${scale}; --mrow: ${row}; --mstart: ${rowStart(row)}; --mdy: ${dy}`;
+
+// In Figma layer order (later ones sit on top).
+const snippets: Snippet[] = [
+  { src: i163, box: [218, 410, 320, 56], mobile: [0, 0.72, 4, 0] },
+  { src: i170, box: [78, 54, 260, 111], crop: [105.8, 597.4, -3.31, -6.49], mobile: [0, 0.88, 0, 0] },
+  { src: i169, box: [561, 244, 446, 114], crop: [237.1, 154.33, -6.85, -23.62], mobile: [0, 0.769, 3, 0] },
+  { src: i165, box: [332, 190, 346, 54], crop: [344.33, 140.91, -4.61, -18.18], mobile: [0, 0.99, 2, 0] },
+  { src: i167, box: [1626, 44, 245, 350], crop: [115.65, 111.76, -13.62, -1.83], mobile: [0, 0.47, 5, 0] },
+  { src: i170, box: [398, 40, 280, 125], crop: [105.8, 567.9, -3.31, -95.06], mobile: [91, 0.9, 1, 0] },
+  { src: i168, box: [1358, 334, 243, 151], crop: [104.93, 203.54, -2.19, -3.54], mobile: [66, 0.87, 6, 0] },
+  { src: i180, box: [894, 48, 241, 117], mobile: [237, 0.44, 5, 0] },
+  { src: i181, box: [941, 432, 102, 34], mobile: [0, 0.85, 1, 41.75] },
+  { src: i182, box: [1135, 244, 155, 129], crop: [139.35, 113.18, -5.16, -5.43], mobile: [131, 0.6, 5, 0] },
+  { src: i183, box: [1402, 103, 100, 100], mobile: [255, 0.88, 0, 5] },
+  { src: i184, box: [101, 309, 213, 51], mobile: [243, 0.47, 4, 8] },
+];
+
+const boxStyle = (snippet: Snippet) => {
+  const [x, y, w, h] = snippet.box;
+  return `--x: ${x}; --y: ${y}; --w: ${w}; --h: ${h}; ${mobileStyle(snippet)}`;
+};
+const cropStyle = ({ crop }: Snippet) =>
+  crop ? `width: ${crop[0]}%; height: ${crop[1]}%; left: ${crop[2]}%; top: ${crop[3]}%` : undefined;
+---
+
+<div class="band" data-dark-hero>
+  <div
+    class="canvas"
+    role="img"
+    aria-label="A collage of Sampath components: notifications, chips, an input field, a list item, a status bar banner, checkboxes, avatars, icon tiles and an upload card."
+  >
+    {snippets.map((snippet) => (
+      <div class="snippet" style={boxStyle(snippet)}>
+        <Image
+          class:list={{ crop: snippet.crop }}
+          src={snippet.src}
+          alt=""
+          style={cropStyle(snippet)}
+        />
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .band {
+    container-type: inline-size;
+    overflow: hidden;
+    background-color: var(--sampath-bg-dark-alt);
+  }
+
+  .canvas {
+    --u: calc(min(100cqw, var(--width-1920)) / 1920);
+    position: relative;
+    max-width: var(--width-1920);
+    margin-inline: auto;
+    aspect-ratio: 1920 / 523;
+  }
+
+  .snippet {
+    position: absolute;
+    left: calc(var(--x) * var(--u));
+    top: calc(var(--y) * var(--u));
+    width: calc(var(--w) * var(--u));
+    height: calc(var(--h) * var(--u));
+    overflow: hidden;
+  }
+
+  .snippet img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .snippet img.crop {
+    position: absolute;
+    max-width: none;
+    object-fit: fill;
+  }
+
+  /* Mobile (confirmed by the user): the band fills the screen height with 16px margins and
+     the snippets sit in seven stacked rows, with the leftover height shared equally between
+     them. --u is one unit of a 343-wide artboard (the content width), shrunk on short screens
+     so the rows (688 units plus at least 12px between each) still fit. Each snippet keeps its
+     Figma crop and proportions. */
+  @media (max-width: 767px) {
+    .band {
+      display: grid;
+      place-items: center;
+      height: 100svh;
+      padding: var(--space-16);
+    }
+
+    .canvas {
+      --u: min((100cqw - 2 * var(--space-16)) / 343, (100svh - 2 * var(--space-16) - 6 * var(--space-12)) / 688);
+      width: calc(343 * var(--u));
+      height: 100%;
+      aspect-ratio: auto;
+    }
+
+    .snippet {
+      left: calc(var(--mx) * var(--u));
+      top: calc((var(--mstart) + var(--mdy)) * var(--u) + var(--mrow) * (100% - 688 * var(--u)) / 6);
+      width: calc(var(--w) * var(--ms) * var(--u));
+      height: calc(var(--h) * var(--ms) * var(--u));
+    }
+  }
+</style>

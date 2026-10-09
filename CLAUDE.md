@@ -94,7 +94,7 @@ Status values: `not started` · `in progress` · `approved`
 | 02 · The plan changed (Figma frame "Frame 1853320920") | approved |
 | 03 · Building the System | approved |
 | 04 · Components | approved |
-| Transition image band | not started |
+| Transition image band | approved |
 | 05 · Impact | not started |
 | 06 · Built to Last | not started |
 | 07 · Delivery | not started |
