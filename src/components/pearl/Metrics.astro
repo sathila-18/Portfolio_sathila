@@ -1,0 +1,86 @@
+---
+// Pearl › Metrics band (DESIGN.md › Layout › Pearl case study, item 4): full-bleed
+// pearl-bg-dark-alt, three metrics across the 1200 container.
+//
+// Figma's height (363) is used instead of DESIGN.md's 334, and its 10%-white top line is
+// dropped (both confirmed by the user).
+const metrics = [
+  { value: '920+', label: 'Screens' },
+  { value: '3', label: 'Platforms' },
+  { value: '250', label: 'Components' },
+];
+---
+
+<!-- The nav goes white while this band is behind it. -->
+<section class="band" aria-label="Project in numbers" data-dark-hero>
+  <dl class="metrics">
+    {metrics.map(({ value, label }) => (
+      <div class="metric">
+        <dt class="text-label-m">{label}</dt>
+        <dd class="text-number-xl">{value}</dd>
+      </div>
+    ))}
+  </dl>
+</section>
+
+<style>
+  .band {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 363px;
+    background-color: var(--pearl-bg-dark-alt);
+  }
+
+  .metrics {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--space-80) var(--space-64);
+  }
+
+  /* Label sits under the number visually; dt comes first for screen readers. */
+  .metric {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: var(--space-16);
+  }
+
+  dt {
+    color: var(--text-white);
+  }
+
+  dd {
+    margin: 0;
+    color: var(--text-pearl);
+  }
+
+  @media (max-width: 1199px) {
+    .metrics {
+      padding-inline: var(--gutter);
+    }
+  }
+
+  /* Mobile: one metric after another, centred, as in Sampath's "Current scale" (user). */
+  @media (max-width: 767px) {
+    .band {
+      min-height: 0;
+    }
+
+    .metrics {
+      flex-direction: column;
+      align-items: center;
+      /* 64 + each metric's 16 = 80 to the first and last metric, like other mobile bands. */
+      padding-block: var(--space-64);
+    }
+
+    /* 8 between number and label on mobile (user; 16 from tablet up, as in Figma). */
+    .metric {
+      gap: var(--space-8);
+      padding-block: var(--space-16);
+    }
+  }
+</style>
