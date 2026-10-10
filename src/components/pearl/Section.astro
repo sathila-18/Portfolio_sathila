@@ -1,0 +1,65 @@
+---
+// Pearl › numbered section band (DESIGN.md › Layout › Pearl case study, item 5): full-bleed
+// pearl-bg, white or dark background, 120px top and bottom padding, content in the narrow
+// reading column (740 including 64 side padding) or the wide one (1100, Figma "wrap").
+interface Props {
+  tone: 'pearl' | 'white' | 'dark';
+  /** id of the section heading, for aria-labelledby. */
+  labelledby: string;
+  width?: 'narrow' | 'wide';
+}
+
+const { tone, labelledby, width = 'narrow' } = Astro.props;
+---
+
+<!-- Dark bands also switch the top nav to white while they're behind it. -->
+<section
+  class:list={['band', tone]}
+  aria-labelledby={labelledby}
+  data-dark-hero={tone === 'dark' ? '' : undefined}
+>
+  <div class:list={['inner', width]}>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .pearl {
+    background-color: var(--pearl-bg);
+  }
+
+  .white {
+    background-color: var(--bg-primary);
+  }
+
+  .dark {
+    background-color: var(--pearl-bg-dark);
+  }
+
+  .inner {
+    margin-inline: auto;
+    padding: var(--space-120) var(--space-64);
+  }
+
+  .narrow {
+    max-width: 740px;
+  }
+
+  .wide {
+    max-width: 1100px;
+  }
+
+  /* Tablet and mobile: side padding follows the page gutter. */
+  @media (max-width: 1199px) {
+    .inner {
+      padding-inline: var(--gutter);
+    }
+  }
+
+  /* Mobile: shorter vertical padding, as in the Sampath bands. */
+  @media (max-width: 767px) {
+    .inner {
+      padding-block: var(--space-80);
+    }
+  }
+</style>

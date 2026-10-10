@@ -1,0 +1,46 @@
+---
+// Pearl › 01 — The Setup: label, headline (second half muted) and lead paragraph.
+// The headline wraps naturally; Figma's forced break after "given time" is dropped (user).
+import Section from './Section.astro';
+---
+
+<Section tone="pearl" labelledby="setup-title">
+  <div class="heading">
+    <p class="text-label-m label">The setup</p>
+    <h2 id="setup-title">
+      Built for speed <span class="muted">it wasn't given time to prepare for</span>
+    </h2>
+  </div>
+  <p class="text-body-xl lead">
+    Wireframes and UI work had to run in parallel instead of one after the other, across three
+    platforms, with no room for delay. A design system built to absorb that speed was the only
+    way consistency and velocity could both survive.
+  </p>
+</Section>
+
+<style>
+  .heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  .label {
+    color: var(--text-tertiary);
+  }
+
+  /* Balanced so the natural wrap doesn't leave "for" alone on the last line. */
+  h2 {
+    color: var(--text-primary);
+    text-wrap: balance;
+  }
+
+  .muted {
+    color: var(--text-light);
+  }
+
+  .lead {
+    margin-top: var(--space-16);
+    color: var(--text-secondary);
+  }
+</style>

@@ -76,7 +76,7 @@ Status values: `not started` · `in progress` · `approved`
 | Hero | approved |
 | Hero metadata | approved |
 | Metrics band | approved |
-| 01 · The Setup | not started |
+| 01 · The Setup | approved |
 | 02 · First Move | not started |
 | 03 · Architecture Call | not started |
 | 04 · Foundations | not started |
