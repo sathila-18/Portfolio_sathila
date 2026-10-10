@@ -73,7 +73,7 @@ Status values: `not started` · `in progress` · `approved`
 ### Pearl case study
 | Section | Status |
 |---|---|
-| Hero | not started |
+| Hero | approved |
 | Hero metadata | not started |
 | Metrics band | not started |
 | 01 · The Setup | not started |

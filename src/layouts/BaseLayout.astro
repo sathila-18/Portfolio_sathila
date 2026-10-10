@@ -9,12 +9,15 @@ interface Props {
   description?: string;
   /** The page has dark regions (marked `data-dark-hero`); the nav goes white while one is behind it. */
   darkHero?: boolean;
+  /** Page background token, e.g. `--pearl-bg` (DESIGN.md › Layout); shows behind the top nav. */
+  pageBg?: string;
 }
 
 const {
   title,
   description = 'Sathila De Silva: designing products and the systems that hold them together.',
   darkHero = false,
+  pageBg,
 } = Astro.props;
 ---
 
@@ -35,7 +38,7 @@ const {
       href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,400..600&family=Google+Sans+Code:ital,wght@1,400&display=swap"
     />
   </head>
-  <body>
+  <body style={pageBg ? `background-color: var(${pageBg})` : undefined}>
     <TopNav watchDark={darkHero} />
     <slot />
     <Footer />

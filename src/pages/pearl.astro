@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/pearl/Hero.astro';
+---
+
+<!-- darkHero: the nav goes white over Pearl's dark bands (metrics, "Building the Engine"),
+     marked with data-dark-hero as they're built. -->
+<BaseLayout
+  title="Pearl Design System · Sathila De Silva"
+  description="Case study: Pearl, the design system behind Batelco's self-care app, web app and website."
+  darkHero
+  pageBg="--pearl-bg"
+>
+  <main>
+    <Hero />
+  </main>
+</BaseLayout>

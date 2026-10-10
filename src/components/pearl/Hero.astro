@@ -1,0 +1,190 @@
+---
+// Pearl › Hero (DESIGN.md › Layout › Pearl case study, item 2): eyebrow, h1 headline and lead
+// on the left, the wave artwork bleeding off the right edge and fading into the background.
+// Below 1200 the artwork moves under the text as a full-width band (confirmed by the user).
+import { Image } from 'astro:assets';
+import artwork from '../../assets/images/pearl/01_hero__frame-1853320970.png';
+
+// Joins items with the Figma separator ("  ·  "); the non-breaking spaces keep each dot
+// on the line before it when the text wraps.
+const list = (...items: string[]) => items.join('  ·  ');
+---
+
+<section class="hero" aria-labelledby="pearl-hero-title">
+  <div class="intro">
+    <p class="eyebrow text-h6">{list('Pearl', 'Batelco', 'Telecom', 'Bahrain')}</p>
+    <div class="text">
+      <h1 id="pearl-hero-title">
+        <span class="line">One system,</span>{' '}
+        <span class="line"><span class="muted">three surfaces</span>,</span>{' '}
+        <span class="line">and no time to build</span>{' '}
+        <span class="line">them one at a time</span>
+      </h1>
+      <!-- "we" capitalised after the full stop (Figma has a lowercase "we"). -->
+      <p class="lead text-body-xl">
+        Batelco needed their self-care mobile app, web app, and website shipped fast — with UI work
+        starting before the wireframes were even finished. The only way to move that fast without
+        fracturing was a design system built to absorb the speed. We named it Pearl, and designed
+        and owned it solo, end to end.
+      </p>
+    </div>
+  </div>
+
+  <div class="artwork" aria-hidden="true">
+    <Image
+      class="art"
+      src={artwork}
+      alt=""
+      widths={[742, 992]}
+      sizes="(min-width: 1200px) 742px, 100vw"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <span class="fade fade-left"></span>
+    <span class="fade fade-top"></span>
+    <span class="fade fade-bottom"></span>
+  </div>
+</section>
+
+<style>
+  /* Starts below the fixed nav, like every page. Figma: 872 tall with the text centred. */
+  .hero {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 872px;
+    margin-top: var(--nav-height);
+    padding-inline: var(--space-120);
+    overflow: hidden;
+    background-color: var(--pearl-bg);
+  }
+
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .eyebrow {
+    color: var(--text-tertiary);
+    white-space: pre-wrap;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  h1 {
+    max-width: 1175px;
+    color: var(--text-primary);
+  }
+
+  .muted {
+    color: var(--text-light);
+  }
+
+  .lead {
+    max-width: 835px;
+    color: var(--text-secondary);
+  }
+
+  /* Figma: 706 × 756 at the right edge, 41 from the top; the 742px image overflows it. */
+  .artwork {
+    position: absolute;
+    z-index: -1;
+    top: 41px;
+    right: 0;
+    width: 706px;
+    height: 756px;
+    overflow: hidden;
+  }
+
+  .art {
+    width: 742px;
+    height: 742px;
+    max-width: none;
+    object-fit: cover;
+  }
+
+  /* Fades into pearl-bg: left (666 wide), top and bottom (239 tall each). */
+  .fade {
+    position: absolute;
+    left: 0;
+  }
+
+  .fade-left {
+    top: 0;
+    width: 666px;
+    height: 745px;
+    background: linear-gradient(90deg, var(--pearl-bg), transparent);
+  }
+
+  .fade-top,
+  .fade-bottom {
+    width: 100%;
+    height: 239px;
+  }
+
+  .fade-top {
+    top: 0;
+    background: linear-gradient(180deg, var(--pearl-bg), transparent);
+  }
+
+  .fade-bottom {
+    bottom: 0;
+    background: linear-gradient(0deg, var(--pearl-bg), transparent);
+  }
+
+  /* Four lines from tablet up, as in Figma; on mobile the headline wraps naturally. */
+  @media (min-width: 768px) {
+    .line {
+      display: block;
+    }
+  }
+
+  /* ── Tablet and mobile: artwork becomes a full-width band under the text ── */
+
+  @media (max-width: 1199px) {
+    .hero {
+      min-height: 0;
+      padding: var(--space-80) 0 0;
+    }
+
+    .intro {
+      padding-inline: var(--gutter);
+    }
+
+    .artwork {
+      position: relative;
+      z-index: auto;
+      top: auto;
+      width: 100%;
+      height: 320px;
+      margin-top: var(--space-40);
+    }
+
+    .art {
+      width: 100%;
+      height: 100%;
+    }
+
+    .fade-left {
+      display: none;
+    }
+
+    .fade-top,
+    .fade-bottom {
+      height: 30%;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .hero {
+      padding-top: var(--space-48);
+    }
+  }
+</style>
