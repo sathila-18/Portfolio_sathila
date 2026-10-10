@@ -244,6 +244,10 @@
   --sampath-card-translucent: rgb(240 237 232 / 0.11);
   /* Sampath "Built to Last": token / JSON split panel on the dark band. */
   --sampath-panel-translucent: rgb(0 0 0 / 0.3);
+  /* Sampath "Delivery": tool logo tiles and user-testing status pills. */
+  --sampath-logo-tile: #222222;
+  --sampath-pill-caution-bg: #FFE3C8;
+  --sampath-pill-caution-text: #7B3721;
 
   /* ── Gradients (only on the elements listed in DESIGN.md) ────────── */
 

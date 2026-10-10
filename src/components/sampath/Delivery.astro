@@ -1,0 +1,313 @@
+---
+// Sampath › 07 — Delivery: two problems outside the system. The Spine / Lottie / Rive
+// decision (note + three option cards), a rule, then the bank-staff testing findings
+// (Figma's card borders and footnote removed by the user).
+import { Image } from 'astro:assets';
+import Section from './Section.astro';
+import BrokenLink from '../../assets/icons/sampath/broken-link.svg';
+import spineLogo from '../../assets/images/sampath/25_07-delivery__image-186.png';
+import lottieLogo from '../../assets/images/sampath/26_07-delivery__image-186.png';
+import riveLogo from '../../assets/images/sampath/27_07-delivery__image-186.png';
+
+// `inset` logos sit 39 × 38 inside the tile (Spine); the others fill it. `outlined` adds the
+// warm border Figma gives the Rive tile.
+const options = [
+  {
+    logo: spineLogo,
+    inset: true,
+    name: 'Spine',
+    tagline: '2D animation · game-focused',
+    text: 'Keep Spine. Devs swap their package. Higher quality, adds implementation risk.',
+  },
+  {
+    logo: lottieLogo,
+    chosen: true,
+    name: 'Lottie',
+    tagline: 'JSON-based animation · web and app',
+    text: 'Rebuild in Lottie. Devs keep their existing package. Minimal risk, fits the timeline.',
+  },
+  {
+    logo: riveLogo,
+    outlined: true,
+    name: 'Rive',
+    tagline: 'Interactive animation · state machine',
+    text: 'More capable for app-level animation. Ruled out, too large a change given the constraint.',
+  },
+];
+
+const findings = [
+  {
+    status: 'Clear to users',
+    tone: 'positive',
+    title: 'Quick actions carousel was immediately understood',
+    text: 'The micro interaction showing horizontal scroll was enough. Users engaged with the carousel without prompting and navigated it confidently.',
+  },
+  {
+    status: 'Not noticed',
+    tone: 'caution',
+    title: 'Account carousel was not seen as swipeable',
+    text: "The section showing accounts, FDs, and loans had no scroll affordance. Users didn't attempt to swipe. The same micro interaction pattern from the quick actions carousel was missing here.",
+  },
+  {
+    status: 'Not noticed',
+    tone: 'caution',
+    title: "Card details page entry point wasn't visible",
+    text: "On the credit and debit card pages, users didn't realise tapping the card would open the details and transaction history. Nothing communicated it was interactive.",
+  },
+];
+---
+
+<Section tone="warm" labelledby="delivery-title">
+  <!-- A tool conflict and a fast decision -->
+  <div class="part">
+    <div class="intro">
+      <h2 id="delivery-title">
+        <span class="line">Two problems the system</span>{' '}
+        <span class="line">didn't cause.</span>
+      </h2>
+      <div class="sub">
+        <h3 class="text-h6">A tool conflict and a fast decision</h3>
+        <p class="text-body-l body">
+          Custom illustrations were animated in Spine. The dev codebase used Lottie. The
+          animations didn't render correctly in the build and nobody could find why. A screenshot
+          of the broken output went into AI, which returned both the diagnosis and the options
+          within minutes.
+        </p>
+      </div>
+    </div>
+
+    <div class="group">
+      <p class="note">
+        <span class="note-icon" aria-hidden="true"><BrokenLink width={24} height={24} /></span>
+        <span class="text-body-m">
+          Diagnosed with AI. No one on the team could identify the root cause. A screenshot of
+          the broken build output went into Claude and came back with the problem and three paths
+          forward.
+        </span>
+      </p>
+
+      <ul class="cards" role="list">
+        {options.map(({ logo, inset, outlined, chosen, name, tagline, text }) => (
+          <li class="card">
+            <div class="card-head">
+              <span class:list={['logo', { inset, outlined }]}>
+                <Image src={logo} alt="" widths={[44, 88]} sizes="44px" />
+              </span>
+              {chosen && <span class="chosen text-label-xs">Chosen</span>}
+            </div>
+            <div class="card-name">
+              <h4 class="text-title-l">{name}</h4>
+              <p class="text-title-s tagline">{tagline}</p>
+            </div>
+            <p class="text-body-m body">{text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- User testing with bank staff -->
+  <div class="part">
+    <div class="sub">
+      <h3 class="text-h6">User testing with bank staff</h3>
+      <p class="text-body-l body">
+        10 to 15 bank staff tested a few major flows on a prototype built with Claude. We were
+        able to get a working prototype within a few hours. Getting to something testable that
+        fast meant we could run a real session before the final build was ready. The reactions
+        were genuine. Not a formal study, but early enough that what it surfaced could actually be
+        acted on.
+      </p>
+    </div>
+
+    <ul class="cards" role="list">
+      {findings.map(({ status, tone, title, text }) => (
+        <li class="card">
+          <span class:list={['pill text-label-s', tone]}>{status}</span>
+          <h4 class="text-title-l">{title}</h4>
+          <p class="text-body-m body">{text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Section>
+
+<style>
+  /* ── Parts: intro, then note and cards 40 below ────────────────── */
+
+  .part {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-40);
+  }
+
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  h2,
+  h3,
+  h4 {
+    color: var(--text-primary);
+  }
+
+  /* Two lines from tablet up, as in Figma; on mobile it wraps naturally. */
+  @media (min-width: 768px) {
+    .line {
+      display: block;
+    }
+  }
+
+  .sub {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .sub .body {
+    max-width: 500px;
+  }
+
+  .body {
+    color: var(--text-secondary);
+  }
+
+  .group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  hr {
+    margin-block: var(--space-56);
+    border: 0;
+    border-top: 1px solid var(--sampath-border-warm);
+  }
+
+  /* ── Note: light version, as in 03. Figma padding 20/16 and radii 10 and 5, snapped. ── */
+
+  .note {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+    padding: var(--space-16) var(--space-24);
+    border: 0.5px solid var(--border-default);
+    border-radius: var(--radius-sm);
+    background-color: var(--bg-cards);
+    color: var(--text-secondary);
+  }
+
+  .note-icon {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background-color: var(--sampath-note-icon-bg-light);
+  }
+
+  /* ── Cards: three across from tablet up. Figma gap 10, snapped to 8. ── */
+
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-12);
+    padding: var(--space-16);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-cards);
+  }
+
+  .card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    align-self: stretch;
+  }
+
+  .logo {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background-color: var(--sampath-logo-tile);
+  }
+
+  .logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .logo.inset img {
+    width: 39px;
+    height: 38px;
+  }
+
+  .logo.outlined {
+    border: 1px solid var(--sampath-border-warm);
+  }
+
+  /* Figma: Inter 10 Medium, padding 8/3; site font at label-xs, padding snapped to 8/4. */
+  .chosen {
+    padding: var(--space-4) var(--space-8);
+    border-radius: var(--radius-full);
+    background-color: var(--fg-sampath-blue);
+    color: var(--text-white);
+  }
+
+  .card-name {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .tagline {
+    color: var(--text-tertiary);
+  }
+
+  /* Same size as the 01 Starting Point badges: label-s, padding 4/8 (user; Figma was Inter 12,
+     padding 12/8). */
+  .pill {
+    padding: var(--space-4) var(--space-8);
+    border-radius: var(--radius-full);
+  }
+
+  /* Same colours as the "Chosen" badge (user; Figma was green). */
+  .pill.positive {
+    background-color: var(--fg-sampath-blue);
+    color: var(--text-white);
+  }
+
+  .pill.caution {
+    background-color: var(--sampath-pill-caution-bg);
+    color: var(--sampath-pill-caution-text);
+  }
+
+  /* ── Mobile: 32 either side of the rule, as in 04 and 06 ───────── */
+
+  @media (max-width: 767px) {
+    hr {
+      margin-block: var(--space-32);
+    }
+  }
+</style>
