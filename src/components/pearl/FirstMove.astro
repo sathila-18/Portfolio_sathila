@@ -1,0 +1,129 @@
+---
+// Pearl › 02 — First Move: label, headline and lead, then the inventory panel.
+//
+// The panel is a 975 × 608 canvas (`--u` is one Figma pixel), scaled to the column width:
+// a blue fill with the pink background screened over it, and the Notion inventory screenshot
+// on top. The fill colour is part of the artwork, not a UI token (confirmed by the user).
+// Figma's screenshot shadow is left out (user). On mobile the panel scales down whole: the
+// table runs edge to edge, so a zoomed crop would cut off its names or its badges.
+import { Image } from 'astro:assets';
+import Section from './Section.astro';
+import backdrop from '../../assets/images/pearl/02_section-02-first-move__rectangle-18097.png';
+import inventory from '../../assets/images/pearl/03_section-02-first-move__screenshot-2026-08-04-at-01-23-43-1.png';
+---
+
+<Section tone="white" width="wide" labelledby="first-move-title">
+  <div class="text">
+    <p class="text-label-m label">First move</p>
+    <div class="textbox">
+      <h2 id="first-move-title">Starting from what already existed, not a blank file</h2>
+      <p class="text-body-xl lead">
+        No component inventory existed yet — only two half-built wireframes, Home Screen and My
+        Plan, to work from. I audited both, used Claude to extract an atomic and molecule-level
+        inventory, and tracked progress in a client-visible Notion board.
+      </p>
+    </div>
+  </div>
+
+  <figure class="figure">
+    <div class="panel">
+      <Image class="backdrop" src={backdrop} alt="" widths={[975, 1920]} sizes="(min-width: 1200px) 975px, 100vw" />
+      <div class="shot">
+        <Image
+          src={inventory}
+          alt="The component inventory in Notion: list item rows, tab bar and button dock as molecules; button, checkbox, radio button, toggle, progress bar, badge, text box and divider as atoms, each with a usage count."
+          widths={[1464, 2260]}
+          sizes="(min-width: 1200px) 1464px, 150vw"
+        />
+      </div>
+    </div>
+  </figure>
+</Section>
+
+<style>
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  .label {
+    color: var(--text-tertiary);
+  }
+
+  .textbox {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+
+  h2 {
+    color: var(--text-primary);
+  }
+
+  .lead {
+    max-width: 540px;
+    color: var(--text-secondary);
+  }
+
+  /* Figma gap 60, snapped to 56. Panel fills the 972 column (Figma 975, 3px over). */
+  .figure {
+    margin-top: var(--space-56);
+    container-type: inline-size;
+  }
+
+  .panel {
+    --u: calc(100cqw / 975);
+    position: relative;
+    isolation: isolate;
+    aspect-ratio: 975 / 608;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background-color: #598DD6;
+  }
+
+  /* Screened over the fill, full width, starting 100 Figma px above the panel. */
+  .backdrop {
+    position: absolute;
+    left: 0;
+    top: calc(-100.1 * var(--u));
+    width: 100%;
+    height: auto;
+    mix-blend-mode: screen;
+  }
+
+  /* 887 × 530 at 44 / 38.8, showing a crop of the full Notion screenshot. */
+  .shot {
+    position: absolute;
+    left: calc(44 * var(--u));
+    top: calc(38.8 * var(--u));
+    width: calc(887 * var(--u));
+    height: calc(530 * var(--u));
+    overflow: hidden;
+    border-radius: var(--radius-md);
+  }
+
+  .shot img {
+    position: absolute;
+    left: -14.47%;
+    top: -40.21%;
+    width: 165.01%;
+    max-width: none;
+    height: auto;
+  }
+
+  /* Mobile: smaller corners so the scaled-down panel keeps its proportions. */
+  @media (max-width: 767px) {
+    .figure {
+      margin-top: var(--space-40);
+    }
+
+    .panel {
+      border-radius: var(--radius-md);
+    }
+
+    .shot {
+      border-radius: var(--radius-sm);
+    }
+  }
+</style>
