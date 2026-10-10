@@ -74,7 +74,7 @@ Status values: `not started` · `in progress` · `approved`
 | Section | Status |
 |---|---|
 | Hero | approved |
-| Hero metadata | not started |
+| Hero metadata | approved |
 | Metrics band | not started |
 | 01 · The Setup | not started |
 | 02 · First Move | not started |

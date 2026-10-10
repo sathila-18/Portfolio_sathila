@@ -1,0 +1,113 @@
+---
+// Pearl › Hero metadata band (DESIGN.md › Layout › Pearl case study, item 3): four equal
+// cells across the full width, border-default hairlines, padding 32/40 (snapped from 28/40).
+//
+// Figma quirks not carried over: the second cell's divider is white at 10% (invisible here)
+// and the last cell has a border on every side; all dividers use border-default.
+
+// Joins items with the Figma separator ("  ·  "); the non-breaking spaces keep each dot
+// on the line before it when the text wraps.
+const list = (...items: string[]) => items.join('  ·  ');
+
+// Each value: an optional emphasised first line, then the regular line.
+const meta = [
+  { label: 'Role', lead: 'Sole UI designer', text: 'Design system owner' },
+  { label: 'Duration', lead: '5 months', text: 'Foundations to dev handoff' },
+  { label: 'Deliverables', text: list('3 Figma libraries + icon system', '920+ screens', 'dev handoff & docs') },
+  { label: 'Tools', text: list('Figma', 'Figma Variables', 'Claude', 'Notion') },
+];
+---
+
+<dl class="meta" aria-label="Project details">
+  {meta.map(({ label, lead, text }) => (
+    <div class="cell">
+      <dt class="text-label-s">{label}</dt>
+      <dd>
+        {lead && <span class="lead text-label-m">{lead}</span>}
+        <span class="value text-body-m">{text}</span>
+      </dd>
+    </div>
+  ))}
+</dl>
+
+<style>
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0;
+    border-top: 1px solid var(--border-default);
+  }
+
+  .cell {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    padding: var(--space-32) var(--space-40);
+  }
+
+  .cell + .cell {
+    border-left: 1px solid var(--border-default);
+  }
+
+  dt {
+    color: var(--text-tertiary);
+  }
+
+  dd {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+
+  /* Figma: first line Google Sans Flex SemiBold 14 in #333 (label-m, text-primary). */
+  .lead {
+    color: var(--text-primary);
+  }
+
+  /* Deliverables keeps Figma's 346px measure, so it wraps after "920+ screens  ·". */
+  .value {
+    max-width: 346px;
+    color: var(--text-secondary);
+    white-space: pre-wrap;
+  }
+
+  /* Tablet: two by two, dividers on the inner edges only. */
+  @media (max-width: 1199px) {
+    .meta {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cell + .cell {
+      border-left: 0;
+    }
+
+    .cell:nth-child(odd) + .cell {
+      border-left: 1px solid var(--border-default);
+    }
+
+    .cell:nth-child(n + 3) {
+      border-top: 1px solid var(--border-default);
+    }
+  }
+
+  /* Mobile: one column, dividers between rows only (no line above the band, user), side
+     padding on the page gutter. */
+  @media (max-width: 767px) {
+    .meta {
+      grid-template-columns: 1fr;
+      border-top: 0;
+    }
+
+    .cell {
+      padding: var(--space-24) var(--gutter);
+    }
+
+    .cell:nth-child(odd) + .cell {
+      border-left: 0;
+    }
+
+    .cell + .cell {
+      border-top: 1px solid var(--border-default);
+    }
+  }
+</style>
