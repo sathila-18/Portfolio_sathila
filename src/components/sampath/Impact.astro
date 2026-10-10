@@ -1,0 +1,304 @@
+---
+// Sampath › 05 — Impact: intro, stats bento, then the day-by-day timeline.
+import Section from './Section.astro';
+import Dot from './Dot.astro';
+
+// Big stats (top row). `narrow` keeps the Figma text width of 200 (the first card uses 311).
+const bigStats = [
+  {
+    label: 'System setup · Tue afternoon to Thu end of day',
+    value: '2.5',
+    unit: 'days',
+    text: 'Foundations, tokens, and component library ready to design with',
+    narrow: false,
+  },
+  {
+    label: 'First UI delivery · day 4 · Friday',
+    value: '96',
+    unit: 'onboarding screens',
+    text: 'Completed within a single day using the system',
+    narrow: true,
+  },
+];
+
+// Small stats (bottom row).
+const smallStats = [
+  { value: '273', text: 'Reusable components used across the onboarding UI' },
+  { value: '3,527', text: 'Component instances, no element designed from scratch' },
+];
+
+// `upcoming` rows are greyed out with a hollow dot.
+const days = [
+  { date: '21 Jul', day: 'Tue afternoon', title: 'System started', text: 'Foundations file set up. Primitives defined. Last 3 to 4 hours of the working day.' },
+  { date: '22 Jul', day: 'Wed', title: 'Foundations complete', text: 'All three color layers, typography, spacing, radius, and shadows locked in.' },
+  { date: '23 Jul', day: 'Thu', title: 'System complete', text: 'Icon library and full component library ready by end of day.' },
+  { date: '24 Jul', day: 'Fri', title: '96 screens delivered', text: 'Full onboarding UI with edge cases and negative scenarios handed off within the day.' },
+  { date: 'Ongoing', title: 'System grows', text: 'New components added with each new journey. 400 or more screens to date.', upcoming: true },
+];
+---
+
+<Section tone="warm" labelledby="impact-title">
+  <div class="text">
+    <h2 id="impact-title">
+      <span class="line">2.5 days to build the initial system.</span>{' '}
+      <span class="line">1 day to deliver 96 onboarding screens with it.</span>
+    </h2>
+    <p class="text-body-xl lead">
+      The first 2.5 days went into foundations, tokens, and the component library. On day four I
+      began designing. By end of day 96 onboarding screens were completed and delivered, with edge
+      cases, negative scenarios, and full component coverage.
+    </p>
+  </div>
+
+  <div class="stats">
+    <ul class="bento" role="list">
+      {bigStats.map(({ label, value, unit, text, narrow }) => (
+        <li class="card big">
+          <p class="card-label text-label-m">{label}</p>
+          <p class="figure">
+            <span class="value text-number-l">{value}</span>
+            <span class="unit text-title-l">{unit}</span>
+            <span class:list={['desc text-body-l', { narrow }]}>{text}</span>
+          </p>
+        </li>
+      ))}
+      {smallStats.map(({ value, text }) => (
+        <li class="card small">
+          <p class="figure">
+            <span class="value-sm text-h4">{value}</span>
+            <span class="desc narrow text-body-l">{text}</span>
+          </p>
+        </li>
+      ))}
+    </ul>
+    <p class="caption text-body-l">
+      3,527 instances built from 273 reusable components, without recreating a single element
+      independently. That's what the initial investment made possible.
+    </p>
+  </div>
+
+  <div class="timeline">
+    <h3 class="timeline-title text-label-s">How the days looked</h3>
+    <ol class="days" role="list">
+      {days.map(({ date, day, title, text, upcoming }) => (
+        <li class:list={['day', { upcoming }]}>
+          <p class="date text-body-l">
+            <span class="line">{date}</span>
+            {day && (
+              <>
+                <span class="date-sep" aria-hidden="true">{'\u00a0\u00a0·  '}</span>
+                <span class="line">{day}</span>
+              </>
+            )}
+          </p>
+          <span class="marker"><Dot hollow={upcoming} /></span>
+          <div class="entry">
+            <p class="entry-title text-title-l">{title}</p>
+            <p class="entry-text text-body-l">{text}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</Section>
+
+<style>
+  /* Gap between the three blocks (intro, stats, timeline), as in Figma. Divider dropped (user). */
+  .text,
+  .stats {
+    margin-bottom: var(--space-56);
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  h2 {
+    color: var(--text-primary);
+  }
+
+  .lead {
+    max-width: 500px;
+    color: var(--text-secondary);
+  }
+
+  /* Bento: two columns from tablet up, one on mobile. Outline from Figma dropped (user). */
+  .stats {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  .bento {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-24);
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-md);
+    background-color: var(--bg-cards);
+  }
+
+  .big {
+    gap: var(--space-40);
+    padding: var(--space-40) var(--space-36);
+  }
+
+  /* Figma padding 28/36, snapped to 32/36. */
+  .small {
+    padding: var(--space-32) var(--space-36);
+  }
+
+  .card-label {
+    color: var(--text-tertiary);
+  }
+
+  .figure {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .big .figure {
+    gap: var(--space-8);
+  }
+
+  .small .figure {
+    gap: var(--space-6);
+  }
+
+  .value {
+    color: var(--text-sampath);
+  }
+
+  .unit,
+  .value-sm {
+    color: var(--text-primary);
+  }
+
+  .desc {
+    max-width: 311px;
+    color: var(--text-secondary);
+  }
+
+  .desc.narrow {
+    max-width: 200px;
+  }
+
+  .caption {
+    max-width: 540px;
+    color: var(--text-secondary);
+  }
+
+  /* Timeline */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  .timeline-title {
+    color: var(--text-primary);
+  }
+
+  .days {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  /* Mobile: date on its own line, then dot + text. Figma padding 18 snapped to 16, gaps 20 to 24. */
+  .day {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      'date date'
+      'marker entry';
+    column-gap: var(--space-24);
+    row-gap: var(--space-8);
+    padding-block: var(--space-16);
+    border-top: 1px solid var(--sampath-border-warm);
+  }
+
+  /* Hairlines only between rows, not above the first or below the last (user). */
+  .day:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .date {
+    grid-area: date;
+    color: var(--text-tertiary);
+  }
+
+  .line {
+    display: block;
+  }
+
+  /* Separator between date and day, shown only on mobile where they share a line. */
+  .date-sep {
+    display: none;
+    white-space: pre-wrap;
+  }
+
+  /* As tall as the title line, so the dot centres on it. */
+  .marker {
+    grid-area: marker;
+    display: flex;
+    align-items: center;
+    height: var(--title-l-line);
+  }
+
+  .entry {
+    grid-area: entry;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    min-width: 0;
+  }
+
+  .entry-title {
+    color: var(--text-primary);
+  }
+
+  .entry-text {
+    color: var(--text-secondary);
+  }
+
+  .upcoming .date,
+  .upcoming .entry-title,
+  .upcoming .entry-text {
+    color: var(--text-light);
+  }
+
+  /* Tablet and up: two-column bento; timeline rows become date · dot · text. */
+  @media (min-width: 768px) {
+    .bento {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .day {
+      grid-template-columns: 120px auto 1fr;
+      grid-template-areas: 'date marker entry';
+      row-gap: 0;
+    }
+  }
+
+  /* Mobile: the heading wraps naturally instead of breaking after "system." */
+  @media (max-width: 767px) {
+    h2 .line,
+    .date .line {
+      display: inline;
+    }
+
+    /* Date and day on one line: "21 Jul · Tue afternoon" (user). */
+    .date-sep {
+      display: inline;
+    }
+  }
+</style>

@@ -3,6 +3,7 @@
 import { Image } from 'astro:assets';
 import photo from '../../assets/images/sampath/01_hero__hero.png';
 import overlay from '../../assets/images/sampath/00_hero__hero-meta-overlay.png';
+import Dot from './Dot.astro';
 
 // Joins items with the Figma separator ("  ·  "); the non-breaking spaces keep each dot
 // on the line before it when the text wraps.
@@ -32,7 +33,7 @@ const meta = [
 
     <div class="intro container">
       <p class="eyebrow text-h6">
-        <span class="dot" aria-hidden="true"></span>
+        <Dot />
         <span class="eyebrow-text">{list('Design system', 'Fintech', 'Sri Lanka', '2025')}</span>
       </p>
       <h1 id="hero-title" class="title">
@@ -125,14 +126,6 @@ const meta = [
 
   .eyebrow-text {
     white-space: pre-wrap;
-  }
-
-  .dot {
-    flex: none;
-    width: var(--space-8);
-    height: var(--space-8);
-    border-radius: var(--radius-full);
-    background-color: var(--fg-sampath);
   }
 
   .title {

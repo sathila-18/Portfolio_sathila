@@ -95,7 +95,7 @@ Status values: `not started` · `in progress` · `approved`
 | 03 · Building the System | approved |
 | 04 · Components | approved |
 | Transition image band | approved |
-| 05 · Impact | not started |
+| 05 · Impact | approved |
 | 06 · Built to Last | not started |
 | 07 · Delivery | not started |
 | 08 · Reflection | not started |

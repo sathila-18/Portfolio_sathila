@@ -1,0 +1,26 @@
+---
+// Sampath › 8px dot: filled orange (hero eyebrow, timeline), or a hollow grey ring for
+// not-yet-done timeline steps (Figma #A09484, mapped to text-light, confirmed by the user).
+interface Props {
+  hollow?: boolean;
+}
+
+const { hollow = false } = Astro.props;
+---
+
+<span class:list={['dot', { hollow }]} aria-hidden="true"></span>
+
+<style>
+  .dot {
+    flex: none;
+    width: var(--space-8);
+    height: var(--space-8);
+    border-radius: var(--radius-full);
+    background-color: var(--fg-sampath);
+  }
+
+  .hollow {
+    border: 1px solid var(--text-light);
+    background-color: transparent;
+  }
+</style>
