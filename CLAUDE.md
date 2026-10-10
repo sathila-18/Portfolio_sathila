@@ -98,4 +98,4 @@ Status values: `not started` · `in progress` · `approved`
 | 05 · Impact | approved |
 | 06 · Built to Last | approved |
 | 07 · Delivery | approved |
-| 08 · Reflection | not started |
+| 08 · Reflection | approved |

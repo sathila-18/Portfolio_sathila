@@ -220,6 +220,8 @@
   --sampath-bg-warm: #F7F3EF;
   --sampath-bg-warm-alt: #EDEAE5;
   --sampath-border-warm: #E0D9D0;
+  /* Hairlines on sampath-bg-warm-alt ("Reflection"), where border-warm is too faint. */
+  --sampath-border-warm-alt: #D4CEC8;
   --sampath-bg-dark: #141416;
   --sampath-bg-dark-alt: #313136;
   --sampath-card-dark: #3C3C41;

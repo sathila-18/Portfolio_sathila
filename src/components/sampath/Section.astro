@@ -1,8 +1,8 @@
 ---
 // Sampath › numbered section band (DESIGN.md › Layout › Sampath case study, item 3):
-// full-bleed warm or dark background, 1200 container with 64px side and 120px vertical padding.
+// full-bleed warm, warm-alt or dark background, 1200 container with 64px side and 120px vertical padding.
 interface Props {
-  tone: 'warm' | 'dark';
+  tone: 'warm' | 'warm-alt' | 'dark';
   /** id of the section heading, for aria-labelledby. */
   labelledby: string;
   /** Bottom padding of 56 instead of 120 (80 on mobile), e.g. when an image band follows. */
@@ -26,6 +26,10 @@ const { tone, labelledby, tightBottom = false } = Astro.props;
 <style>
   .warm {
     background-color: var(--sampath-bg-warm);
+  }
+
+  .warm-alt {
+    background-color: var(--sampath-bg-warm-alt);
   }
 
   .dark {
