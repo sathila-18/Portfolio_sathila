@@ -20,7 +20,7 @@ Portfolio site for Sathila De Silva: Home plus three case studies (MEGT, Pearl, 
 2. After each section, stop, show the user what was built, and wait for approval before starting the next section.
 3. Never start a new page until the user says so.
 4. Before each page, wait for the user's Figma design details, and use them as the source of truth for that page.
-5. Commit after each approved section.
+5. When the user says "approved", commit and push to GitHub straight away, without asking.
 6. Update the Progress section below after each step: section started, section approved, page done.
 
 ## Gotchas
@@ -96,6 +96,6 @@ Status values: `not started` · `in progress` · `approved`
 | 04 · Components | approved |
 | Transition image band | approved |
 | 05 · Impact | approved |
-| 06 · Built to Last | not started |
+| 06 · Built to Last | approved |
 | 07 · Delivery | not started |
 | 08 · Reflection | not started |

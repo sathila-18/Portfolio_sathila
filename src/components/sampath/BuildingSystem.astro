@@ -478,5 +478,40 @@ const lightLines = [
     .cols {
       gap: var(--space-16);
     }
+
+    /* Panels zoom in 1.25× (confirmed by the user): the canvas is 1.25× the panel width, the
+       panel 1.25× taller, and the canvas shifts left by its 10% overflow so the crop stays
+       centred (107.2 Figma px off each side). */
+    .panel {
+      --u: calc(1.25 * 100cqw / 1072);
+      --crop: calc(-107.2 * var(--u));
+      aspect-ratio: 857.6 / 520;
+    }
+
+    .phone,
+    .chip,
+    .type-sheet,
+    .type-detail,
+    .icon-sheet {
+      margin-left: var(--crop);
+    }
+
+    .lines {
+      left: var(--crop);
+      width: calc(1072 * var(--u));
+    }
+
+    /* Type sheet starts 16px in from the panel's left edge (user). */
+    .type-sheet {
+      left: var(--space-16);
+      margin-left: 0;
+    }
+
+    /* Icons are never cropped (user): this panel keeps the unzoomed scale, so the full sheet
+       width fits, and uses the extra height to show more rows. */
+    .icons {
+      --u: calc(100cqw / 1072);
+      --crop: 0px;
+    }
   }
 </style>

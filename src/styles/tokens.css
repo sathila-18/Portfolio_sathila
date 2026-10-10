@@ -242,6 +242,8 @@
   --sampath-bg-darker: #0E0E10;
   /* Sampath "Components": before/after cards on the dark band (#F0EDE8 at 11%). */
   --sampath-card-translucent: rgb(240 237 232 / 0.11);
+  /* Sampath "Built to Last": token / JSON split panel on the dark band. */
+  --sampath-panel-translucent: rgb(0 0 0 / 0.3);
 
   /* ── Gradients (only on the elements listed in DESIGN.md) ────────── */
 

@@ -365,6 +365,25 @@ const stats = [
   /* ── Mobile ────────────────────────────────────────────────────── */
 
   @media (max-width: 767px) {
+    /* Anatomy panel zooms in 1.25× (confirmed by the user): the canvas is 1.25× the panel
+       width, the panel 1.25× taller, and the canvas shifts left by its 10% overflow so the crop
+       stays centred (86.4 Figma px off each side). */
+    .panel {
+      --u: calc(1.25 * 100cqw / 864);
+      aspect-ratio: 691.2 / 472;
+    }
+
+    .doc,
+    .props {
+      margin-left: calc(-86.4 * var(--u));
+    }
+
+    /* Doc page starts 16px in from the panel's left edge (user). */
+    .doc {
+      left: var(--space-16);
+      margin-left: 0;
+    }
+
     .ba,
     .stats {
       grid-template-columns: 1fr;

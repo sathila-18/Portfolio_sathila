@@ -1,0 +1,334 @@
+---
+// Sampath › 06 — Built to Last: intro, then two label/content rows (Documentation, Agentic
+// system) separated by a rule. Same row layout as 04 — Components.
+//
+// The doc panel is an 864 × 472 canvas (`--u` is one Figma pixel), like the anatomy panel.
+// Figma's panel is 912 wide (its row has no gap); both pages shift left 24 to stay centred.
+import { Image } from 'astro:assets';
+import Section from './Section.astro';
+import BrokenLink from '../../assets/icons/sampath/broken-link.svg';
+import docPage from '../../assets/images/sampath/21_06-built-to-last__image-185.png';
+import avatarDoc from '../../assets/images/sampath/28_06-built-to-last__image-187.png';
+import tokenPanel from '../../assets/images/sampath/22_06-built-to-last__screenshot-2026-09-12-at-22-07-39-2.png';
+import jsonExport from '../../assets/images/sampath/24_06-built-to-last__screenshot-2026-09-12-at-22-02-57-1.png';
+---
+
+<Section tone="dark" labelledby="built-to-last-title">
+  <div class="text">
+    <h2 id="built-to-last-title">
+      <span class="line">Built for more than</span> <span class="line">the first delivery.</span>
+    </h2>
+    <p class="text-body-xl lead">
+      Once the initial journeys were shipped, the focus shifted to making the system legible to
+      everyone who would use it. Not just designers and developers.
+    </p>
+  </div>
+
+  <div class="rows">
+    <!-- Documentation · Written for everyone -->
+    <div class="row">
+      <div class="row-label">
+        <p class="text-label-m eyebrow">Documentation</p>
+        <h3 class="text-title-l">Written for everyone</h3>
+      </div>
+      <div class="row-content">
+        <p class="text-body-l body">
+          Token descriptions were written as usage instructions, not just names. Component docs
+          were structured so PMs, BAs, and leads could read and act on them without a
+          walkthrough. And so AI agents could too.
+        </p>
+        <figure class="figure">
+          <div
+            class="panel"
+            role="img"
+            aria-label="Component documentation in Figma: the Color page, listing each background token with its light and dark values and a usage description, and the Avatar component page, with its overview, usage guidance and anatomy."
+          >
+            <Image class="doc doc-color" src={docPage} alt="" widths={[330, 660]} sizes="(min-width: 1200px) 330px, 38vw" />
+            <Image class="doc doc-avatar" src={avatarDoc} alt="" widths={[279, 558]} sizes="(min-width: 1200px) 279px, 32vw" />
+          </div>
+        </figure>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Agentic system · Machine-readable by design -->
+    <div class="row">
+      <div class="row-label">
+        <p class="text-label-m eyebrow">Agentic system</p>
+        <h3 class="text-title-l">Machine-readable by design</h3>
+      </div>
+      <div class="row-content">
+        <p class="text-body-l body">
+          If a screen is going to be generated from this system, the documentation needs to be
+          machine-readable, not just human-readable. A JSON export of all variables was run
+          through Claude, which caught two 900-shade alias tokens that were not linked correctly.
+          The system ran a quality check on itself.
+        </p>
+
+        <div class="split">
+          <figure class="split-col">
+            <figcaption class="text-body-m split-title">Token with usage description</figcaption>
+            <div class="code code-centre">
+              <Image
+                class="token-shot"
+                src={tokenPanel}
+                alt="The bg-primary variable in Figma, with the description “Use this for main background of the screens” and its light and dark values."
+                widths={[232, 464]}
+                sizes="232px"
+              />
+            </div>
+          </figure>
+          <figure class="split-col">
+            <figcaption class="text-body-m split-title">Same token in JSON export</figcaption>
+            <div class="code">
+              <!-- Shows the top-left 377 × 313 of the export, as in Figma. -->
+              <div class="json-crop">
+                <Image
+                  class="json-shot"
+                  src={jsonExport}
+                  alt="The exported code: each colour token, such as bgPrimary, carries its Figma name and usage description as a comment."
+                  widths={[597, 1194]}
+                  sizes="597px"
+                />
+              </div>
+            </div>
+          </figure>
+        </div>
+
+        <p class="note">
+          <span class="note-icon" aria-hidden="true"><BrokenLink width={24} height={24} /></span>
+          <span class="text-body-m">
+            The initial JSON export caught two 900-shade alias tokens that were not linked
+            correctly. The system ran a quality check on itself.
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  /* ── Intro ─────────────────────────────────────────────────────── */
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  h2,
+  h3 {
+    color: var(--text-sampath-secondary);
+  }
+
+  /* Two lines from tablet up, as in Figma; on mobile it wraps naturally. */
+  @media (min-width: 768px) {
+    .line {
+      display: block;
+    }
+  }
+
+  .lead {
+    max-width: 500px;
+    color: var(--text-light);
+  }
+
+  /* ── Rows: 160 label column, 48 gap, content; 56 around the rule ─ */
+
+  .rows {
+    margin-top: var(--space-56);
+  }
+
+  /* Figma's first row has no gap; 48 as in the second row (confirmed by the user). */
+  .row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: var(--space-48);
+  }
+
+  hr {
+    margin-block: var(--space-56);
+    border: 0;
+    border-top: 1px solid var(--sampath-card-dark);
+  }
+
+  .row-label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .eyebrow {
+    color: var(--text-sampath);
+  }
+
+  /* Figma gap 20, snapped to 24. */
+  .row-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+    min-width: 0;
+  }
+
+  .body {
+    color: var(--text-light);
+  }
+
+  /* ── Doc panel: 864 × 472 canvas ───────────────────────────────── */
+
+  .figure {
+    container-type: inline-size;
+  }
+
+  /* Figma fill #262629 mapped to sampath-card-dark, radius 10 snapped to rounded.sm (user). */
+  .panel {
+    --u: calc(100cqw / 864);
+    position: relative;
+    aspect-ratio: 864 / 472;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background-color: var(--sampath-card-dark);
+  }
+
+  /* Both pages are cropped by the panel's bottom edge, as in Figma. */
+  .doc {
+    position: absolute;
+    height: auto;
+  }
+
+  .doc-color {
+    left: calc(100 * var(--u));
+    top: calc(70 * var(--u));
+    width: calc(330 * var(--u));
+  }
+
+  .doc-avatar {
+    left: calc(484 * var(--u));
+    top: calc(21 * var(--u));
+    width: calc(279 * var(--u));
+  }
+
+  /* ── Token / JSON split ────────────────────────────────────────── */
+
+  /* Figma radius 10 snapped to rounded.sm. */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    border: 0.5px solid var(--sampath-border-white-subtle);
+    border-radius: var(--radius-sm);
+    background-color: var(--sampath-panel-translucent);
+  }
+
+  /* Figma padding 16/18, snapped to 16. */
+  .split-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+    min-width: 0;
+    padding: var(--space-16);
+  }
+
+  .split-col + .split-col {
+    border-left: 0.5px solid var(--sampath-border-white-subtle);
+  }
+
+  /* Figma sets this in Inter 14; site font at the same size (DESIGN.md › Typography). */
+  .split-title {
+    color: var(--text-white);
+  }
+
+  /* Figma padding 14/12 snapped to 12, radius 12 to rounded.sm (user). */
+  .code {
+    display: flex;
+    overflow: hidden;
+    padding: var(--space-12);
+    border-radius: var(--radius-sm);
+    background-color: var(--sampath-bg-dark);
+    opacity: 0.8;
+  }
+
+  .code-centre {
+    justify-content: center;
+  }
+
+  .token-shot {
+    width: 232px;
+    height: auto;
+  }
+
+  .json-crop {
+    flex: none;
+    width: 377px;
+    height: 313px;
+    overflow: hidden;
+  }
+
+  .json-shot {
+    width: 158.36%;
+    max-width: none;
+    height: auto;
+    margin-left: -0.27%;
+  }
+
+  /* ── Note (same as 02 and 04). Figma: padding 20/16, radii 10 and 5, snapped. ── */
+
+  .note {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+    padding: var(--space-16) var(--space-24);
+    border: 0.5px solid var(--sampath-note-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--sampath-note-bg);
+    color: var(--text-sampath-secondary);
+  }
+
+  .note-icon {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background-color: var(--sampath-note-icon-bg);
+  }
+
+  /* ── Tablet: the label sits above its content ──────────────────── */
+
+  @media (max-width: 1199px) {
+    .row {
+      grid-template-columns: 1fr;
+      gap: var(--space-24);
+    }
+  }
+
+  /* ── Mobile: token panels stack; 32 either side of the rule, as in 04 ── */
+
+  @media (max-width: 767px) {
+    hr {
+      margin-block: var(--space-32);
+    }
+
+    /* Doc panel zooms in 1.25×, like 03 and 04 (confirmed by the user); centred crop of
+       86.4 Figma px off each side. */
+    .panel {
+      --u: calc(1.25 * 100cqw / 864);
+      aspect-ratio: 691.2 / 472;
+    }
+
+    .doc {
+      margin-left: calc(-86.4 * var(--u));
+    }
+
+    .split {
+      grid-template-columns: 1fr;
+    }
+
+    .split-col + .split-col {
+      border-top: 0.5px solid var(--sampath-border-white-subtle);
+      border-left: 0;
+    }
+  }
+</style>
