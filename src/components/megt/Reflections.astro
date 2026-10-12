@@ -1,0 +1,170 @@
+---
+// MEGT › Honest reflections (DESIGN.md › Layout › MEGT case study, item 6): section heading, then
+// five reflections, two per row with the last centred, rows 80 apart. Each card is 516 tall as in
+// Figma, text at the bottom and a particle mark (✓ or ✗) centred in the space above it. White
+// cards with rounded.md on bg-subtle (user's decision; Figma has no card background).
+// 120px under Design system; Figma's 207 to the footer snapped to 240.
+import SectionHeading from './SectionHeading.astro';
+import ParticleMark from './ParticleMark.astro';
+
+// Widths are Figma's text boxes, so the titles and takeaways wrap as designed.
+const reflections = [
+  {
+    keep: true,
+    title: 'Building the design system first was the right call',
+    titleWidth: 446,
+    body: "The design system is not what you cut when time is tight. It's what makes cutting time elsewhere possible. Anywhere I control the timeline, foundation work happens before feature work, not after.",
+    takeaway: 'Front-load the foundation.\nAlways.',
+  },
+  {
+    keep: false,
+    title: 'I got the type scale wrong early on',
+    titleWidth: 298,
+    body: 'H6 at 16px, H5 at 26px — a 10px jump that reads dramatically heavy in a UI built around dense enterprise tables. I caught it mid-project, which meant reworking screens already in progress.',
+    takeaway: 'Test the type scale across 5–6 real screen types before committing. An hour upfront prevents days of rework.',
+  },
+  {
+    keep: true,
+    title: 'Designing the dashboard last was the right decision',
+    titleWidth: 446,
+    body: "This one paid off, but it's a bet. Deferring a visible deliverable requires a client who trusts the sequencing. Worth naming as a risk I'd flag upfront next time, not just a decision I got right this time.",
+    takeaway: "Don't design the summary view before you understand what it's summarising.",
+    takeawayWidth: 472,
+  },
+  {
+    keep: false,
+    title: 'We did zero user testing with actual MEGT staff',
+    titleWidth: 446,
+    body: "The client was happy with the designs. But client approval is not the same as user validation. We never ran a session with the case workers who'll be in this tool every day. The workflow builder in particular is complex — it deserved real user scrutiny before handoff.",
+    takeaway: 'Push for at least three usability sessions before dev handoff on any flow that introduces a new interaction pattern.',
+  },
+  {
+    keep: true,
+    title: 'Desktop-only for the builder was the right constraint',
+    titleWidth: 446,
+    body: "Not every interface needs to work on every screen. The form builder is an admin tool — it's used at a desk. The assessment view is used in the field. Designing for both contexts separately produced better outcomes for both.",
+    takeaway: 'Knowing what a tool is actually for is a design decision in itself.',
+    takeawayWidth: 417,
+  },
+];
+---
+
+<section id="reflections" class="reflections" aria-labelledby="reflections-title">
+  <SectionHeading id="reflections-title" eyebrow="Honest reflections" width={687}>
+    What I’d do the same. What I’d change
+  </SectionHeading>
+
+  <ul class="cards">
+    {reflections.map(({ keep, title, titleWidth, body, takeaway, takeawayWidth }) => (
+      <li class="card" tabindex="0" data-particle-trigger>
+        <div class="art">
+          <ParticleMark mark={keep ? 'check' : 'cross'} />
+        </div>
+        <h3 class="text-h6" style={`max-width: ${titleWidth}px`}>
+          <span class="visually-hidden">{keep ? 'Would keep' : 'Would change'}: </span>{title}
+        </h3>
+        <p class="body text-body-l">{body}</p>
+        <p class="takeaway text-title-m" style={takeawayWidth ? `max-width: ${takeawayWidth}px` : undefined}>{takeaway}</p>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .reflections {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-48);
+    margin-block: var(--space-120) var(--space-240);
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-80) var(--space-24);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Figma: 588 × 516, padding 24, gap 24, centred text at the bottom; white card (user). */
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-24);
+    min-height: 516px;
+    padding: var(--space-24);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-cards);
+    text-align: center;
+  }
+
+  .card:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .card:last-child {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc((100% - var(--space-24)) / 2);
+  }
+
+  /* The particles fill the top of the card, out to its edges; the mark forms at the centre. */
+  .card {
+    overflow: hidden;
+  }
+
+  .art {
+    position: relative;
+    flex: 1;
+    align-self: stretch;
+    min-height: 160px;
+    margin: calc(-1 * var(--space-24)) calc(-1 * var(--space-24)) 0;
+  }
+
+  h3 {
+    color: var(--text-primary);
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .body {
+    color: var(--text-secondary);
+  }
+
+  .takeaway {
+    color: var(--text-tertiary);
+    white-space: pre-line;
+  }
+
+  /* Mobile: one per row, as tall as their content. */
+  @media (max-width: 767px) {
+    .reflections {
+      margin-bottom: var(--space-120);
+    }
+
+    .cards {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: var(--space-48);
+    }
+
+    .card {
+      min-height: 0;
+      padding: var(--space-16);
+    }
+
+    .art {
+      flex: none;
+      height: 216px;
+      margin: calc(-1 * var(--space-16)) calc(-1 * var(--space-16)) 0;
+    }
+
+    .card:last-child {
+      width: 100%;
+    }
+  }
+</style>

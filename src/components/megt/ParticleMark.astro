@@ -1,0 +1,200 @@
+---
+// MEGT › Particle mark: a canvas that fills its parent (give the parent a size and position:
+// relative), with ~250 dots drifting loosely across all of it that ease into a 160px ✓ or ✗ at
+// the centre while its trigger (the closest [data-particle-trigger]) is hovered or focused, and on
+// touch devices while it's on screen. With reduced motion the mark is drawn once, still.
+// Canvas 2D, no libraries. Decorative: the item carries a visually hidden label instead.
+interface Props {
+  mark: 'check' | 'cross';
+}
+
+const { mark } = Astro.props;
+---
+
+<canvas class:list={['particle-mark', mark]} data-mark={mark} aria-hidden="true"></canvas>
+
+<style>
+  /* Colours come from tokens; the script reads them from these properties. */
+  .particle-mark {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: var(--text-light);
+  }
+
+  .check {
+    --mark-color: var(--primary-500);
+  }
+
+  .cross {
+    --mark-color: var(--feedback-negative);
+  }
+</style>
+
+<script>
+  const SIZE = 160; // the mark, CSS px
+  const SPREAD_X = 0.46; // how far the cloud reaches from the centre, as a share of the width…
+  const SPREAD_Y = 0.44; // …and height (it fills nearly the whole canvas)
+  const COUNT = 250;
+  const DURATION = 600; // ms, cloud ↔ mark
+  // Marks in a 100-unit box, sampled along their strokes so the dots form clean lines.
+  const PATHS = {
+    check: 'M22 54 L42 74 L80 30',
+    cross: 'M28 28 L72 72 M72 28 L28 72',
+  } as const;
+  const STROKE = 9; // units: how thick the dotted stroke is
+
+  type Mark = keyof typeof PATHS;
+  // Cloud position (u, v) in a -1…1 square; mark position relative to the mark's 160 box.
+  type Dot = { u: number; v: number; mx: number; my: number; r: number; ax: number; ay: number; sx: number; sy: number };
+
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const touch = matchMedia('(hover: none)');
+  const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+
+  // Resolves a CSS colour (including var()) to [r, g, b].
+  const probe = document.createElement('span');
+  probe.style.display = 'none';
+  document.body.append(probe);
+  const rgb = (value: string) => {
+    probe.style.color = value;
+    return (getComputedStyle(probe).color.match(/[\d.]+/g) ?? ['0', '0', '0']).slice(0, 3).map(Number);
+  };
+
+  // Even points along the mark's strokes, jittered across the stroke width.
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
+  document.body.append(svg);
+  const markPoints = (mark: Mark) => {
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', PATHS[mark]);
+    svg.append(path);
+    const total = path.getTotalLength();
+    const scale = SIZE / 100;
+    const points = Array.from({ length: COUNT }, (_, i) => {
+      const at = ((i + Math.random()) / COUNT) * total;
+      const p = path.getPointAtLength(at);
+      const q = path.getPointAtLength(Math.min(total, at + 0.5));
+      const len = Math.hypot(q.x - p.x, q.y - p.y) || 1;
+      const off = (Math.random() - 0.5) * STROKE;
+      return { x: (p.x - ((q.y - p.y) / len) * off) * scale, y: (p.y + ((q.x - p.x) / len) * off) * scale };
+    });
+    path.remove();
+    return points;
+  };
+
+  for (const canvas of document.querySelectorAll<HTMLCanvasElement>('canvas.particle-mark')) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) continue;
+    const mark = canvas.dataset.mark as Mark;
+    const trigger = canvas.closest<HTMLElement>('[data-particle-trigger]') ?? canvas;
+
+    // Sized to its box (DPR capped at 2), kept in step on resize.
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let width = 0;
+    let height = 0;
+    const resize = () => {
+      width = canvas.clientWidth;
+      height = canvas.clientHeight;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+
+    const idle = rgb(getComputedStyle(canvas).color);
+    const active = rgb(getComputedStyle(canvas).getPropertyValue('--mark-color').trim());
+
+    const targets = markPoints(mark);
+    const dots: Dot[] = targets.map((t) => {
+      return {
+        u: Math.random() * 2 - 1,
+        v: Math.random() * 2 - 1,
+        mx: t.x,
+        my: t.y,
+        r: 1 + Math.random() * 0.5, // 2–3px dots
+        ax: Math.random() * Math.PI * 2,
+        ay: Math.random() * Math.PI * 2,
+        sx: 0.3 + Math.random() * 0.5,
+        sy: 0.3 + Math.random() * 0.5,
+      };
+    });
+
+    // progress 0 = cloud, 1 = mark; animated towards `target`.
+    let progress = 0;
+    let target = 0;
+    let from = 0;
+    let started = 0;
+
+    const draw = (time: number) => {
+      const p = easeInOut(progress);
+      const drift = 6 * (1 - p * 0.85); // the mark keeps a faint shimmer
+      const t = time / 1000;
+      const [r, g, b] = idle.map((c, i) => Math.round(c + (active[i] - c) * p));
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = `rgb(${r} ${g} ${b})`;
+      const midX = width / 2;
+      const midY = height / 2;
+      for (const d of dots) {
+        const cx = midX + d.u * width * SPREAD_X;
+        const cy = midY + d.v * height * SPREAD_Y;
+        const mx = midX - SIZE / 2 + d.mx;
+        const my = midY - SIZE / 2 + d.my;
+        const x = cx + (mx - cx) * p + Math.sin(t * d.sx + d.ax) * drift;
+        const y = cy + (my - cy) * p + Math.cos(t * d.sy + d.ay) * drift;
+        ctx.beginPath();
+        ctx.arc(x, y, d.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    };
+
+    // Reduced motion: the mark, drawn once and left still (redrawn if the box resizes).
+    if (reduceMotion.matches) {
+      progress = 1;
+      draw(0);
+      new ResizeObserver(() => {
+        resize();
+        draw(0);
+      }).observe(canvas);
+      continue;
+    }
+    new ResizeObserver(resize).observe(canvas);
+
+    let visible = false;
+    let frame = 0;
+    const tick = (time: number) => {
+      if (progress !== target) {
+        if (!started) started = time;
+        const step = Math.min(1, (time - started) / DURATION);
+        progress = from + (target - from) * step;
+        if (step === 1) progress = target;
+      }
+      draw(time);
+      frame = visible ? requestAnimationFrame(tick) : 0;
+    };
+    const setTarget = (value: number) => {
+      if (value === target) return;
+      from = progress;
+      target = value;
+      started = 0;
+    };
+
+    // Only animate while on screen; on touch devices, being on screen is the trigger.
+    new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (touch.matches) setTarget(entry.intersectionRatio >= 0.6 ? 1 : 0);
+        if (visible && !frame) frame = requestAnimationFrame(tick);
+      },
+      { threshold: [0, 0.6] },
+    ).observe(canvas);
+
+    trigger.addEventListener('mouseenter', () => setTarget(1));
+    trigger.addEventListener('mouseleave', () => setTarget(0));
+    trigger.addEventListener('focusin', () => setTarget(1));
+    trigger.addEventListener('focusout', () => setTarget(0));
+  }
+</script>

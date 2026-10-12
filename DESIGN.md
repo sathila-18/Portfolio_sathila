@@ -202,6 +202,7 @@ colors:
   bg-icon-subtle: "{colors.primary-50}" # footer social-icon circles
   text-heading-brand: "{colors.primary-900}" # case-study section headings (h2), metadata labels (#313E29)
   text-link-active: "{colors.primary-500}" # active sidebar link, "Go back"
+  feedback-negative: "#E8706A" # ✗ marks in MEGT Honest reflections (the ✓ marks use primary-500)
   border-media: "{colors.tertiary-3-100}" # 1px outline on product screenshots (#C0C0C0)
   # ── Case-study backgrounds (local to each case study, never global) ──
   pearl-bg: "#F2F4FF" # Pearl page + alternating sections (with white)
@@ -548,6 +549,7 @@ own tokens (`text-pearl*`, `text-sampath*`).
 | `text-secondary` | #767676 | Lead paragraphs, body copy, metadata values, footer |
 | `text-label` | #6A8659 | Project category line ("Enterprise • Product Design • Web App") |
 | `text-link-active` | #749362 | Active sidebar link, "Go back" |
+| `feedback-negative` | #E8706A | ✗ marks in MEGT Honest reflections ("Would change"); the ✓ marks use `primary-500` |
 | `text-white` / `text-off-white` | #FFFFFF / #EBEBEB | Headings / body on dark sections (MEGT, Pearl) |
 | `text-sampath-secondary` / `text-light` | #FEF2E9 / #A1A1A1 | Headings / body on Sampath dark sections |
 | `text-sampath` | #F57921 | Sampath eyebrows on dark sections, big Sampath numbers |
