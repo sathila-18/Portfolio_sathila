@@ -43,4 +43,11 @@ import Section from './Section.astro';
     margin-top: var(--space-16);
     color: var(--text-secondary);
   }
+
+  /* Mobile: 24 between the headline and the text, the same in every section (user). */
+  @media (max-width: 767px) {
+    .lead {
+      margin-top: var(--space-24);
+    }
+  }
 </style>

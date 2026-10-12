@@ -77,10 +77,11 @@ const hasBleed = Astro.slots.has('bleed');
     }
   }
 
-  /* Mobile: shorter vertical padding, as in the Sampath bands. */
+  /* Mobile: 48 top and bottom on every numbered section, compact ones included (user). */
   @media (max-width: 767px) {
-    .inner {
-      padding-block: var(--space-80);
+    .inner,
+    .inner.compact {
+      padding-block: var(--space-48);
     }
 
     .inner.has-bleed {
@@ -88,7 +89,7 @@ const hasBleed = Astro.slots.has('bleed');
     }
 
     .bleed {
-      padding-bottom: var(--space-80);
+      padding-bottom: var(--space-48);
     }
   }
 </style>

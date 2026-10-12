@@ -33,7 +33,7 @@ const stats = [
         is the clearest example — one base component with 8 core variants generated roughly 90
         downstream variants, covering every style and state combination.
       </p>
-      <p>
+      <p class="text-body-l-mobile">
         That structure paid for itself the first time it mattered. Mid-project, the client asked
         to move the input label from inside the field to sitting on the border. Instead of
         updating 90 variants individually, I changed the base component once. Everything
@@ -52,7 +52,7 @@ const stats = [
   </dl>
 
   <div class="column">
-    <p class="text-body-xl focus">
+    <p class="text-body-xl text-body-l-mobile focus">
       The same logic shaped harder calls, like focus states. Mobile and web needed different
       treatments — a border adjustment on mobile, a visible ring on web, a specific fix where a
       ring was causing layout shift on forms — and disabled buttons needed their own separate
@@ -64,7 +64,7 @@ const stats = [
     <div class="points">
       <section class="point" aria-labelledby="engine-calls">
         <h3 class="text-title-m point-title" id="engine-calls">The harder calls</h3>
-        <div class="pair text-body-xl">
+        <div class="pair text-body-xl text-body-l-mobile">
           <p>
             Focus itself needed correcting once. Buttons initially treated it as a plain state,
             until it became clear a user could hover or press at the same time — so focus became
@@ -80,7 +80,7 @@ const stats = [
 
       <section class="point" aria-labelledby="engine-test">
         <h3 class="text-title-m point-title" id="engine-test">The harder test</h3>
-        <p class="text-body-xl">
+        <p class="text-body-xl text-body-l-mobile">
           The list component was the hardest test of the model. Duplicating mobile's variants
           into web didn't hold — the structure broke down, so the rebuild started over from just
           the base component, updating slot instances once instead. A second near-miss followed:
@@ -207,10 +207,16 @@ const stats = [
     }
   }
 
-  /* Mobile: stats and the paragraph pair stack. */
+  /* Mobile: badge, label and headline are left-aligned (user); stats and the paragraph
+     pair stack. */
   @media (max-width: 767px) {
+    .heading {
+      align-items: flex-start;
+      text-align: left;
+    }
+
     .lead {
-      margin-top: var(--space-40);
+      margin-top: var(--space-24);
     }
 
     .stats {

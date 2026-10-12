@@ -156,6 +156,15 @@ a {
   font-style: italic;
 }
 
+/* Mobile only: drops body-xl (or pearl-quote) text to the body-l size. Pearl uses it so its
+   paragraphs after each section's lead match Sampath's 16/24 on phones (user). */
+@media (max-width: 767px) {
+  .text-body-l-mobile {
+    font-size: var(--body-l-size);
+    line-height: var(--body-l-line);
+  }
+}
+
 /* ── Layout helpers ────────────────────────────────────────────── */
 
 .container {

@@ -59,13 +59,13 @@ const arrows = [
       components, covering light and dark mode. It's the same shape a pearl grows in: a core,
       wrapped in layer after layer, each one giving the last its finished meaning.
     </p>
-    <p>
+    <p class="text-body-l-mobile">
       The client had already proposed a token structure, but it split colors into too many
       overlapping groups to stay manageable at scale. I simplified it to four scoped groups —
       background, text, border, icon — plus a fifth for overlay and alpha values. Fewer groups,
       same coverage, far easier to maintain as the system grew.
     </p>
-    <p>
+    <p class="text-body-l-mobile">
       Type had its own quiet inconsistency: the original scale resized body, label, and caption
       at every breakpoint, not just headings, so components like input fields changed size along
       with the screen for no real reason. I checked what other production systems did and
@@ -308,6 +308,10 @@ const arrows = [
   }
 
   @media (max-width: 767px) {
+    .columns {
+      margin-top: var(--space-24);
+    }
+
     .note {
       margin-top: var(--space-32);
     }

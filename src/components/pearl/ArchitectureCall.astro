@@ -85,7 +85,7 @@ const lines = [
         ))}
       </ol>
 
-      <div class="columns text-body-xl">
+      <div class="columns text-body-xl text-body-l-mobile">
         <p>
           Splitting mobile and web meant each could carry its own states and interaction patterns.
           Hover and focus on web, touch states on mobile — without either file becoming
@@ -372,6 +372,10 @@ const lines = [
 
   /* Mobile: paragraphs stack, stats stack centred, the diagram scales down whole. */
   @media (max-width: 767px) {
+    .body {
+      margin-top: var(--space-24);
+    }
+
     .columns {
       grid-template-columns: 1fr;
       gap: var(--space-24);

@@ -25,7 +25,7 @@ const split = [
         lucky twice, the same four files, the same tiers, the same base-component discipline held
         from the first screen to the last.
       </p>
-      <p>
+      <p class="text-body-l-mobile">
         Everywhere else, the system meant things went smoothly. The one place it didn't get used
         shows exactly what that smoothness was worth.
       </p>
@@ -125,7 +125,17 @@ const split = [
     color: var(--text-pearl-tertiary);
   }
 
+  /* Mobile: label and headline left-aligned (user); the stats stay centred. */
   @media (max-width: 767px) {
+    .body {
+      margin-top: var(--space-24);
+    }
+
+    .heading {
+      align-items: flex-start;
+      text-align: left;
+    }
+
     .split {
       gap: 0;
     }

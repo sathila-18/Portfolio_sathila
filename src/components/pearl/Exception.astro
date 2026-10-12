@@ -14,7 +14,7 @@ import Section from './Section.astro';
       <span class="rule" aria-hidden="true"></span>
     </aside>
 
-    <div class="body text-pearl-quote">
+    <div class="body text-pearl-quote text-body-l-mobile">
       <p>
         Before Pearl covered dark mode, the client asked for two screens ahead of schedule — Home
         Screen and My Plan. Home Screen made sense early; it settled UI direction everyone needed
@@ -80,6 +80,13 @@ import Section from './Section.astro';
     .layout {
       flex-direction: column;
       gap: var(--space-40);
+    }
+  }
+
+  /* Mobile: 24 between the headline and the text, the same in every section (user). */
+  @media (max-width: 767px) {
+    .layout {
+      gap: var(--space-24);
     }
   }
 </style>
