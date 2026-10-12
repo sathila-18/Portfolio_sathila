@@ -1,0 +1,150 @@
+---
+// Pearl › 07 — Handoff: label, headline, two paragraphs side by side, then the docs panel.
+//
+// The panel is a 975 × 607.6 canvas (`--u` is one Figma pixel) scaled to the column width,
+// like First Move: the hero artwork blurred as a backdrop on the slide fill, a badge
+// documentation page on the left and a header-rules page running off the bottom right.
+// Figma's two screenshot shadows are normalised to shadow-media (DESIGN.md › Elevation).
+import { Image } from 'astro:assets';
+import Section from './Section.astro';
+import backdrop from '../../assets/images/pearl/01_hero__frame-1853320970.png';
+import badgeDocs from '../../assets/images/pearl/15_section-07-handoff__image-139.png';
+import headerRules from '../../assets/images/pearl/16_section-07-handoff__image-154.png';
+---
+
+<Section tone="pearl" width="wide" labelledby="handoff-title">
+  <div class="heading">
+    <p class="text-label-m label">Handoff</p>
+    <h2 id="handoff-title">Packaging a system to outlive the project</h2>
+  </div>
+
+  <div class="columns text-body-xl">
+    <p>
+      Each core component had a Figma documentation page — anatomy, states, and the tokens it
+      pulled from — so Pearl could be picked up by someone who hadn't built it.
+    </p>
+    <p>
+      Handing it over meant migrating four large files into the client's Figma environment,
+      using Figma's native move-file and library-swap features. It mostly went cleanly — until
+      the component library swap, which stalled Figma for over an hour and briefly corrupted some
+      component instances, a known limitation when swapping large libraries. Everything resolved
+      on inspection, but it stretched what should've been a same-day handoff into two.
+    </p>
+  </div>
+
+  <figure class="figure">
+    <div class="panel">
+      <Image class="backdrop" src={backdrop} alt="" widths={[975, 1950]} sizes="(min-width: 1200px) 975px, 100vw" />
+      <Image
+        class="shot badge-docs"
+        src={badgeDocs}
+        alt="Pearl's badge documentation in Figma: an Order Details card with status badges, and the Do guidelines for using them."
+        widths={[550, 906]}
+        sizes="(min-width: 1200px) 550px, 60vw"
+      />
+      <Image
+        class="shot header-rules"
+        src={headerRules}
+        alt="Pearl's header rules documentation: a bottom sheet titled Unlimited Gaming, marked Title is required, with the rules listed below."
+        widths={[896, 1624]}
+        sizes="(min-width: 1200px) 896px, 95vw"
+      />
+    </div>
+  </figure>
+</Section>
+
+<style>
+  /* Figma gaps 20, snapped to 24. */
+  .heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  .label {
+    color: var(--text-tertiary);
+  }
+
+  /* Balanced so it wraps over two even lines rather than leaving "project" alone. */
+  h2 {
+    color: var(--text-primary);
+    text-wrap: balance;
+  }
+
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-40);
+    margin-top: var(--space-24);
+    color: var(--text-secondary);
+  }
+
+  /* Figma gap 60, snapped to 56. Panel fills the 972 column (Figma 975, 3px over). */
+  .figure {
+    margin-top: var(--space-56);
+    container-type: inline-size;
+  }
+
+  .panel {
+    --u: calc(100cqw / 975);
+    position: relative;
+    aspect-ratio: 975 / 607.6;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background-color: var(--pearl-slide-bg);
+  }
+
+  /* Full width, 608 tall, centred vertically, blurred 50. */
+  .backdrop {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    translate: 0 -50%;
+    width: 100%;
+    height: calc(608 * var(--u));
+    object-fit: cover;
+    filter: blur(calc(50 * var(--u)));
+  }
+
+  .shot {
+    position: absolute;
+    max-width: none;
+    object-fit: cover;
+    box-shadow: var(--shadow-media);
+  }
+
+  /* 550 × 450, 44 from the left, centred 48 above the middle. */
+  .badge-docs {
+    left: calc(44 * var(--u));
+    top: calc(30.8 * var(--u));
+    width: calc(550 * var(--u));
+    height: calc(450 * var(--u));
+  }
+
+  /* 896 × 508 at 534 / 201.8, running off the right and bottom edges. */
+  .header-rules {
+    left: calc(534 * var(--u));
+    top: calc(201.8 * var(--u));
+    width: calc(896 * var(--u));
+    height: calc(508 * var(--u));
+  }
+
+  /* Tablet: the paragraphs stack. */
+  @media (max-width: 1199px) {
+    .columns {
+      grid-template-columns: 1fr;
+      gap: var(--space-24);
+    }
+  }
+
+  /* Mobile: smaller corners so the scaled-down panel keeps its proportions. */
+  @media (max-width: 767px) {
+    .figure {
+      margin-top: var(--space-40);
+    }
+
+    .panel {
+      border-radius: var(--radius-md);
+    }
+  }
+</style>
