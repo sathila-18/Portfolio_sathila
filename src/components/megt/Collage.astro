@@ -1,0 +1,113 @@
+---
+// MEGT › Card visual: a 440 × 257 collage rebuilt from the Figma layers so it stays sharp (as
+// in Context). Every position is in Figma's units (--u), so it scales with the card.
+// Backgrounds and radii inside the artwork are left as they are (DESIGN.md › Shapes); shadows
+// on screenshots use shadow-media (DESIGN.md › Elevation).
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+export interface Layer {
+  src: ImageMetadata;
+  /** left, top, width, height in Figma units */
+  box: [number, number, number, number];
+  /** Figma's crop inside the layer: left, top, width, height in %. Without it the image covers the layer. */
+  crop?: [number, number, number, number];
+  radius?: number;
+  shadow?: boolean;
+  border?: boolean;
+}
+
+interface Props {
+  layers: Layer[];
+  /** Artwork background: a colour, or an SVG gradient image. */
+  bg?: string;
+  bgImage?: ImageMetadata;
+  label: string;
+}
+
+const { layers, bg, bgImage, label } = Astro.props;
+
+// Rendered at 2× the drawn width (the crop can make an image wider than its layer).
+const drawnWidth = ({ src, box, crop }: Layer) =>
+  Math.min(src.width, Math.round(box[2] * (crop ? crop[2] / 100 : 1) * 2));
+const isSvg = (src: ImageMetadata) => src.format === 'svg';
+---
+
+<div class="collage" role="img" aria-label={label} style={bg ? `background-color: ${bg}` : undefined}>
+  {bgImage && <img class="bg" src={bgImage.src} alt="" />}
+  {layers.map((layer) => {
+    const [l, t, w, h] = layer.box;
+    const style = `--l: ${l}; --t: ${t}; --w: ${w}; --h: ${h}; --r: ${layer.radius ?? 0};`;
+    const imgStyle = layer.crop
+      ? `left: ${layer.crop[0]}%; top: ${layer.crop[1]}%; width: ${layer.crop[2]}%; height: ${layer.crop[3]}%;`
+      : undefined;
+    return (
+      <div class:list={['layer', { shadow: layer.shadow, border: layer.border }]} style={style}>
+        {isSvg(layer.src) ? (
+          <img class="fill" src={layer.src.src} alt="" />
+        ) : (
+          <Image
+            class={layer.crop ? 'crop' : 'fill'}
+            src={layer.src}
+            alt=""
+            style={imgStyle}
+            widths={[drawnWidth(layer)]}
+            sizes={`${Math.round(drawnWidth(layer) / 2)}px`}
+          />
+        )}
+      </div>
+    );
+  })}
+</div>
+
+<style>
+  .collage {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 440 / 257;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+  }
+
+  .collage * {
+    --u: calc(100cqw / 440);
+  }
+
+  .bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .layer {
+    position: absolute;
+    left: calc(var(--l) * var(--u));
+    top: calc(var(--t) * var(--u));
+    width: calc(var(--w) * var(--u));
+    height: calc(var(--h) * var(--u));
+    overflow: hidden;
+    border-radius: calc(var(--r) * var(--u));
+  }
+
+  .shadow {
+    box-shadow: var(--shadow-media);
+  }
+
+  .border {
+    border: 1px solid var(--border-default);
+  }
+
+  .fill {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .crop {
+    position: absolute;
+    max-width: none;
+  }
+</style>

@@ -209,6 +209,7 @@
   --text-heading-brand: var(--primary-900);
   --text-link-active: var(--primary-500);
   --border-media: var(--tertiary-3-100);
+  --megt-card-dark: var(--tertiary-3-500); /* cards on MEGT dark sections (Figma: tertiary-3-500) */
   /* Focus ring and button hover/pressed (DESIGN.md › Interaction states, Accessibility). */
   --focus-ring: var(--primary-700);
   --bg-action-hover: var(--primary-700);

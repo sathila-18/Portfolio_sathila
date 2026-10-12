@@ -9,12 +9,14 @@ interface Props {
   leadWidth?: number;
   /** Figma width of the whole heading block, when narrower than 690 (sets where the h2 wraps). */
   width?: number;
+  /** On bg-inverse sections: white h2, off-white eyebrow and lead. */
+  dark?: boolean;
 }
 
-const { id, eyebrow, lead, leadWidth, width } = Astro.props;
+const { id, eyebrow, lead, leadWidth, width, dark = false } = Astro.props;
 ---
 
-<header class="heading" style={width ? `max-width: ${width}px` : undefined}>
+<header class:list={['heading', { dark }]} style={width ? `max-width: ${width}px` : undefined}>
   <div class="titles">
     <p class="eyebrow text-label-m">{eyebrow}</p>
     <h2 id={id}><slot /></h2>
@@ -47,5 +49,14 @@ const { id, eyebrow, lead, leadWidth, width } = Astro.props;
 
   .lead {
     color: var(--text-secondary);
+  }
+
+  .dark .eyebrow,
+  .dark .lead {
+    color: var(--text-off-white);
+  }
+
+  .dark h2 {
+    color: var(--text-white);
   }
 </style>

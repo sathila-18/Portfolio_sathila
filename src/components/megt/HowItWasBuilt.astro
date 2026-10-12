@@ -1,0 +1,413 @@
+---
+// MEGT › How it was built (DESIGN.md › Layout › MEGT case study, item 6): full-bleed bg-inverse
+// band with the section heading, then a timeline of four phases (label, white dot and rail) whose
+// stages each hold two dark cards with a collage. 120px under The challenge.
+//
+// Off-scale Figma spacing snapped: band 80 top / 117 → 120 bottom, intro to timeline 143 → 120,
+// between stages 66–90 → 64. Timeline columns: label 72, 24, dot 12, 120, then the stages
+// (Figma has the stages at content + 232; snapped to + 228).
+import SectionHeading from './SectionHeading.astro';
+import Collage, { type Layer } from './Collage.astro';
+import darkBg from '../../assets/images/megt/context/story-bg-dark.svg';
+import pitchBg from '../../assets/images/megt/built/pitch-bg.svg';
+import swatch01 from '../../assets/images/megt/built/swatch-01.svg';
+import swatch02 from '../../assets/images/megt/built/swatch-02.svg';
+import swatch03 from '../../assets/images/megt/built/swatch-03.svg';
+import swatch04 from '../../assets/images/megt/built/swatch-04.svg';
+import swatch05 from '../../assets/images/megt/built/swatch-05.svg';
+import formBench01 from '../../assets/images/megt/12_section-how-it-was-built__image-form-builder-benchmark-01.png';
+import formBench02 from '../../assets/images/megt/13_section-how-it-was-built__image-form-builder-benchmark-02.png';
+import jotform from '../../assets/images/megt/14_section-how-it-was-built__image-jotform-builder.png';
+import pitch01 from '../../assets/images/megt/15_section-how-it-was-built__image-pitch-ui-detail-01.png';
+import pitch02 from '../../assets/images/megt/16_section-how-it-was-built__image-pitch-ui-detail-02.png';
+import workshop01 from '../../assets/images/megt/17_section-how-it-was-built__image-workshop-findings-01.png';
+import workshop02 from '../../assets/images/megt/18_section-how-it-was-built__image-workshop-findings-02.png';
+import enterprise from '../../assets/images/megt/19_section-how-it-was-built__image-enterprise-direction-shift.png';
+import brandType from '../../assets/images/megt/20_section-how-it-was-built__image-brand-headline-typography.png';
+import avatar from '../../assets/images/megt/21_section-how-it-was-built__image-core-component-avatar.png';
+import search from '../../assets/images/megt/22_section-how-it-was-built__image-core-component-desktop-search.png';
+import tabs from '../../assets/images/megt/23_section-how-it-was-built__image-core-component-button-tabs.png';
+import checkbox from '../../assets/images/megt/24_section-how-it-was-built__image-core-component-checkbox.png';
+import toggle from '../../assets/images/megt/25_section-how-it-was-built__image-core-component-toggle.png';
+import button01 from '../../assets/images/megt/26_section-how-it-was-built__image-core-component-button-01.png';
+import button02 from '../../assets/images/megt/27_section-how-it-was-built__image-core-component-button-02.png';
+import button03 from '../../assets/images/megt/28_section-how-it-was-built__image-core-component-button-03.png';
+import badge from '../../assets/images/megt/29_section-how-it-was-built__image-core-component-primary-badge.png';
+import input from '../../assets/images/megt/30_section-how-it-was-built__image-core-component-standard-input.png';
+import sprint01 from '../../assets/images/megt/31_section-how-it-was-built__image-sprint-collaboration-01.png';
+import sprint02 from '../../assets/images/megt/32_section-how-it-was-built__image-sprint-collaboration-02.png';
+import sprint03 from '../../assets/images/megt/33_section-how-it-was-built__image-sprint-collaboration-03.png';
+import sprint04 from '../../assets/images/megt/34_section-how-it-was-built__image-sprint-collaboration-04.png';
+import sprint05 from '../../assets/images/megt/35_section-how-it-was-built__image-sprint-collaboration-05.png';
+import userList from '../../assets/images/megt/36_section-how-it-was-built__image-user-list.png';
+import responsive from '../../assets/images/megt/37_section-how-it-was-built__image-responsiveness-pivot.png';
+import type { ImageMetadata } from 'astro';
+
+interface Card {
+  title: string;
+  body: string;
+  label: string;
+  layers: Layer[];
+  bg?: string;
+  bgImage?: ImageMetadata;
+}
+interface Stage {
+  title: string;
+  cards: [Card, Card];
+}
+
+const userListCard = (title: string, body: string, label: string): Card => ({
+  title,
+  body,
+  label,
+  bg: '#8EB7B7',
+  layers: [{ src: userList, box: [0, 0, 678, 381], radius: 6 }],
+});
+
+const stages: Record<string, Stage> = {
+  pitch: {
+    title: 'Quick benchmark · One flow · Win',
+    cards: [
+      {
+        title: 'The brief',
+        body: 'We were told the client needed a form builder. That was it. Me and the UX researcher did a fast benchmark session, mapped a structure, and designed the form creation flow in 48 hours.',
+        label: 'Form builders we benchmarked, including the Jotform builder.',
+        bg: 'var(--tertiary-2-50)',
+        layers: [
+          { src: formBench01, box: [8, -15, 212, 132], radius: 4 },
+          { src: formBench02, box: [-36, 145, 272, 170], radius: 4 },
+          { src: jotform, box: [256, 21, 342, 215], crop: [0, -0.6, 100, 100.74], radius: 4 },
+        ],
+      },
+      {
+        title: 'The design',
+        body: "The rounded, friendly UI we showed wasn't what won the pitch, the structure was. We walked in with the flow and the 3-panel logic already worked out. The visual treatment was still provisional. That's the part that got refined later.",
+        label: 'The pitch UI: a question with Yes and No branches leading to follow-up questions.',
+        bgImage: pitchBg,
+        layers: [
+          { src: pitch01, box: [181, 3, 283, 252], crop: [0, -0.02, 144.88, 100.04] },
+          { src: pitch02, box: [10, 22, 246, 43], crop: [-0.85, -4.65, 101.69, 232.56], radius: 4, shadow: true },
+          { src: pitch02, box: [11, 174, 244, 67], crop: [-1.26, -41.79, 102.53, 149.25], radius: 4, shadow: true, border: true },
+        ],
+      },
+    ],
+  },
+  discovery: {
+    title: 'UX workshop findings + design direction shift',
+    cards: [
+      {
+        title: 'What the workshop revealed',
+        body: 'Our UX researcher ran workshops with MEGT. The briefed findings revealed the full scope: 3 user roles, conditional logic requirements, two responsive contexts, question library, drafts, and a full intervention system.',
+        label: 'Navigation for a Super Admin and an Admin, showing the different menus each role sees.',
+        bg: '#3F6982',
+        layers: [
+          { src: workshop01, box: [34, 39, 175, 615] },
+          { src: workshop02, box: [236, 8, 170, 597] },
+        ],
+      },
+      {
+        title: 'Direction shift',
+        body: 'The pitch UI was friendly, rounded, and the consumer-feeling was wrong for the audience. Case workers needed an enterprise tool. We made a deliberate call to rebuild the visual layer: professional, clean, minimal.',
+        label: 'The redesigned Workforce Australia login screen in the cleaner enterprise style.',
+        bg: '#EFF6FA',
+        layers: [{ src: enterprise, box: [-59, -34, 557, 313], radius: 4, shadow: true }],
+      },
+    ],
+  },
+  system: {
+    title: 'Design system built from client brand guidelines',
+    cards: [
+      {
+        title: 'What I built',
+        body: 'Client provided their brand guidelines with their font and color palette. I built the foundation and 12 core atomic components with variants before Sprint 1 started. Components grew from there as screens were built.',
+        label: "The brand typeface and colour palette from the client's guidelines.",
+        bg: 'var(--bg-subtle)',
+        layers: [
+          { src: brandType, box: [16, 17, 116, 103], crop: [-16.9, -11.3, 484.51, 230.54], radius: 12 },
+          { src: swatch01, box: [179, 92, 126, 126] },
+          { src: swatch02, box: [52, 173, 64, 64] },
+          { src: swatch03, box: [355, 60, 64, 64] },
+          { src: swatch04, box: [345, 205, 42, 42] },
+          { src: swatch05, box: [161, 0, 65, 64] },
+        ],
+      },
+      {
+        title: 'Why it mattered',
+        body: 'By Sprint 3, having the system in place is why we moved fast without accumulating design debt. It felt like overhead at the start. It was the reason we could iterate quickly under pressure later.',
+        label: 'Core components: input, tabs, buttons, toggle, avatar, badge, search and checkbox.',
+        bg: 'var(--bg-subtle)',
+        layers: [
+          { src: avatar, box: [185, 121, 69, 68] },
+          { src: search, box: [104, 218, 224, 28] },
+          { src: tabs, box: [229, 7, 198, 40] },
+          { src: checkbox, box: [379, 212, 36, 36] },
+          { src: toggle, box: [90, 97, 73, 58] },
+          { src: button01, box: [319, 68, 96, 38] },
+          { src: button02, box: [319, 117, 96, 38] },
+          { src: button03, box: [342, 166, 50, 14] },
+          { src: badge, box: [12, 173, 78, 29] },
+          { src: input, box: [18, 32, 239, 56] },
+        ],
+      },
+    ],
+  },
+  sprints: {
+    title: 'Six sprints · Built alongside business requirements',
+    cards: [
+      {
+        title: 'How we worked',
+        body: "Our BA worked with the client on requirements. The UX researcher and I owned everything in Figma. Each sprint's screens were designed alongside the requirements as they were confirmed, not before.",
+        label: 'The shared Figma file during a sprint, with the BA, UX researcher and designer working on screens.',
+        bg: '#ECECEC',
+        layers: [
+          { src: sprint01, box: [-82, -10, 604, 453] },
+          { src: sprint02, box: [206, 181, 32, 24] },
+          { src: sprint03, box: [168, 76, 32, 26] },
+          { src: sprint04, box: [159, 233, 121, 18] },
+          { src: sprint05, box: [238, 6, 32, 27] },
+        ],
+      },
+      userListCard(
+        'Why it mattered',
+        'After Sprint 1, the client reviewed the UIs and responded positively, specifically praising the cleanliness of the interface. That response set the quality bar for every sprint that followed.',
+        'The All users screen from Sprint 1.',
+      ),
+    ],
+  },
+  pivots: {
+    title: "here's what actually went sideways",
+    cards: [
+      {
+        title: 'The Responsiveness Pivot',
+        body: 'We initially assumed the admin builder needed full mobile responsiveness. A midpoint workshop revealed the client only needed mobile support for the end-user assessment view — so we halted admin mobile work and redirected all bandwidth to the desktop builder and final end-user views.',
+        label: 'The admin builder on a phone, showing a "Desktop device required" message.',
+        bgImage: darkBg,
+        layers: [{ src: responsive, box: [164, 9, 111, 240], radius: 8 }],
+      },
+      userListCard(
+        'Unblocking Engineering Velocity',
+        'Designing the dashboard last was right for data accuracy, but it blocked frontend developers from building the layout shell. We engineered an architecturally sound "dummy dashboard" skeleton to unblock the pipeline instantly and zero layout refactoring once real data was ready.',
+        'The dashboard layout shell with the All users table.',
+      ),
+    ],
+  },
+};
+
+// Four phases on the rail; the last one covers two stages.
+const phases = [
+  { label: ['48h', 'Pitch'], stages: [stages.pitch] },
+  { label: ['Discovery', '& Pivot'], stages: [stages.discovery] },
+  { label: ['Pre-sprint', 'System'], stages: [stages.system] },
+  { label: ['Sprint 1–6', 'Build'], stages: [stages.sprints, stages.pivots] },
+];
+---
+
+<!-- The nav goes white while this band is behind it; the sidebar links lighten over it. -->
+<section id="how-it-was-built" class="built" aria-labelledby="built-title" data-dark-hero>
+  <SectionHeading
+    id="built-title"
+    eyebrow="How it was built"
+    lead="The project started before we knew its full scope. What we won the pitch with looked nothing like what we shipped."
+    width={647}
+    dark
+  >
+    From a 48-hour pitch to a full enterprise product.
+  </SectionHeading>
+
+  <ol class="timeline">
+    {phases.map(({ label, stages }) => (
+      <li class="phase">
+        <p class="phase-label text-label-m">{label[0]}<br /> {label[1]}</p>
+        <span class="rail" aria-hidden="true"></span>
+        <div class="stages">
+          {stages.map(({ title, cards }) => (
+            <div class="stage">
+              <h3 class="text-h6">{title}</h3>
+              <ul class="cards">
+                {cards.map(({ title, body, label, layers, bg, bgImage }) => (
+                  <li class="card">
+                    <Collage layers={layers} bg={bg} bgImage={bgImage} label={label} />
+                    <div class="copy">
+                      <h4 class="text-title-l">{title}</h4>
+                      <p class="text-body-m">{body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<style>
+  /* Full-bleed band from inside the content column: the shadow paints the colour out to the
+     viewport edges and clip-path keeps it to the band's own height. */
+  .built {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-120);
+    margin-top: var(--space-120);
+    padding-block: var(--space-80) var(--space-120);
+    background-color: var(--bg-inverse);
+    box-shadow: 0 0 0 100vmax var(--bg-inverse);
+    clip-path: inset(0 -100vmax);
+  }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-64);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* label | 24 | dot and rail | 120 | stages */
+  .phase {
+    position: relative;
+    display: grid;
+    grid-template-columns: 72px 12px minmax(0, 1fr);
+    column-gap: var(--space-24);
+  }
+
+  .phase > .stages {
+    margin-left: calc(var(--space-120) - var(--space-24));
+  }
+
+  .phase-label {
+    margin: 0;
+    color: var(--text-off-white);
+    text-align: right;
+  }
+
+  /* The dot sits on the stage title's centre line; the rail runs from 8 under it to halfway
+     into the gap below the phase. */
+  .rail {
+    position: relative;
+  }
+
+  .rail::before,
+  .rail::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    translate: -50% 0;
+    background-color: var(--border-white);
+    border-radius: var(--radius-full);
+  }
+
+  .rail::before {
+    top: calc((var(--h6-line) - 12px) / 2);
+    width: 12px;
+    height: 12px;
+  }
+
+  .rail::after {
+    top: calc((var(--h6-line) - 12px) / 2 + 12px + var(--space-8));
+    bottom: calc(-1 * var(--space-64) / 2);
+    width: 2px;
+  }
+
+  .stages {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-64);
+    container-type: inline-size;
+  }
+
+  .stage {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-32);
+  }
+
+  h3 {
+    color: var(--text-white);
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-24);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    padding: var(--space-16);
+    border-radius: var(--radius-md);
+    background-color: var(--megt-card-dark);
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+  }
+
+  h4 {
+    color: var(--text-white);
+  }
+
+  .copy p {
+    margin: 0;
+    color: var(--text-off-white);
+  }
+
+  /* Too narrow for two cards side by side (tablet and small laptops): stack them. */
+  @container (max-width: 600px) {
+    .cards {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  /* Mobile: the label moves above the stages, next to the dot; the rail runs down the left. */
+  @media (max-width: 767px) {
+    .built {
+      gap: var(--space-64);
+      padding-block: var(--space-64);
+    }
+
+    .phase {
+      grid-template-columns: 12px minmax(0, 1fr);
+      grid-template-areas:
+        'rail label'
+        'rail stages';
+      column-gap: var(--space-16);
+      row-gap: var(--space-8);
+    }
+
+    .phase > .stages {
+      grid-area: stages;
+      margin-left: 0;
+    }
+
+    .phase-label {
+      grid-area: label;
+      text-align: left;
+    }
+
+    .phase-label br {
+      display: none;
+    }
+
+    .rail {
+      grid-area: rail;
+    }
+
+    .rail::before {
+      top: calc((var(--label-m-line) - 12px) / 2);
+    }
+
+    .rail::after {
+      top: calc((var(--label-m-line) - 12px) / 2 + 12px + var(--space-8));
+    }
+  }
+</style>

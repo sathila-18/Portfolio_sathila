@@ -77,9 +77,11 @@ const links = [
       padding: 0;
     }
 
-    /* 40 from "Go back" to the links; links 12 apart. */
+    /* 40 from "Go back" to the links; links 12 apart. Above the full-bleed dark bands, which
+       paint in the same layer later in the page. */
     .sidebar {
       position: sticky;
+      z-index: 1;
       top: calc(var(--nav-height) + var(--space-48));
       display: flex;
       flex-direction: column;
@@ -120,6 +122,21 @@ const links = [
     line-height: var(--label-l-line);
     font-weight: var(--weight-semibold);
     color: var(--text-link-active);
+  }
+
+  /* Over a dark band (bg-inverse): green is borderline there, so the active link and "Go back"
+     go white and the rest text-light, keeping the same bright/dim split. */
+  .back.on-dark,
+  .link.on-dark[aria-current='true'] {
+    color: var(--text-white);
+  }
+
+  .link.on-dark {
+    color: var(--text-light);
+  }
+
+  .link.on-dark:hover {
+    color: var(--text-white);
   }
 </style>
 
@@ -162,5 +179,30 @@ const links = [
   if (sections.length) {
     observe();
     addEventListener('resize', observe);
+  }
+
+  // Each sidebar item lightens while its centre is over a dark band (marked data-dark-hero).
+  const items = [...document.querySelectorAll<HTMLElement>('.sidebar .back, .sidebar .link')];
+  const darkRegions = [...document.querySelectorAll<HTMLElement>('.content [data-dark-hero]')];
+  let queued = false;
+  const updateTone = () => {
+    queued = false;
+    const bands = darkRegions.map((region) => region.getBoundingClientRect());
+    for (const item of items) {
+      const { top, height } = item.getBoundingClientRect();
+      const middle = top + height / 2;
+      item.classList.toggle('on-dark', bands.some((band) => middle >= band.top && middle <= band.bottom));
+    }
+  };
+  if (darkRegions.length) {
+    const queue = () => {
+      if (!queued) {
+        queued = true;
+        requestAnimationFrame(updateTone);
+      }
+    };
+    addEventListener('scroll', queue, { passive: true });
+    addEventListener('resize', queue);
+    updateTone();
   }
 </script>
