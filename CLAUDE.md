@@ -80,7 +80,7 @@ Status values: `not started` · `in progress` · `approved`
 | 02 · First Move | approved |
 | 03 · Architecture Call | approved |
 | 04 · Foundations | approved |
-| 05 · Building the Engine | not started |
+| 05 · Building the Engine | approved |
 | The Third Surface (Figma frame mislabelled "Section 07 — Handoff") | not started |
 | 06 · The Exception | not started |
 | 07 · Handoff | not started |

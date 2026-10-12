@@ -1,0 +1,234 @@
+---
+// Pearl › 05 — Building the Engine (dark band, the centerpiece): badge, label and centred
+// headline, two paragraphs, a three-stat row, then the focus-state paragraph and two
+// sub-points ("The harder calls", "The harder test") in the reading column.
+//
+// The band is wide so the stats can span 972; the text is held to the 612 column inside it.
+// The nav goes white while this band is behind it (Section tone="dark").
+import Section from './Section.astro';
+
+const stats = [
+  { value: '8', label: 'Core variants' },
+  { value: '90', label: 'Generated' },
+  { value: '1', label: 'Edit point' },
+];
+---
+
+<Section tone="dark" width="wide" labelledby="engine-title">
+  <div class="column">
+    <div class="heading">
+      <span class="text-title-l badge">Centerpiece</span>
+      <p class="text-label-m label">Building the engine</p>
+      <h2 id="engine-title">
+        One base component, <span class="accent">ninety variants,</span> one edit point
+      </h2>
+    </div>
+
+    <div class="lead text-body-xl">
+      <p>
+        The audit had already shown what inconsistency have cost. The old design ran two
+        competing input field styles side by side, and buttons varied in size across scenarios
+        that should have matched. Every major component in Pearl started as a single base
+        instead, built with boolean properties rather than duplicated instances. The input field
+        is the clearest example — one base component with 8 core variants generated roughly 90
+        downstream variants, covering every style and state combination.
+      </p>
+      <p>
+        That structure paid for itself the first time it mattered. Mid-project, the client asked
+        to move the input label from inside the field to sitting on the border. Instead of
+        updating 90 variants individually, I changed the base component once. Everything
+        downstream updated with it.
+      </p>
+    </div>
+  </div>
+
+  <dl class="stats">
+    {stats.map(({ value, label }) => (
+      <div class="stat">
+        <dt class="text-label-m">{label}</dt>
+        <dd class="text-number-l">{value}</dd>
+      </div>
+    ))}
+  </dl>
+
+  <div class="column">
+    <p class="text-body-xl focus">
+      The same logic shaped harder calls, like focus states. Mobile and web needed different
+      treatments — a border adjustment on mobile, a visible ring on web, a specific fix where a
+      ring was causing layout shift on forms — and disabled buttons needed their own separate
+      reasoning about whether a focus state made sense at all. Each was checked against how
+      Material, Atlassian, and eBay had solved the same problem, before deciding what Pearl's
+      version should do.
+    </p>
+
+    <div class="points">
+      <section class="point" aria-labelledby="engine-calls">
+        <h3 class="text-title-m point-title" id="engine-calls">The harder calls</h3>
+        <div class="pair text-body-xl">
+          <p>
+            Focus itself needed correcting once. Buttons initially treated it as a plain state,
+            until it became clear a user could hover or press at the same time — so focus became
+            its own property instead, independent of the rest.
+          </p>
+          <p>
+            Disabled buttons split into two cases. A hard-disabled button loses focus outright,
+            the browser kills it. A soft-disabled one — still showing a tooltip on hover — hadn't
+            actually lost it, so it kept its ring.
+          </p>
+        </div>
+      </section>
+
+      <section class="point" aria-labelledby="engine-test">
+        <h3 class="text-title-m point-title" id="engine-test">The harder test</h3>
+        <p class="text-body-xl">
+          The list component was the hardest test of the model. Duplicating mobile's variants
+          into web didn't hold — the structure broke down, so the rebuild started over from just
+          the base component, updating slot instances once instead. A second near-miss followed:
+          focus states were about to be duplicated across every named list type before realizing
+          that would double the maintenance problem all over again. Focus moved into the base
+          instead, the same discipline the rest of the system already relied on.
+        </p>
+      </section>
+    </div>
+  </div>
+</Section>
+
+<style>
+  /* Narrow reading column (612) centred in the wide band. */
+  .column {
+    max-width: 612px;
+    margin-inline: auto;
+    color: var(--text-off-white);
+  }
+
+  /* Figma gaps 20, snapped to 24. */
+  .heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-24);
+    text-align: center;
+  }
+
+  .badge {
+    padding: var(--space-4) var(--space-12);
+    border: 1px solid var(--pearl-badge-border);
+    border-radius: var(--radius-full);
+    background-color: var(--pearl-badge-bg);
+    color: var(--pearl-badge-text);
+  }
+
+  h2 {
+    color: var(--text-white);
+    text-wrap: balance;
+  }
+
+  .accent {
+    color: var(--text-pearl-secondary);
+  }
+
+  /* Figma gap 18, snapped to 16. */
+  .lead {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    margin-top: var(--space-48);
+  }
+
+  /* No card on the dark band: three cells across the 972 column, 48 below the text. */
+  .stats {
+    display: flex;
+    margin: var(--space-48) 0 0;
+  }
+
+  /* Label sits under the number visually; dt comes first for screen readers. */
+  .stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: var(--space-16);
+    padding: var(--space-40) var(--space-32);
+  }
+
+  dt {
+    color: var(--text-off-white);
+  }
+
+  dd {
+    margin: 0;
+    color: var(--text-pearl);
+  }
+
+  .focus {
+    margin-top: var(--space-80);
+  }
+
+  .points {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-48);
+    margin-top: var(--space-48);
+  }
+
+  /* Figma gap 20, snapped to 24. */
+  .point {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  /* 6px white dot, 8 before the title (Figma 10, snapped). */
+  .point-title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    color: var(--text-off-white);
+  }
+
+  .point-title::before {
+    content: '';
+    flex: none;
+    width: var(--space-6);
+    height: var(--space-6);
+    border-radius: var(--radius-full);
+    background-color: var(--fg-white);
+  }
+
+  .pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-24);
+  }
+
+  @media (max-width: 1199px) {
+    .stat {
+      padding-inline: var(--space-16);
+    }
+  }
+
+  /* Mobile: stats and the paragraph pair stack. */
+  @media (max-width: 767px) {
+    .lead {
+      margin-top: var(--space-40);
+    }
+
+    .stats {
+      flex-direction: column;
+      margin-top: var(--space-32);
+    }
+
+    .stat {
+      gap: var(--space-8);
+      padding-block: var(--space-24);
+    }
+
+    .focus {
+      margin-top: var(--space-48);
+    }
+
+    .pair {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
