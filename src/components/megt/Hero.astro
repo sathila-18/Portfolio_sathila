@@ -1,0 +1,63 @@
+---
+// MEGT › Hero introduction (DESIGN.md › Layout › MEGT case study, item 2): eyebrow, h1
+// headline and lead paragraph in the 1200 container.
+
+// Joins items with the Figma separator (" · "); the non-breaking space keeps each dot
+// on the line before it when the text wraps.
+const list = (...items: string[]) => items.join(' · ');
+---
+
+<section class="hero container" aria-labelledby="megt-hero-title">
+  <p class="eyebrow text-h6">{list('MEGT Australia', 'Enterprise Web App', '2024')}</p>
+  <div class="text">
+    <h1 id="megt-hero-title">
+      <span class="line">Replacing Google Forms</span>{' '}
+      <span class="line">and spreadsheets with a</span>{' '}
+      <span class="line">node-based form builder</span>{' '}
+      <span class="line">designed for case workers</span>{' '}
+      <span class="line">who can't afford to break it.</span>
+    </h1>
+    <p class="lead text-body-xl">
+      MEGT were running workforce assessments through copy-pasted Google Forms, Typeform, and Excel
+      templates. Every new form was a manual process no one had time for. We designed a
+      purpose-built replacement, from pitch to dev handoff in two months.
+    </p>
+  </div>
+</section>
+
+<style>
+  /* Starts below the fixed nav, like every page. Figma: 50px under the nav, snapped to 48. */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    margin-top: calc(var(--nav-height) + var(--space-48));
+  }
+
+  .eyebrow {
+    color: var(--text-tertiary);
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  h1 {
+    max-width: 1175px;
+    color: var(--text-primary);
+  }
+
+  .lead {
+    max-width: 835px;
+    color: var(--text-secondary);
+  }
+
+  /* Five lines from tablet up, as in Figma; on mobile the headline wraps naturally. */
+  @media (min-width: 768px) {
+    .line {
+      display: block;
+    }
+  }
+</style>

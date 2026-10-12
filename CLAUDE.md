@@ -56,7 +56,7 @@ Status values: `not started` · `in progress` · `approved`
 ### MEGT case study
 | Section | Status |
 |---|---|
-| Hero: introduction | not started |
+| Hero: introduction | approved |
 | Hero: project metadata | not started |
 | Hero: form builder preview | not started |
 | Project metrics | not started |
