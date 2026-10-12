@@ -57,7 +57,7 @@ Status values: `not started` · `in progress` · `approved`
 | Section | Status |
 |---|---|
 | Hero: introduction | approved |
-| Hero: project metadata | not started |
+| Hero: project metadata | approved |
 | Hero: form builder preview | not started |
 | Project metrics | not started |
 | Sticky sidebar | not started |

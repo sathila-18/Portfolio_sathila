@@ -1,0 +1,54 @@
+---
+// MEGT › Hero project metadata (DESIGN.md › Layout › MEGT case study, item 3, and
+// Components › Metadata item): four columns spread across the 1200 container, 56px under the hero.
+
+const meta = [
+  { label: 'My role', values: ['UI/UX designer', 'Design system architect'] },
+  { label: 'Timeline', values: ['2 months · 6 sprints'] },
+  { label: 'Deliverables', values: ['90+ screens', 'Design system', 'Dev handoff'] },
+  { label: 'Tools', values: ['Figma', 'Figma make', 'Claude'] },
+];
+---
+
+<dl class="meta container" aria-label="Project details">
+  {meta.map(({ label, values }) => (
+    <div class="item">
+      <dt class="text-title-l">{label}</dt>
+      {values.map((value) => <dd class="text-body-m">{value}</dd>)}
+    </div>
+  ))}
+</dl>
+
+<style>
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-40);
+    margin-block: var(--space-56) 0;
+  }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  /* Label to list is 12; the list itself is 8. */
+  dt {
+    margin-bottom: calc(var(--space-12) - var(--space-8));
+    color: var(--text-heading-brand);
+  }
+
+  dd {
+    margin: 0;
+    color: var(--text-secondary);
+  }
+
+  /* Mobile: two by two. */
+  @media (max-width: 767px) {
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
