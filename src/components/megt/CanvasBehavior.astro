@@ -1,0 +1,240 @@
+---
+// MEGT › Canvas behavior (DESIGN.md › Layout › MEGT case study, item 6): section heading, then a
+// screen recording of inline editing on a dark 916 × 525 frame, centred, and three state cards
+// (white on bg-subtle, as the info cards). 120px under Before & after; frame to cards snapped 46 → 48.
+//
+// The recording (trimmed to its first 63 seconds, user's decision) replaces Figma's still and keeps
+// the still's crop. It loops, plays only while on screen, never with reduced motion on, and has a
+// pause button (it runs over 5 seconds).
+import { getImage } from 'astro:assets';
+import SectionHeading from './SectionHeading.astro';
+import darkBg from '../../assets/images/megt/context/story-bg-dark.svg';
+import posterFrame from '../../assets/images/megt/canvas/video-poster.png';
+
+const poster = await getImage({ src: posterFrame, width: 1960, format: 'webp' });
+
+const states = [
+  {
+    title: 'Default State',
+    body: 'Unselected elements remain clean and undisturbed, minimizing cognitive background noise for non-technical users.',
+  },
+  {
+    title: 'Active Focus',
+    body: 'Tapping directly into any question wrapper instantly shifts the canvas container into an active inline editing mode.',
+  },
+  {
+    title: 'Real-Time Feedback',
+    body: 'A distinct blue border outline and an active text cursor pop up instantly to provide immediate visual confirmation.',
+  },
+];
+---
+
+<section id="canvas-behavior" class="canvas" aria-labelledby="canvas-title">
+  <SectionHeading
+    id="canvas-title"
+    eyebrow="Canvas behavior"
+    lead="Eliminating the abstract configuration layer. If you see an element, you can edit it right there."
+    width={996}
+  >
+    Designing Zero-Friction Inline Interactions
+  </SectionHeading>
+
+  <div class="showcase">
+    <div class="preview" data-video-frame>
+      <img class="bg" src={darkBg.src} alt="" />
+      <!-- Figma: the 821 × 409 screen sits centred in the 916 × 525 frame. -->
+      <div class="screen">
+        <video
+          class="recording"
+          src="/videos/megt/canvas-behavior.mp4"
+          poster={poster.src}
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          aria-label="Screen recording: a question on the form canvas is clicked and edited in place, with its options and buttons right on the canvas."
+        ></video>
+      </div>
+      <button class="toggle" type="button" aria-label="Pause video" data-video-toggle>
+        <svg class="icon-pause" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M7 5h4v14H7zM13 5h4v14h-4z" /></svg>
+        <svg class="icon-play" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z" /></svg>
+      </button>
+    </div>
+
+    <ul class="states">
+      {states.map(({ title, body }) => (
+        <li class="state">
+          <h3 class="text-title-l">{title}</h3>
+          <p class="text-body-l">{body}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .canvas {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-48);
+    margin-top: var(--space-120);
+  }
+
+  .showcase {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-48);
+    container-type: inline-size;
+  }
+
+  /* Figma: 916 of the 1200 column, centred. */
+  .preview {
+    position: relative;
+    container-type: inline-size;
+    width: calc(916 / 1200 * 100%);
+    aspect-ratio: 916 / 525;
+    margin-inline: auto;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+  }
+
+  .preview * {
+    --u: calc(100cqw / 916);
+  }
+
+  .bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .screen {
+    position: absolute;
+    left: calc(47 * var(--u));
+    top: calc(58 * var(--u));
+    width: calc(821 * var(--u));
+    height: calc(409 * var(--u));
+    overflow: hidden;
+    border-radius: calc(18 * var(--u)); /* artwork */
+  }
+
+  /* Figma's crop of the still, applied to the recording. */
+  .recording {
+    position: absolute;
+    left: -9.65%;
+    top: -12.67%;
+    width: 119.3%;
+    height: 130.81%;
+    max-width: none;
+    object-fit: cover;
+  }
+
+  /* 40px, 16 in from the corner; shrinks with the frame (to 32px, 8 in) so it stays clear of the screen. */
+  .toggle {
+    position: absolute;
+    right: clamp(var(--space-8), calc(16 * var(--u)), var(--space-16));
+    bottom: clamp(var(--space-8), calc(16 * var(--u)), var(--space-16));
+    display: grid;
+    place-items: center;
+    width: clamp(32px, calc(40 * var(--u)), 40px);
+    height: clamp(32px, calc(40 * var(--u)), 40px);
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-full);
+    /* Same translucent glass as the top nav (user's decision), with a white icon. */
+    background-color: var(--nav-bg);
+    -webkit-backdrop-filter: blur(var(--nav-blur));
+    backdrop-filter: blur(var(--nav-blur));
+    color: var(--text-white);
+    cursor: pointer;
+  }
+
+  .toggle:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .toggle .icon-play,
+  .toggle[data-paused] .icon-pause {
+    display: none;
+  }
+
+  .toggle[data-paused] .icon-play {
+    display: block;
+  }
+
+  .states {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-24);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .state {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    padding: var(--space-16);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-cards);
+  }
+
+  h3 {
+    color: var(--text-primary);
+  }
+
+  .state p {
+    margin: 0;
+    color: var(--text-secondary);
+  }
+
+  /* Narrow columns: one card per row. */
+  @container (max-width: 700px) {
+    .preview {
+      width: 100%;
+    }
+
+    .states {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-12);
+    }
+  }
+</style>
+
+<script>
+  // Plays while the frame is on screen, unless the viewer prefers reduced motion or has paused it.
+  for (const frame of document.querySelectorAll<HTMLElement>('[data-video-frame]')) {
+    const video = frame.querySelector('video');
+    const toggle = frame.querySelector<HTMLButtonElement>('[data-video-toggle]');
+    if (!video || !toggle) continue;
+
+    let userPaused = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const show = (paused: boolean) => {
+      toggle.toggleAttribute('data-paused', paused);
+      toggle.setAttribute('aria-label', paused ? 'Play video' : 'Pause video');
+    };
+    show(true);
+
+    let visible = false;
+    const sync = () => {
+      if (visible && !userPaused) video.play().catch(() => show(true));
+      else video.pause();
+    };
+    video.addEventListener('play', () => show(false));
+    video.addEventListener('pause', () => show(true));
+
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      sync();
+    }, { threshold: 0.25 }).observe(frame);
+
+    toggle.addEventListener('click', () => {
+      userPaused = !video.paused;
+      if (userPaused) video.pause();
+      else video.play();
+    });
+  }
+</script>
