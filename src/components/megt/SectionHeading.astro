@@ -7,12 +7,14 @@ interface Props {
   lead?: string;
   /** Lead width from Figma; DESIGN.md keeps the h2 to ~690. */
   leadWidth?: number;
+  /** Figma width of the whole heading block, when narrower than 690 (sets where the h2 wraps). */
+  width?: number;
 }
 
-const { id, eyebrow, lead, leadWidth } = Astro.props;
+const { id, eyebrow, lead, leadWidth, width } = Astro.props;
 ---
 
-<header class="heading">
+<header class="heading" style={width ? `max-width: ${width}px` : undefined}>
   <div class="titles">
     <p class="eyebrow text-label-m">{eyebrow}</p>
     <h2 id={id}><slot /></h2>
@@ -37,9 +39,10 @@ const { id, eyebrow, lead, leadWidth } = Astro.props;
     color: var(--text-tertiary);
   }
 
+  /* text-primary, as on Pearl and Sampath (user's decision; Figma has some in heading-brand). */
   h2 {
     max-width: 690px;
-    color: var(--text-heading-brand);
+    color: var(--text-primary);
   }
 
   .lead {

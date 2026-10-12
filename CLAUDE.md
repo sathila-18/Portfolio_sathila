@@ -64,7 +64,7 @@ Status values: `not started` · `in progress` · `approved`
 | Project metrics | approved |
 | Sticky sidebar | approved |
 | Context | approved |
-| The challenge | not started |
+| The challenge | approved |
 | How it was built | not started |
 | The product | not started |
 | Before and after | not started |

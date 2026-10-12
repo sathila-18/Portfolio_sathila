@@ -1,0 +1,110 @@
+---
+// MEGT › The challenge (DESIGN.md › Layout › MEGT case study, item 6, and Components › Info
+// card): section heading, then four info cards, two per row. 120px under Context.
+import SectionHeading from './SectionHeading.astro';
+import alertIcon from '../../assets/icons/megt/challenge-alert.svg';
+import contrastIcon from '../../assets/icons/megt/contrast.svg';
+import layoutIcon from '../../assets/icons/megt/layout-spacing.svg';
+import accessibilityIcon from '../../assets/icons/megt/accessibility.svg';
+
+const cards = [
+  {
+    icon: alertIcon,
+    title: 'Three roles, one coherent system',
+    body: 'Super Admins, Admins, and Site Admins each needed a tailored experience without breaking visual coherence across the product.',
+  },
+  {
+    icon: contrastIcon,
+    title: 'Visual conditional logic',
+    body: 'Node-based workflows needed to feel approachable to non-technical case workers. Not like a developer tool.',
+  },
+  {
+    icon: layoutIcon,
+    title: 'Two responsive briefs, one project',
+    body: 'Form builder: desktop-only by necessity. Assessments: any device. Two completely different problems running in parallel.',
+  },
+  {
+    icon: accessibilityIcon,
+    title: 'Dashboard designed last, intentionally',
+    body: "The dashboard couldn't be designed until the product was understood. We built everything else first so the dashboard reflected the real product.",
+  },
+];
+---
+
+<section id="challenge" class="challenge" aria-labelledby="challenge-title">
+  <SectionHeading
+    id="challenge-title"
+    eyebrow="The challenge"
+    lead="That tension was the core design problem across every sprint — and the answer shaped every decision from the design system to the final screen."
+    width={647}
+  >
+    Powerful enough for complexity. Simple enough to actually use.
+  </SectionHeading>
+
+  <ul class="cards">
+    {cards.map(({ icon, title, body }) => (
+      <li class="card">
+        <img class="icon" src={icon.src} alt="" width="32" height="32" />
+        <div class="copy">
+          <h3 class="text-h6">{title}</h3>
+          <p class="text-body-l">{body}</p>
+        </div>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .challenge {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-48);
+    margin-top: var(--space-120);
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-24);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    padding: var(--space-16);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-cards);
+  }
+
+  .icon {
+    display: block;
+    width: 32px;
+    height: 32px;
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+  }
+
+  h3 {
+    color: var(--text-primary);
+  }
+
+  p {
+    margin: 0;
+    color: var(--text-secondary);
+  }
+
+  /* Mobile: one card per row. */
+  @media (max-width: 767px) {
+    .cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

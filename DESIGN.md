@@ -899,7 +899,9 @@ running with reduced motion on, by the user's decision: the one exception to
 the reduced-motion rule.
 
 **Section heading** (MEGT): vertical stack, gap 8: eyebrow (`label-m`,
-`text-tertiary`), then heading (`h2`, `text-heading-brand`, max ~690px). Lead
+`text-tertiary`), then heading (`h2`, `text-primary` like the Pearl and Sampath
+headings on light backgrounds (the user's decision; Figma has some in
+`text-heading-brand`), max ~690px). Lead
 paragraph (`body-xl`, `text-secondary`) 48px below. Content 48px below that.
 Sampath and Pearl use the same `h2` + `body-xl` pairing with the colours listed
 for their sections.
