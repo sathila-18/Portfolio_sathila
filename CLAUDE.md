@@ -84,7 +84,7 @@ Status values: `not started` · `in progress` · `approved`
 | The Third Surface (Figma frame mislabelled "Section 07 — Handoff") | approved |
 | 06 · The Exception | approved |
 | 07 · Handoff | approved |
-| 08 · Close | not started |
+| 08 · Close | approved |
 
 ### Sampath case study
 | Section | Status |

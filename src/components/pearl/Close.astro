@@ -1,0 +1,137 @@
+---
+// Pearl › 08 — Close: centred label and headline (second half muted), two paragraphs in the
+// reading column, then the results grid: total screens on top, web and mobile below.
+// Figma's stray closing quote after the last paragraph is dropped.
+import Section from './Section.astro';
+
+const split = [
+  { value: '500+', label: 'Web screens' },
+  { value: '420+', label: 'Mobile screens' },
+];
+---
+
+<Section tone="white" width="wide" labelledby="close-title">
+  <div class="column">
+    <div class="heading">
+      <p class="text-label-m label">Close</p>
+      <h2 id="close-title">What Pearl <span class="muted">made possible</span></h2>
+    </div>
+
+    <div class="body text-body-xl">
+      <p>
+        Two complex screens, a plan details page and a plan page, needed to be delivered before a
+        client meeting in 20 minutes. I was able to create those within 10 minutes, with ease,
+        because every piece of the page was componentized already. None of it depended on getting
+        lucky twice, the same four files, the same tiers, the same base-component discipline held
+        from the first screen to the last.
+      </p>
+      <p>
+        Everywhere else, the system meant things went smoothly. The one place it didn't get used
+        shows exactly what that smoothness was worth.
+      </p>
+    </div>
+  </div>
+
+  <dl class="results">
+    <div class="result total">
+      <dt class="text-label-m">Total screens delivered</dt>
+      <dd class="text-number-m">920+</dd>
+    </div>
+    <div class="split">
+      {split.map(({ value, label }) => (
+        <div class="result">
+          <dt class="text-label-m">{label}</dt>
+          <dd class="text-number-m">{value}</dd>
+        </div>
+      ))}
+    </div>
+  </dl>
+</Section>
+
+<style>
+  /* Narrow reading column (612) centred in the wide band. */
+  .column {
+    max-width: 612px;
+    margin-inline: auto;
+  }
+
+  .heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-24);
+    text-align: center;
+  }
+
+  .label {
+    color: var(--text-tertiary);
+  }
+
+  /* Balanced so it splits "What Pearl / made possible", as in Figma. */
+  h2 {
+    color: var(--text-primary);
+    text-wrap: balance;
+  }
+
+  .muted {
+    color: var(--text-light);
+  }
+
+  /* Figma gap 18, snapped to 16. */
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    margin-top: var(--space-40);
+    color: var(--text-secondary);
+  }
+
+  .results {
+    margin: var(--space-56) 0 0;
+    border-radius: var(--radius-md);
+    background-color: var(--pearl-bg);
+  }
+
+  /* Label sits under the number visually; dt comes first for screen readers. */
+  .result {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: var(--space-12);
+    text-align: center;
+  }
+
+  .total {
+    padding-block: var(--space-40);
+  }
+
+  /* Figma gap 20, snapped to 24. */
+  .split {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-24);
+  }
+
+  .split .result {
+    padding: var(--space-40) var(--space-32);
+  }
+
+  dt {
+    color: var(--text-tertiary);
+  }
+
+  dd {
+    margin: 0;
+    color: var(--text-pearl-tertiary);
+  }
+
+  @media (max-width: 767px) {
+    .split {
+      gap: 0;
+    }
+
+    .split .result {
+      padding-inline: var(--space-16);
+    }
+  }
+</style>
