@@ -3,16 +3,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/megt/Hero.astro';
 import HeroMeta from '../components/megt/HeroMeta.astro';
 import HeroMedia from '../components/megt/HeroMedia.astro';
+import Metrics from '../components/megt/Metrics.astro';
 ---
 
+<!-- darkHero: the nav goes white over MEGT's dark bands (metrics, "How it was built",
+     "Design system"), marked with data-dark-hero as they're built. -->
 <BaseLayout
   title="MEGT Form Builder · Sathila De Silva"
   description="Case study: a node-based form builder replacing Google Forms and spreadsheets for MEGT Australia's case workers."
+  darkHero
   pageBg="--bg-subtle"
 >
   <main>
     <Hero />
     <HeroMeta />
     <HeroMedia />
+    <Metrics />
   </main>
 </BaseLayout>

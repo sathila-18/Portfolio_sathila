@@ -1,0 +1,66 @@
+---
+// MEGT › Project metrics (DESIGN.md › Layout › MEGT case study, item 5, and Components ›
+// Metrics band): full-bleed bg-inverse, 334 tall, four metrics across the 1200 container,
+// 120px under the hero media.
+const metrics = [
+  { value: '6', label: 'Design sprints' },
+  { value: '90+', label: 'Screens shipped' },
+  { value: '3', label: 'User roles' },
+  { value: '60+', label: 'Components built' },
+];
+---
+
+<!-- The nav goes white while this band is behind it. -->
+<section class="band" aria-label="Project in numbers" data-dark-hero>
+  <dl class="metrics container">
+    {metrics.map(({ value, label }) => (
+      <div class="metric">
+        <dt class="text-title-m">{label}</dt>
+        <dd class="text-number-xl">{value}</dd>
+      </div>
+    ))}
+  </dl>
+</section>
+
+<style>
+  .band {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 334px;
+    margin-top: var(--space-120);
+    background-color: var(--bg-inverse);
+    color: var(--text-off-white);
+  }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-40);
+    margin-block: 0;
+  }
+
+  /* Label sits under the number visually; dt comes first for screen readers. */
+  .metric {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: var(--space-12);
+    text-align: center;
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  /* Tablet and mobile: two by two. */
+  @media (max-width: 1199px) {
+    .band {
+      min-height: 0;
+      padding-block: var(--space-80);
+    }
+
+    .metrics {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
