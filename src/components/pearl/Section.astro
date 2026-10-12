@@ -10,6 +10,8 @@ interface Props {
 }
 
 const { tone, labelledby, width = 'narrow' } = Astro.props;
+// Optional full-bleed content after the column (a carousel), taking the band's bottom padding.
+const hasBleed = Astro.slots.has('bleed');
 ---
 
 <!-- Dark bands also switch the top nav to white while they're behind it. -->
@@ -18,9 +20,14 @@ const { tone, labelledby, width = 'narrow' } = Astro.props;
   aria-labelledby={labelledby}
   data-dark-hero={tone === 'dark' ? '' : undefined}
 >
-  <div class:list={['inner', width]}>
+  <div class:list={['inner', width, { 'has-bleed': hasBleed }]}>
     <slot />
   </div>
+  {hasBleed && (
+    <div class="bleed">
+      <slot name="bleed" />
+    </div>
+  )}
 </section>
 
 <style>
@@ -39,6 +46,14 @@ const { tone, labelledby, width = 'narrow' } = Astro.props;
   .inner {
     margin-inline: auto;
     padding: var(--space-120) var(--space-64);
+  }
+
+  .inner.has-bleed {
+    padding-bottom: 0;
+  }
+
+  .bleed {
+    padding-bottom: var(--space-120);
   }
 
   .narrow {
@@ -60,6 +75,14 @@ const { tone, labelledby, width = 'narrow' } = Astro.props;
   @media (max-width: 767px) {
     .inner {
       padding-block: var(--space-80);
+    }
+
+    .inner.has-bleed {
+      padding-bottom: 0;
+    }
+
+    .bleed {
+      padding-bottom: var(--space-80);
     }
   }
 </style>

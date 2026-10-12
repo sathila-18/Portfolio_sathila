@@ -221,6 +221,8 @@
   --pearl-badge-bg: #F0EBE1;
   --pearl-badge-border: rgb(140 122 85 / 0.25);
   --pearl-badge-text: #6B5C38;
+  /* Pearl "The Third Surface": carousel slide background. */
+  --pearl-slide-bg: #DBDEEF;
   --sampath-bg-warm: #F7F3EF;
   --sampath-bg-warm-alt: #EDEAE5;
   --sampath-border-warm: #E0D9D0;

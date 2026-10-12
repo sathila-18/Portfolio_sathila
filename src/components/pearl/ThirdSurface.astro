@@ -1,0 +1,243 @@
+---
+// Pearl › The Third Surface (Figma frame mislabelled "Section 07 — Handoff"): label and
+// headline, two paragraphs side by side, then a full-bleed carousel of four slides.
+//
+// The carousel runs like the Home client logos (user): looped, auto-scrolling, slowing on
+// hover, swipe or drag to move it (src/scripts/marquee.ts). Each slide is a 972 × 522 canvas
+// (`--u` is one Figma pixel) with its screenshots at their Figma positions and crops. The
+// second copy of the four starts at the column's left edge.
+import { Image } from 'astro:assets';
+import Section from './Section.astro';
+import cloudConnect from '../../assets/images/pearl/07_section-07-handoff__image-35.png';
+import postpaidPlans from '../../assets/images/pearl/08_section-07-handoff__image-36.png';
+import buttonAnatomy from '../../assets/images/pearl/09_section-07-handoff__image-34.png';
+import buttonSizes from '../../assets/images/pearl/10_section-07-handoff__image-37.png';
+import badgeUsage from '../../assets/images/pearl/11_section-07-handoff__image-38.png';
+import accordion from '../../assets/images/pearl/12_section-07-handoff__image-30.png';
+import roundedButtons from '../../assets/images/pearl/13_section-07-handoff__image-31.png';
+import listBase from '../../assets/images/pearl/14_section-07-handoff__image-32.png';
+
+type Layer = {
+  src: ImageMetadata;
+  alt: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  /** Image position inside the frame, in % of the frame, when Figma crops or insets it. */
+  crop?: { l: number; t: number; w: number; h: number };
+  /** White card behind an inset image. */
+  card?: boolean;
+};
+
+const slides: Layer[][] = [
+  [
+    { src: cloudConnect, alt: 'Website content block: the Cloud Connect hero, with a Learn more button beside a photo.', x: 32, y: 51, w: 438, h: 247 },
+    { src: postpaidPlans, alt: 'Website content block: Business Postpaid Plans, three plan cards under a contract-length toggle.', x: 501, y: 223, w: 438, h: 247 },
+  ],
+  [
+    { src: buttonAnatomy, alt: 'Button documentation: anatomy, with the label, icons, container and focus ring called out.', x: 32, y: 41, w: 429, h: 270 },
+    { src: buttonSizes, alt: 'Button documentation: large, medium, small and extra-small sizes with their spacing.', x: 513, y: 41, w: 418, h: 270, crop: { l: 0, t: -11.85, w: 113.53, h: 116.43 } },
+    { src: badgeUsage, alt: 'Badge documentation: usage, with when to use it and when not to.', x: 238, y: 351, w: 495, h: 579, crop: { l: 3.05, t: 3.1, w: 94.05, h: 94.14 }, card: true },
+  ],
+  [
+    { src: accordion, alt: 'Accordion documentation: the accordion base component and its variants.', x: 61, y: 57, w: 850, h: 514 },
+  ],
+  [
+    { src: roundedButtons, alt: 'Rounded buttons: the base component in every style and state.', x: 728, y: 96, w: 299, h: 366 },
+    { src: listBase, alt: 'List documentation: the list base component and its variants.', x: 32, y: 57, w: 585, h: 555 },
+  ],
+];
+---
+
+<Section tone="pearl" width="wide" labelledby="third-surface-title">
+  <div class="heading">
+    <p class="text-label-m label">The third surface</p>
+    <h2 id="third-surface-title">What the website needed that the app didn't</h2>
+  </div>
+
+  <div class="columns text-body-xl">
+    <p>
+      The web library wasn't just app screens. It also had its own category for marketing
+      content. I called it “Content block”. This covers the patterns that showed up across
+      Batelco's site. Hero images, text blocks, plan cards, FAQs. Built with the same discipline
+      as everything else, so the client could compose common pages later by connecting these
+      pieces like templates, instead of designing each page from scratch.
+    </p>
+    <p>
+      The pattern itself doesn't have a settled name across the industry — it's usually called
+      an “editorial” component, used mainly for marketing content, and rarely treated as core
+      enough to document clearly, so most systems just call it something else. Researching it
+      through Claude surfaced Wise and Adobe as the clearest examples, since ordinary search
+      barely covers it. Benchmarking Wise's version confirmed the plan I’d already forming from
+      the audit. Batelco's patterns should build as templates, not one-off page layouts, grouped
+      and named the same practical way Wise had grouped its own.
+    </p>
+  </div>
+
+  <!-- Three identical groups so the row covers the screen on both sides wherever the loop
+       is. Only the first group is read out. -->
+  <div class="marquee" slot="bleed">
+    <div class="track">
+      {[0, 1, 2].map((copy) => (
+        <ul role="list" class="group" aria-hidden={copy > 0 ? 'true' : undefined}>
+          {slides.map((layers) => (
+            <li class="slide">
+              {layers.map(({ src, alt, x, y, w, h, crop, card }) => (
+                <div
+                  class:list={['shot', { cropped: crop, card }]}
+                  style={`--x: ${x}; --y: ${y}; --w: ${w}; --h: ${h}` +
+                    (crop ? `; --cl: ${crop.l}%; --ct: ${crop.t}%; --cw: ${crop.w}%; --ch: ${crop.h}%` : '')}
+                >
+                  <Image
+                    src={src}
+                    alt={copy === 0 ? alt : ''}
+                    widths={[w, w * 2]}
+                    sizes={`${w}px`}
+                    draggable="false"
+                  />
+                </div>
+              ))}
+            </li>
+          ))}
+        </ul>
+      ))}
+    </div>
+  </div>
+</Section>
+
+<style>
+  /* Figma gap 20, snapped to 24. */
+  .heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  .label {
+    color: var(--text-tertiary);
+  }
+
+  /* Figma holds the headline to 469 wide. */
+  h2 {
+    max-width: 470px;
+    color: var(--text-primary);
+  }
+
+  /* Figma gap 20, snapped to 24. */
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-32);
+    margin-top: var(--space-24);
+    color: var(--text-secondary);
+  }
+
+  /* Full-bleed so slides enter and leave at the screen edges. pan-y keeps vertical page
+     scrolling on touch; horizontal swipes move the row. Figma gap 60, snapped to 56. */
+  .marquee {
+    --slide: min(972px, 100cqw - 2 * var(--gutter));
+    --gap: var(--space-56);
+
+    container-type: inline-size;
+    margin-top: var(--space-56);
+    overflow: hidden;
+    touch-action: pan-y;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .marquee[data-dragging] {
+    cursor: grabbing;
+  }
+
+  /* One group = 4 slides + 4 gaps. The second group starts at the column's left edge. */
+  .track {
+    --group-width: calc(4 * (var(--slide) + var(--gap)));
+
+    display: flex;
+    width: max-content;
+    margin-left: calc(max(var(--gutter), (100cqw - 972px) / 2) - var(--group-width));
+    will-change: transform;
+  }
+
+  /* The trailing padding equals the gap, so the seam between groups matches. */
+  .group {
+    display: flex;
+    gap: var(--gap);
+    margin: 0;
+    padding: 0 var(--gap) 0 0;
+    list-style: none;
+  }
+
+  /* Figma radius 10, snapped to rounded.sm. */
+  .slide {
+    --u: calc(var(--slide) / 972);
+
+    position: relative;
+    flex: none;
+    width: var(--slide);
+    aspect-ratio: 972 / 522;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background-color: var(--pearl-slide-bg);
+  }
+
+  .shot {
+    position: absolute;
+    left: calc(var(--x) * var(--u));
+    top: calc(var(--y) * var(--u));
+    width: calc(var(--w) * var(--u));
+    height: calc(var(--h) * var(--u));
+  }
+
+  .shot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -webkit-user-drag: none;
+    pointer-events: none;
+  }
+
+  /* Figma radii 6 and 8, snapped to rounded.sm (scaled with the slide). */
+  .cropped {
+    overflow: hidden;
+    border-radius: calc(8 * var(--u));
+  }
+
+  .cropped img {
+    position: absolute;
+    left: var(--cl);
+    top: var(--ct);
+    width: var(--cw);
+    height: var(--ch);
+    max-width: none;
+  }
+
+  .card {
+    background-color: var(--bg-cards);
+  }
+
+  /* Tablet: the paragraphs stack. */
+  @media (max-width: 1199px) {
+    .columns {
+      grid-template-columns: 1fr;
+      gap: var(--space-24);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .marquee {
+      --gap: var(--space-24);
+      margin-top: var(--space-40);
+    }
+  }
+</style>
+
+<script>
+  import { startMarquee } from '../../scripts/marquee';
+
+  const marquee = document.querySelector<HTMLElement>('[aria-labelledby="third-surface-title"] .marquee');
+  if (marquee) startMarquee(marquee);
+</script>
