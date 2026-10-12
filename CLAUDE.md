@@ -78,7 +78,7 @@ Status values: `not started` · `in progress` · `approved`
 | Metrics band | approved |
 | 01 · The Setup | approved |
 | 02 · First Move | approved |
-| 03 · Architecture Call | not started |
+| 03 · Architecture Call | approved |
 | 04 · Foundations | not started |
 | 05 · Building the Engine | not started |
 | The Third Surface (Figma frame mislabelled "Section 07 — Handoff") | not started |

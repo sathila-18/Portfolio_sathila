@@ -1,0 +1,394 @@
+---
+// Pearl › 03 — The Architecture Call: label, headline and lead in the narrow column, the
+// four-file list, two paragraphs side by side, then (wide) a stat strip and the file diagram.
+//
+// The section sits in the wide band; the text is held to the 612 reading column inside it.
+// The diagram is a 972 × 607.6 canvas (`--u` is one Figma pixel) scaled to the column width:
+// the blurred backdrop, then the 675 × 512 artwork rebuilt from its Figma layers (the image
+// ring, the "Foundation" pearl, its three connector lines and three chips). Layer positions
+// are Figma's, with blur and rotation outsets already applied.
+import { Image } from 'astro:assets';
+import Section from './Section.astro';
+import MobileIcon from '../../assets/icons/pearl/mobile.svg';
+import LibraryIcon from '../../assets/icons/pearl/library-add-check.svg';
+import DesktopIcon from '../../assets/icons/pearl/desktop-mac.svg';
+import backdrop from '../../assets/images/pearl/05_section-03-architecture-call__rectangle-18099.png';
+import ringImage from '../../assets/images/pearl/06_section-03-architecture-call__rectangle-18098.png';
+import ringMask from '../../assets/images/pearl/architecture-call/ring-mask.svg?url';
+import ellipse74 from '../../assets/images/pearl/architecture-call/ellipse-74.svg?url';
+import ellipse75 from '../../assets/images/pearl/architecture-call/ellipse-75.svg?url';
+import ellipse76 from '../../assets/images/pearl/architecture-call/ellipse-76.svg?url';
+import ellipse77 from '../../assets/images/pearl/architecture-call/ellipse-77.svg?url';
+import ellipse78 from '../../assets/images/pearl/architecture-call/ellipse-78.svg?url';
+import ellipse79 from '../../assets/images/pearl/architecture-call/ellipse-79.svg?url';
+import ellipse80 from '../../assets/images/pearl/architecture-call/ellipse-80.svg?url';
+import line3 from '../../assets/images/pearl/architecture-call/line-3.svg?url';
+import line4 from '../../assets/images/pearl/architecture-call/line-4.svg?url';
+import line5 from '../../assets/images/pearl/architecture-call/line-5.svg?url';
+
+const files = [
+  { name: 'Foundation', note: 'primitives and semantic tokens shared by everything' },
+  { name: 'Icon library', note: 'brand icons for brand moments, a utility set for everything else' },
+  { name: 'Mobile component library' },
+  { name: 'Web component library' },
+];
+
+const stats = [
+  { value: '4', label: 'Files' },
+  { value: '1', label: 'Owner' },
+  { value: '3', label: 'Surface' },
+];
+
+// The pearl's layers, bottom to top: src, left, top, width, height (Figma px), rotation.
+const pearl = [
+  { src: ellipse74, x: 258.77, y: 202.58, w: 151.147, h: 149.826 },
+  { src: ellipse75, x: 244.36, y: 183.39, w: 181.22, h: 133.503 },
+  { src: ellipse78, x: 255.05, y: 262.64, w: 183.856, h: 119.909, r: 180 },
+  { src: ellipse80, x: 263.29, y: 308.53, w: 138.681, h: 49.926, r: 180 },
+  { src: ellipse77, x: 280.92, y: 211.83, w: 106.678, h: 101.887 },
+  { src: ellipse76, x: 255.43, y: 194.47, w: 159.062, h: 111.345 },
+  { src: ellipse79, x: 267.68, y: 183.39, w: 133.13, h: 107.036 },
+];
+
+// Connector lines, centred on their Figma boxes and rotated into place.
+const lines = [
+  { src: line3, x: 258.64, y: 125.69, w: 152.202, r: -90 },
+  { src: line4, x: 146.87, y: 365.87, w: 144.652, r: 140.03 },
+  { src: line5, x: 376.97, y: 365.87, w: 143.443, r: -139.61 },
+];
+---
+
+<Section tone="pearl" width="wide" labelledby="architecture-title">
+  <div class="column">
+    <div class="heading">
+      <p class="text-label-m label">The architecture call</p>
+      <h2 id="architecture-title">
+        Four files, <span class="muted">not one,</span> and a reason for each
+      </h2>
+    </div>
+
+    <div class="body">
+      <p class="text-body-xl">
+        Most systems start as a single file. A single file couldn't hold three platforms without
+        becoming unmanageable as the product scaled, so Pearl didn't, on purpose. Four files, each
+        with one job:
+      </p>
+
+      <ol class="files">
+        {files.map(({ name, note }, i) => (
+          <li class="file">
+            <span class="text-title-m index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <p class="text-body-m">
+              <span class="text-title-m name">{name}</span>{note && ` - ${note}`}
+            </p>
+          </li>
+        ))}
+      </ol>
+
+      <div class="columns text-body-xl">
+        <p>
+          Splitting mobile and web meant each could carry its own states and interaction patterns.
+          Hover and focus on web, touch states on mobile — without either file becoming
+          unmanageable as the product scaled. Icons got the same separation for a practical
+          reason: the client's own set had scaling issues and only partial coverage, so brand
+          icons stayed reserved for brand moments while Material filled every utility need
+          underneath.
+        </p>
+        <p>
+          That decision got tested directly. Partway through, the client asked for “one unified
+          system” instead of a split one. I held the architecture — our side was producing the
+          larger share of UI, and one bloated file would slow both teams down as things grew. The
+          split stayed.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <dl class="stats">
+    {stats.map(({ value, label }) => (
+      <div class="stat">
+        <dt class="text-label-l">{label}</dt>
+        <dd class="text-number-xl">{value}</dd>
+      </div>
+    ))}
+  </dl>
+
+  <figure class="figure">
+    <div class="panel" role="img" aria-label="Pearl's four files: Foundation at the centre, connected to the icon library (brand and utility icons), web components (133) and mobile components (117).">
+      <Image class="backdrop" src={backdrop} alt="" widths={[972, 1372]} sizes="(min-width: 1200px) 972px, 100vw" />
+
+      <div class="artwork" aria-hidden="true">
+        <div class="ring" style={`mask-image: url("${ringMask}")`}>
+          <Image src={ringImage} alt="" widths={[745, 1200]} sizes="(min-width: 1200px) 745px, 80vw" />
+        </div>
+
+        <div class="chip" style="--x: 476.39; --y: 413.08">
+          <span class="chip-icon"><MobileIcon /></span>
+          <span class="chip-text"><span class="chip-title">Mobile components</span>117 components</span>
+        </div>
+        <div class="chip" style="--x: 235.82; --y: 0">
+          <span class="chip-icon"><LibraryIcon /></span>
+          <span class="chip-text"><span class="chip-title">Icon library</span>Brand + Utility icons</span>
+        </div>
+        <div class="chip" style="--x: 0; --y: 413.08">
+          <span class="chip-icon"><DesktopIcon /></span>
+          <span class="chip-text"><span class="chip-title">Web components</span>133 components</span>
+        </div>
+
+        {pearl.map(({ src, x, y, w, h, r = 0 }) => (
+          <img class="layer" src={src} alt="" style={`--x: ${x}; --y: ${y}; --w: ${w}; --h: ${h}; --r: ${r}deg`} />
+        ))}
+        <span class="foundation">Foundation</span>
+
+        {lines.map(({ src, x, y, w, r }) => (
+          <img class="layer" src={src} alt="" style={`--x: ${x}; --y: ${y}; --w: ${w}; --h: 4.2205; --r: ${r}deg`} />
+        ))}
+      </div>
+    </div>
+  </figure>
+</Section>
+
+<style>
+  /* Narrow reading column (612) centred in the wide band. */
+  .column {
+    max-width: 612px;
+    margin-inline: auto;
+  }
+
+  .heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  .label {
+    color: var(--text-tertiary);
+  }
+
+  h2 {
+    color: var(--text-primary);
+  }
+
+  .muted {
+    color: var(--text-light);
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+    margin-top: var(--space-32);
+    color: var(--text-secondary);
+  }
+
+  /* Figma radius 10, snapped to rounded.sm. */
+  .files {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-radius: var(--radius-sm);
+    background-color: var(--bg-cards);
+  }
+
+  .file {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-16);
+    padding: var(--space-16) var(--space-24);
+  }
+
+  .index {
+    flex-shrink: 0;
+    color: var(--text-light);
+  }
+
+  .name {
+    color: var(--text-primary);
+  }
+
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-32);
+  }
+
+  /* Stat strip: 64 below the text, three equal cells. Figma radius 12 snapped to rounded.md. */
+  .stats {
+    display: flex;
+    margin: var(--space-64) 0 0;
+    border-radius: var(--radius-md);
+    background-color: var(--bg-cards);
+  }
+
+  /* Label sits under the number visually; dt comes first for screen readers. */
+  .stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: var(--space-16);
+    padding: var(--space-40) var(--space-32);
+  }
+
+  dt {
+    color: var(--text-secondary);
+  }
+
+  dd {
+    margin: 0;
+    color: var(--text-pearl-tertiary);
+  }
+
+  .figure {
+    margin-top: var(--space-32);
+    container-type: inline-size;
+  }
+
+  /* Figma radius 10, snapped to rounded.sm. */
+  .panel {
+    --u: calc(100cqw / 972);
+    position: relative;
+    aspect-ratio: 972 / 607.6;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background-color: var(--bg-cards);
+  }
+
+  /* Blurred and at 51%, over the white panel, as in Figma. */
+  .backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(calc(50 * var(--u)));
+    opacity: 0.51;
+  }
+
+  .artwork {
+    position: absolute;
+    left: calc(148 * var(--u));
+    top: calc(48 * var(--u));
+    width: calc(675.017 * var(--u));
+    height: calc(512 * var(--u));
+  }
+
+  /* The image, masked to a ring: 469.27 square at 99.71 / 42.73. */
+  .ring {
+    position: absolute;
+    left: calc(99.71 * var(--u));
+    top: calc(42.73 * var(--u));
+    width: calc(469.267 * var(--u));
+    height: calc(469.267 * var(--u));
+    overflow: hidden;
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+  }
+
+  .ring img {
+    position: absolute;
+    left: calc(-140.859 * var(--u));
+    top: calc(-143.233 * var(--u));
+    width: calc(745.447 * var(--u));
+    height: calc(713.793 * var(--u));
+    max-width: none;
+    object-fit: cover;
+  }
+
+  /* Figma chips are Inter 14.24; set in the site font so no extra font loads. */
+  .chip {
+    position: absolute;
+    left: calc(var(--x) * var(--u));
+    top: calc(var(--y) * var(--u));
+    display: flex;
+    align-items: center;
+    gap: calc(9.5 * var(--u));
+    padding: calc(9.5 * var(--u)) calc(19 * var(--u)) calc(9.5 * var(--u)) calc(9.5 * var(--u));
+    border-radius: var(--radius-full);
+    background-color: var(--bg-cards);
+    filter: drop-shadow(calc(-6.33 * var(--u)) calc(6.33 * var(--u)) calc(6.33 * var(--u)) rgb(0 0 0 / 0.08));
+    color: #141412;
+    font-size: calc(14.24 * var(--u));
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    white-space: nowrap;
+  }
+
+  .chip-icon {
+    display: grid;
+    place-items: center;
+    width: calc(31.65 * var(--u));
+    height: calc(31.65 * var(--u));
+    border-radius: var(--radius-full);
+    background-color: var(--text-pearl);
+  }
+
+  .chip-icon :global(svg) {
+    width: calc(19 * var(--u));
+    height: calc(19 * var(--u));
+  }
+
+  .chip-text {
+    display: flex;
+    flex-direction: column;
+    gap: calc(3.17 * var(--u));
+  }
+
+  .chip-title {
+    font-weight: var(--weight-medium);
+  }
+
+  .layer {
+    position: absolute;
+    left: calc(var(--x) * var(--u));
+    top: calc(var(--y) * var(--u));
+    width: calc(var(--w) * var(--u));
+    height: calc(var(--h) * var(--u));
+    max-width: none;
+    rotate: var(--r);
+  }
+
+  /* Figma: JetBrains Mono 12.66, 12% tracking; set in the site font. */
+  .foundation {
+    position: absolute;
+    left: calc(334.34 * var(--u));
+    top: calc(269.06 * var(--u));
+    translate: -50% 0;
+    color: #0F0F0F;
+    font-size: calc(12.66 * var(--u));
+    font-weight: var(--weight-medium);
+    line-height: normal;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* Tablet: the stat strip keeps its row; padding tightens. */
+  @media (max-width: 1199px) {
+    .stat {
+      padding-inline: var(--space-16);
+    }
+  }
+
+  /* Mobile: paragraphs stack, stats stack centred, the diagram scales down whole. */
+  @media (max-width: 767px) {
+    .columns {
+      grid-template-columns: 1fr;
+      gap: var(--space-24);
+    }
+
+    .stats {
+      flex-direction: column;
+      margin-top: var(--space-48);
+    }
+
+    .stat {
+      gap: var(--space-8);
+      padding-block: var(--space-24);
+    }
+
+    .figure {
+      margin-top: var(--space-24);
+    }
+  }
+</style>
