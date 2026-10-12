@@ -1,0 +1,57 @@
+---
+// MEGT › Hero form builder preview (DESIGN.md › Layout › MEGT case study, item 4): the form
+// builder screenshot centred on a sky background, 1200 × 697, rounded.lg, 56px under the metadata.
+// Figma's 5.2px layer blur on the sky is baked into the image (DESIGN.md › Elevation).
+import { Image } from 'astro:assets';
+import sky from '../../assets/images/megt/01_hero-form-builder-preview__image-sky-background-blurred.png';
+import builder from '../../assets/images/megt/02_hero-form-builder-preview__image-form-builder.png';
+---
+
+<div class="media-wrap container">
+  <figure class="media">
+    <Image class="sky" src={sky} alt="" aria-hidden="true" widths={[1200, 2400]} sizes="(min-width: 1264px) 1200px, 100vw" />
+    <Image
+      class="builder"
+      src={builder}
+      alt="The MEGT form builder: an assessment outline on the left, the question canvas in the middle, and the question type picker open on the right."
+      widths={[1129, 2258]}
+      sizes="(min-width: 1264px) 1129px, 94vw"
+      loading="eager"
+    />
+  </figure>
+</div>
+
+<style>
+  .media-wrap {
+    margin-top: var(--space-56);
+  }
+
+  /* Figma: the 1129 × 635 screenshot sits centred, 35/36 in from the sides and 31 from top and bottom. */
+  .media {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1200 / 697;
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+  }
+
+  .sky {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Shadow normalised to shadow-media (Figma: -8 8 16 at 8%). */
+  .builder {
+    position: relative;
+    width: calc(1129 / 1200 * 100%);
+    height: auto;
+    border: 1px solid var(--border-media);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-media);
+  }
+</style>
