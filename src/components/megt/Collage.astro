@@ -1,5 +1,5 @@
 ---
-// MEGT › Card visual: a 440 × 257 collage rebuilt from the Figma layers so it stays sharp (as
+// MEGT › Card visual: a collage (440 × 257 by default) rebuilt from the Figma layers so it stays sharp (as
 // in Context). Every position is in Figma's units (--u), so it scales with the card.
 // Backgrounds and radii inside the artwork are left as they are (DESIGN.md › Shapes); shadows
 // on screenshots use shadow-media (DESIGN.md › Elevation).
@@ -23,9 +23,12 @@ interface Props {
   bg?: string;
   bgImage?: ImageMetadata;
   label: string;
+  /** Figma frame size, in units. */
+  width?: number;
+  height?: number;
 }
 
-const { layers, bg, bgImage, label } = Astro.props;
+const { layers, bg, bgImage, label, width = 440, height = 257 } = Astro.props;
 
 // Rendered at 2× the drawn width (the crop can make an image wider than its layer).
 const drawnWidth = ({ src, box, crop }: Layer) =>
@@ -33,7 +36,12 @@ const drawnWidth = ({ src, box, crop }: Layer) =>
 const isSvg = (src: ImageMetadata) => src.format === 'svg';
 ---
 
-<div class="collage" role="img" aria-label={label} style={bg ? `background-color: ${bg}` : undefined}>
+<div
+  class="collage"
+  role="img"
+  aria-label={label}
+  style={`--frame-w: ${width}; --frame-h: ${height};${bg ? ` background-color: ${bg};` : ''}`}
+>
   {bgImage && <img class="bg" src={bgImage.src} alt="" />}
   {layers.map((layer) => {
     const [l, t, w, h] = layer.box;
@@ -64,13 +72,13 @@ const isSvg = (src: ImageMetadata) => src.format === 'svg';
   .collage {
     position: relative;
     container-type: inline-size;
-    aspect-ratio: 440 / 257;
+    aspect-ratio: var(--frame-w) / var(--frame-h);
     overflow: hidden;
     border-radius: var(--radius-md);
   }
 
   .collage * {
-    --u: calc(100cqw / 440);
+    --u: calc(100cqw / var(--frame-w));
   }
 
   .bg {

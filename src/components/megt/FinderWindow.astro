@@ -1,0 +1,329 @@
+---
+// MEGT › Before & after › "Legacy template files": a macOS Finder window of copied assessment
+// templates over the blurred sky (baked from Figma's brighter export of the photo, cropped for this
+// 608 × 372 layer), 556 × 325. Rebuilt from the Figma layers so it stays sharp;
+// every position is in Figma units (--u), so it scales with the card. Colours, radii, effects
+// and the system font inside it are artwork (DESIGN.md › Shapes, Elevation).
+import type { ImageMetadata } from 'astro';
+import sky from '../../assets/images/megt/before/sky-blurred.png';
+import fileIcon from '../../assets/images/megt/40_section-group-before-and-after-canvas-behavior__image-final-file-icon.png';
+import folderBody from '../../assets/images/megt/before/folder-body.png';
+import folderFlap from '../../assets/images/megt/before/folder-flap.png';
+import folderBack from '../../assets/images/megt/before/folder-back.svg';
+import folderFront from '../../assets/images/megt/before/folder-front.svg';
+import folderMask from '../../assets/images/megt/before/folder-mask.svg';
+import windowShadow from '../../assets/images/megt/before/window-shadow.svg';
+import windowBody from '../../assets/images/megt/before/window-body.svg';
+import sidebarCircle from '../../assets/images/megt/before/circle-sidebar.svg';
+import recents from '../../assets/images/megt/before/recents.svg';
+import downloads from '../../assets/images/megt/before/downloads.svg';
+import rearSheet from '../../assets/images/megt/before/rear-sheet-01.svg';
+import sheetCorner from '../../assets/images/megt/before/sheet-corner.svg';
+import frontSheet from '../../assets/images/megt/before/front-sheet.svg';
+import applications from '../../assets/images/megt/before/applications.svg';
+import add01 from '../../assets/images/megt/before/add-01.svg';
+import add02 from '../../assets/images/megt/before/add-02.svg';
+import button01 from '../../assets/images/megt/before/window-button-01.svg';
+import button02 from '../../assets/images/megt/before/window-button-02.svg';
+import button03 from '../../assets/images/megt/before/window-button-03.svg';
+import back from '../../assets/images/megt/before/back.svg';
+import forward from '../../assets/images/megt/before/forward.svg';
+import gridView from '../../assets/images/megt/before/grid-view.svg';
+import listView from '../../assets/images/megt/before/list-view.svg';
+import searchCircle from '../../assets/images/megt/before/search-circle.svg';
+import searchHandle from '../../assets/images/megt/before/search-handle.svg';
+
+// Figma units → CSS.
+const u = (n: number) => `calc(${n} * var(--u))`;
+const box = (l: number, t: number, w: number, h: number) =>
+  `left: ${u(l)}; top: ${u(t)}; width: ${u(w)}; height: ${u(h)};`;
+
+// Vector layers: the layer's box, then Figma's stroke overhang around it (top right bottom left, %).
+interface Vector {
+  src: ImageMetadata;
+  box: string;
+  inset?: string;
+  extra?: string;
+}
+const vectors: Vector[] = [
+  { src: windowShadow, box: box(67.66, 60.84, 479.692, 316.16), inset: '-26.09% -17.19%' },
+  { src: windowBody, box: box(60.07, 31.42, 494.86, 327.432), inset: '-2.52% -1.83% -3.02% -1.83%' },
+];
+const icons: Vector[] = [
+  // Sidebar: Recents, Downloads, Documents, Applications.
+  { src: sidebarCircle, box: box(74.91, 104, 9.072, 9.072), inset: '-9.09%' },
+  { src: recents, box: box(77.39, 105.65, 2.475, 3.299) },
+  { src: sidebarCircle, box: box(74.91, 148.54, 9.072, 9.072), inset: '-9.09%' },
+  { src: downloads, box: box(77.07, 150.19, 4.757, 6.417) },
+  { src: rearSheet, box: box(74.91, 193.9, 6.598, 9.072), inset: '-9.09% -12.5%' },
+  { src: sheetCorner, box: box(78.63, 193.9, 2.887, 2.887), inset: '-14.29%' },
+  { src: frontSheet, box: box(76.57, 190.6, 8.248, 10.723) },
+  { src: sheetCorner, box: box(81.1, 191.43, 2.887, 2.887), inset: '-14.29%' },
+  { src: applications, box: box(73.28, 125.45, 12.372, 11.547) },
+  // Header: window buttons, back/forward, view modes, search, add.
+  { src: button01, box: box(74.91, 45.44, 9.897, 9.897), inset: '-8.33% -16.67% -25% -16.67%' },
+  { src: button02, box: box(91.41, 45.44, 9.897, 9.897), inset: '-8.33% -16.67% -25% -16.67%' },
+  { src: button03, box: box(107.91, 45.44, 9.897, 9.897), inset: '-8.33% -16.67% -25% -16.67%' },
+  { src: back, box: box(200.28, 44.62, 6.598, 11.547), inset: '-7.14% -12.5%' },
+  { src: forward, box: box(225.03, 44.62, 6.598, 11.547), inset: '-7.14% -12.5%', extra: 'scale: -1 1;' },
+  { src: gridView, box: box(373.48, 43.79, 12.375, 12.372) },
+  { src: listView, box: box(404.01, 44.62, 14.019, 9.897) },
+  { src: searchCircle, box: box(531.02, 43.8, 8.248, 8.248), inset: '-10%', extra: 'opacity: 0.5;' },
+  { src: searchHandle, box: box(538.02, 51.63, 3.711, 3.711), inset: '-15.71%', extra: 'opacity: 0.5;' },
+  { src: add01, box: box(542.97, 79.26, 0, 9.072), inset: `0 ${u(-0.41)}` },
+  { src: add02, box: box(538.44, 83.8, 9.072, 0), inset: `${u(-0.41)} 0` },
+];
+
+// Folder icon parts, relative to its origin. The masked parts share Figma's 58 × 51.889 mask.
+const folders = [
+  { x: 209.29, y: 125.07 },
+  { x: 288.46, y: 122.97 },
+  { x: 366.82, y: 122.97 },
+];
+const mask = (x: number, y: number) =>
+  `mask-image: url("${folderMask.src}"); -webkit-mask-image: url("${folderMask.src}"); mask-position: ${u(x)} ${u(y)}; -webkit-mask-position: ${u(x)} ${u(y)};`;
+
+// File labels: centre x, top, lines; Q&A 2025 is the selected one.
+const labels = [
+  { x: 237.1, y: 181.53, lines: ['Q&A 2025'] },
+  { x: 316.46, y: 181.53, lines: ['Assessments', '2025'] },
+  { x: 394.82, y: 181.53, lines: ['Assessments'] },
+  { x: 476.32, y: 181.53, lines: ['Assessment_', 'Tem...FINAL.XLS'] },
+  { x: 232.11, y: 285.4, lines: ['Assessment_', 'Tem...V2.XLS'] },
+];
+const sidebarItems = ['Recents', 'Applications', 'Downloads', 'Desktop', 'Documents'];
+---
+
+<div
+  class="finder"
+  role="img"
+  aria-label="A Finder window of copied files: Q&A 2025, Assessments 2025, Assessments, and two spreadsheets named Assessment template FINAL and V2."
+>
+  <img class="layer cover" src={sky.src} alt="" style={box(-26, -19, 608, 372)} />
+
+  <span class="layer backing" style={box(67.66, 52.59, 479.692, 316.161)}></span>
+  {vectors.map(({ src, box, inset }) => (
+    <span class="layer" style={box}><span class="stroke" style={`inset: ${inset ?? 0}`}><img src={src.src} alt="" /></span></span>
+  ))}
+
+  <!-- Sidebar -->
+  <span class="layer glass sidebar" style={box(51, 24, 133.612, 342.278)}></span>
+  <span class="text muted" style={`left: ${u(74.92)}; top: ${u(78.43)};`}>Favourites</span>
+  <span class="text list" style={`left: ${u(91.41)}; top: ${u(102.35)};`}>
+    {sidebarItems.map((item) => <span>{item}</span>)}
+  </span>
+  <span class="layer selection" style={box(68.32, 186.48, 106.395, 23.093)}></span>
+  <span class="layer desktop-frame" style={box(74.91, 170.81, 9.072, 9.072)}></span>
+  <span class="layer desktop-bar" style={box(74.91, 172.46, 9.072, 0.825)}></span>
+  <span class="layer desktop-bar" style={`${box(76.56, 177.41, 5.773, 0.825)} border-radius: ${u(2.474)};`}></span>
+
+  <!-- Header -->
+  <span class="layer glass header" style={box(183.79, 28.95, 371.97, 67.631)}></span>
+  <span class="layer add-button" style={box(531.02, 71.84, 24.743, 24.743)}></span>
+  <span class="text bold" style={`left: ${u(333.89)}; top: ${u(78.44)};`}>Documents</span>
+  <span class="text title" style={`left: ${u(249.77)}; top: ${u(42.15)};`}>Documents</span>
+  <span class="layer divider" style={box(426.27, 42.15, 0.825, 16.495)}></span>
+  <span class="layer divider" style={box(458.44, 42.15, 0.825, 16.495)}></span>
+  <span class="layer view-selection" style={box(366.89, 38.85, 25.568, 22.269)}></span>
+  <span class="layer outline" style={box(434.52, 43.8, 15.671, 12.372)}></span>
+  <span class="layer rule" style={box(439.47, 44.62, 0.825, 10.722)}></span>
+  <span class="layer rule" style={box(444.42, 44.62, 0.825, 10.722)}></span>
+  <span class="layer outline" style={box(467.51, 43.8, 15.671, 8.248)}></span>
+  {[467.51, 470.8, 474.11, 477.41, 480.7].map((x) => (
+    <span class="layer outline dot" style={box(x, 53.69, 2.474, 2.474)}></span>
+  ))}
+
+  {icons.map(({ src, box, inset, extra }) => (
+    <span class="layer" style={`${box} ${extra ?? ''}`}><span class="stroke" style={`inset: ${inset ?? 0}`}><img src={src.src} alt="" /></span></span>
+  ))}
+
+  <!-- Files -->
+  <span class="layer tile" style={box(207, 119, 62.682, 62.682)}></span>
+  <span class="layer chip" style={box(212.36, 180.71, 49.486, 13.196)}></span>
+  {folders.map(({ x, y }) => (
+    <>
+      <span class="layer" style={box(x + 2, y + 7.56, 54, 44)}><span class="stroke" style="inset: -22.73% -18.52%"><img src={folderBack.src} alt="" /></span></span>
+      <span class="layer masked" style={`${box(x, y - 1, 58, 52.889)} ${mask(0, 1)}`}><span class="stroke" style="inset: -1.89% -1.72%"><img src={folderBody.src} alt="" /></span></span>
+      <span class="layer masked" style={`${box(x, y + 11.06, 58, 38.702)} ${mask(0, -11.055)}`}><span class="stroke" style="inset: -51.68% -34.48%"><img src={folderFront.src} alt="" /></span></span>
+      <span class="layer masked" style={`${box(x, y + 9, 58, 43)} ${mask(0, -9)}`}><span class="stroke" style="inset: -6.98% -3.45% -2.33% -3.45%"><img src={folderFlap.src} alt="" /></span></span>
+      <span class="layer masked shine" style={`${box(x - 0.82, y + 45.66, 59.638, 1.312)} ${mask(0.82, -45.654)}`}></span>
+      <span class="layer masked shine" style={`${box(x - 0.82, y + 47.79, 59.638, 1.312)} ${mask(0.82, -47.787)}`}></span>
+    </>
+  ))}
+  {[[452.66, 113.9], [209.36, 222.77]].map(([x, y]) => (
+    <span class="layer" style={box(x, y, 44.263, 57.264)}>
+      <img class="crop" src={fileIcon.src} alt="" style="left: -4.2%; top: -3.24%; width: 107.69%; height: 108.11%;" />
+    </span>
+  ))}
+  {labels.map(({ x, y, lines }) => (
+    <span class="text bold label" style={`left: ${u(x)}; top: ${u(y)};`}>
+      {lines.map((line) => <span>{line}</span>)}
+    </span>
+  ))}
+</div>
+
+<style>
+  .finder {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 556 / 325;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background-color: #e9eaee; /* artwork */
+    font-family: -apple-system, 'SF Pro Display', system-ui, sans-serif;
+    color: #fff;
+  }
+
+  .finder * {
+    --u: calc(100cqw / 556);
+  }
+
+  .layer {
+    position: absolute;
+  }
+
+  /* The sky overhangs the frame (608 wide in 556), so it must not be capped at 100%. */
+  .cover {
+    max-width: none;
+    object-fit: cover;
+  }
+
+  .stroke {
+    position: absolute;
+  }
+
+  .stroke img,
+  .layer > img:not(.crop) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+  }
+
+  .crop {
+    position: absolute;
+    max-width: none;
+  }
+
+  .layer:has(> .crop) {
+    overflow: hidden;
+  }
+
+  .backing {
+    border-radius: calc(8.248 * var(--u));
+    background-color: rgba(0, 0, 0, 0.5);
+    filter: blur(calc(41.238 * var(--u)));
+  }
+
+  .glass {
+    background-color: rgba(255, 255, 255, 0.04);
+    box-shadow: inset calc(-1.65 * var(--u)) 0 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .header {
+    box-shadow:
+      0 calc(1.65 * var(--u)) calc(3.299 * var(--u)) rgba(0, 0, 0, 0.1),
+      inset calc(-1.65 * var(--u)) 0 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .add-button {
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: inset calc(0.825 * var(--u)) calc(0.825 * var(--u)) 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .selection,
+  .view-selection {
+    border-radius: calc(4.124 * var(--u));
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .view-selection,
+  .divider {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .desktop-frame {
+    border: calc(0.825 * var(--u)) solid #4699f7;
+    border-radius: calc(1.65 * var(--u));
+  }
+
+  .desktop-bar {
+    background-color: #4699f7;
+  }
+
+  .outline {
+    border: calc(0.825 * var(--u)) solid #fff;
+    border-radius: calc(1.65 * var(--u));
+    opacity: 0.5;
+  }
+
+  .outline.dot {
+    border-radius: calc(0.825 * var(--u));
+  }
+
+  .rule {
+    background-color: #fff;
+    opacity: 0.5;
+  }
+
+  .tile {
+    border-radius: calc(8.248 * var(--u));
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .chip {
+    border-radius: calc(2.474 * var(--u));
+    background-color: #2363cb;
+  }
+
+  .masked {
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: calc(58 * var(--u)) calc(51.889 * var(--u));
+    -webkit-mask-size: calc(58 * var(--u)) calc(51.889 * var(--u));
+  }
+
+  .shine {
+    background: linear-gradient(rgba(124, 201, 253, 0.6), rgba(124, 201, 253, 0.3));
+    box-shadow: 0 calc(4 * var(--u)) calc(4 * var(--u)) rgba(84, 167, 223, 0.5);
+    filter: blur(calc(1 * var(--u)));
+  }
+
+  .text {
+    position: absolute;
+    line-height: normal;
+    white-space: nowrap;
+  }
+
+  .muted {
+    font-size: calc(9.897 * var(--u));
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .bold {
+    font-size: calc(9.897 * var(--u));
+    font-weight: 700;
+  }
+
+  .title {
+    font-size: calc(13.196 * var(--u));
+    font-weight: 600;
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: calc(8.248 * var(--u));
+    font-size: calc(11.547 * var(--u));
+    font-weight: 600;
+  }
+
+  .label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    translate: -50% 0;
+    text-align: center;
+  }
+</style>

@@ -1,0 +1,183 @@
+---
+// MEGT › Before & after (DESIGN.md › Layout › MEGT case study, item 6): section heading, then
+// three comparisons, each a Before card beside an After card (white cards on bg-subtle, as the
+// info cards). 120px under The product; comparisons 80 apart.
+import SectionHeading from './SectionHeading.astro';
+import Collage from './Collage.astro';
+import FinderWindow from './FinderWindow.astro';
+import SharingDialog from './SharingDialog.astro';
+import interventionRule from '../../assets/images/megt/41_section-group-before-and-after-canvas-behavior__image-form-builder-intervention-rule.png';
+import spreadsheet from '../../assets/images/megt/42_section-group-before-and-after-canvas-behavior__image-legacy-spreadsheet-logic.png';
+import workflowBuilder from '../../assets/images/megt/43_section-group-before-and-after-canvas-behavior__image-visual-workflow-builder.png';
+import addRole from '../../assets/images/megt/44_section-group-before-and-after-canvas-behavior__image-add-new-role.png';
+
+// After visuals: the screenshot inset 14 on a pale blue frame (artwork colour).
+const AFTER_BG = '#E6EDFB';
+const BEFORE_BG = '#E9EAEE';
+---
+
+<section id="before-and-after" class="before-after" aria-labelledby="before-after-title">
+  <SectionHeading
+    id="before-after-title"
+    eyebrow="Before & after"
+    lead="Gathered from client conversations and UX workshop findings. Three failure points that the new system was designed to remove."
+    width={687}
+  >
+    What the tool replaced, and what it became.
+  </SectionHeading>
+
+  <div class="comparisons">
+    <div class="comparison">
+      <h3 class="text-h6">Assessment creation was copy-paste every time</h3>
+      <ul class="cards">
+        <li class="card">
+          <FinderWindow />
+          <div class="copy">
+            <h4 class="text-title-l">Before</h4>
+            <p class="text-body-m">Copy-pasted templates with no version control. One update to a template breaks every copy of it silently.</p>
+          </div>
+        </li>
+        <li class="card">
+          <Collage
+            width={556}
+            height={325}
+            bg={AFTER_BG}
+            label="The form builder's intervention rules, with a question library panel and a three-panel editing layout."
+            layers={[{ src: interventionRule, box: [14, 14, 528, 297], crop: [0.05, -0.05, 100, 104.34], radius: 8, shadow: true }]}
+          />
+          <div class="copy">
+            <h4 class="text-title-l">After</h4>
+            <p class="text-body-m">A centralized question library styled after familiar day-to-day tools (Google Drive/Windows Explorer) to eliminate onboarding friction. Built a 3-panel editing layout (Layers, Canvas, Settings) mimicking Figma/Photoshop. While the client required a 1-question-per-page published view, we engineered an all-in-one editing canvas to optimize creator velocity.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="comparison">
+      <h3 class="text-h6">Conditional logic lived only in people's heads</h3>
+      <ul class="cards">
+        <li class="card">
+          <Collage
+            width={556}
+            height={325}
+            bg={BEFORE_BG}
+            label="A spreadsheet of logic formulas, with a broken #REF! cell."
+            layers={[{ src: spreadsheet, box: [-1, -17, 558, 359] }]}
+          />
+          <div class="copy">
+            <h4 class="text-title-l">Before</h4>
+            <p class="text-body-m">Logic tracked in spreadsheets next to the form. Easy to break, impossible to hand off without a verbal walkthrough.</p>
+          </div>
+        </li>
+        <li class="card">
+          <Collage
+            width={556}
+            height={325}
+            bg={AFTER_BG}
+            label="The visual workflow builder: question nodes connected on a canvas, with the logic settings on the right."
+            layers={[{ src: workflowBuilder, box: [14, 14, 528, 297], radius: 8, shadow: true }]}
+          />
+          <div class="copy">
+            <h4 class="text-title-l">After</h4>
+            <p class="text-body-m">Despite no prior experience designing node canvases, we benchmarked advanced interactive tools (Rive, Flora AI) to architect a frictionless, highly visual flow. Every micro-interaction, hover state, and node connection was custom-mapped to keep the learning curve as flat as possible for non-technical users.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="comparison">
+      <h3 class="text-h6">No access control meant no accountability</h3>
+      <ul class="cards">
+        <li class="card">
+          <SharingDialog />
+          <div class="copy">
+            <h4 class="text-title-l">Before</h4>
+            <p class="text-body-m">Anyone with access could see and do everything. No role structure, no audit trail, no accountability.</p>
+          </div>
+        </li>
+        <li class="card">
+          <Collage
+            width={556}
+            height={325}
+            bg={AFTER_BG}
+            label="The Add new role screen, with permissions grouped by area and a toggle for each."
+            layers={[{ src: addRole, box: [14, 14, 528, 297], radius: 8, shadow: true }]}
+          />
+          <div class="copy">
+            <h4 class="text-title-l">After</h4>
+            <p class="text-body-m">Three user roles with granular permissions. Everyone sees only what they need to, nothing more.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .before-after {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-48);
+    margin-top: var(--space-120);
+  }
+
+  .comparisons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-80);
+    container-type: inline-size;
+  }
+
+  .comparison {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-32);
+  }
+
+  h3,
+  h4 {
+    color: var(--text-primary);
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-24);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    padding: var(--space-16);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-cards);
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+  }
+
+  .copy p {
+    margin: 0;
+    color: var(--text-secondary);
+  }
+
+  /* Too narrow for Before and After side by side: stack them. */
+  @container (max-width: 700px) {
+    .cards {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .comparisons {
+      gap: var(--space-64);
+    }
+  }
+</style>

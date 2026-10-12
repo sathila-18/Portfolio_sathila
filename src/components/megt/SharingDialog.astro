@@ -1,0 +1,168 @@
+---
+// MEGT › Before & after › "Unrestricted sharing": a file-sharing dialog set to "Anyone with the
+// link · Can edit", 556 × 325. Rebuilt from the Figma layers in Figma units (--u) so it scales
+// with the card. Its colours, fonts and radii are artwork (DESIGN.md › Shapes).
+import globe from '../../assets/images/megt/before/globe.svg';
+import warning from '../../assets/images/megt/before/warning.svg';
+import dropdown from '../../assets/images/megt/before/dropdown.svg';
+import info from '../../assets/images/megt/before/info.svg';
+import divider from '../../assets/images/megt/before/divider.svg';
+import copyLink from '../../assets/images/megt/before/copy-link.svg';
+---
+
+<div
+  class="sharing"
+  role="img"
+  aria-label="A sharing dialog set to Anyone with the link, Can edit, with the note: This file can be edited by anyone. No sign-in required."
+>
+  <div class="dialog">
+    <p class="eyebrow">General access</p>
+    <div class="highlight">
+      <div class="permission">
+        <span class="who"><img class="i16" src={globe.src} alt="" />Anyone with the link</span>
+        <span class="controls">
+          <img class="i14" src={warning.src} alt="" />
+          <span class="selector">Can edit<img class="i10" src={dropdown.src} alt="" /></span>
+        </span>
+      </div>
+      <p class="note"><img class="i13" src={info.src} alt="" />This file can be edited by anyone. No sign-in required.</p>
+    </div>
+    <img class="divider" src={divider.src} alt="" />
+    <div class="actions">
+      <span class="copy"><img class="i14" src={copyLink.src} alt="" />Copy link</span>
+      <span class="done">Done</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .sharing {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 556 / 325;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background-color: #e9eaee; /* artwork */
+  }
+
+  .sharing * {
+    --u: calc(100cqw / 556);
+  }
+
+  /* Figma: 400 wide at 78, 61; padding 20, gap 16. */
+  .dialog {
+    position: absolute;
+    left: calc(78 * var(--u));
+    top: calc(61 * var(--u));
+    display: flex;
+    flex-direction: column;
+    gap: calc(16 * var(--u));
+    width: calc(400 * var(--u));
+    padding: calc(20 * var(--u));
+    border: calc(1 * var(--u)) solid #e2e8f0;
+    border-radius: calc(12 * var(--u));
+    background-color: #fff;
+    font-family: Geist, Inter, system-ui, sans-serif;
+    line-height: normal;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .eyebrow {
+    font-size: calc(11 * var(--u));
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #5c5c5c;
+  }
+
+  .highlight {
+    display: flex;
+    flex-direction: column;
+    gap: calc(8 * var(--u));
+  }
+
+  .permission {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc(12 * var(--u));
+    border: calc(1.5 * var(--u)) solid #ddd;
+    border-radius: calc(8 * var(--u));
+  }
+
+  .who {
+    display: flex;
+    align-items: center;
+    gap: calc(10 * var(--u));
+    font-family: Inter, system-ui, sans-serif;
+    font-size: calc(14 * var(--u));
+    font-weight: 500;
+    color: #111827;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: calc(6 * var(--u));
+  }
+
+  .selector {
+    display: flex;
+    align-items: center;
+    gap: calc(4 * var(--u));
+    padding: calc(4 * var(--u)) calc(8 * var(--u));
+    border-radius: calc(6 * var(--u));
+    background-color: #dae6ff;
+    font-family: Inter, system-ui, sans-serif;
+    font-size: calc(12 * var(--u));
+    font-weight: 500;
+    color: #374151;
+  }
+
+  .note {
+    display: flex;
+    align-items: center;
+    gap: calc(5 * var(--u));
+    font-family: Inter, system-ui, sans-serif;
+    font-size: calc(11 * var(--u));
+    color: #767676;
+  }
+
+  .divider {
+    display: block;
+    width: 100%;
+    height: calc(1 * var(--u));
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .copy {
+    display: flex;
+    align-items: center;
+    gap: calc(6 * var(--u));
+    padding-block: calc(8 * var(--u));
+    font-size: calc(12 * var(--u));
+    font-weight: 500;
+    color: #374151;
+  }
+
+  .done {
+    padding: calc(8 * var(--u)) calc(16 * var(--u));
+    border-radius: calc(8 * var(--u));
+    background-color: #2563eb;
+    font-size: calc(13 * var(--u));
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .i16 { width: calc(16 * var(--u)); height: calc(16 * var(--u)); }
+  .i14 { width: calc(14 * var(--u)); height: calc(14 * var(--u)); }
+  .i13 { width: calc(13 * var(--u)); height: calc(13 * var(--u)); }
+  .i10 { width: calc(10 * var(--u)); height: calc(10 * var(--u)); }
+</style>

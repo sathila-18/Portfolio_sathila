@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="74" height="64" viewBox="0 0 74 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Rectangle 68" filter="url(#filter0_f_0_18)">
+<path d="M10 15C10 12.2386 12.2386 10 15 10H25.12C26.1504 10 27.1556 10.3183 27.9981 10.9114L31.2815 13.2228C32.1241 13.8159 33.1293 14.1342 34.1597 14.1342H59C61.7614 14.1342 64 16.3728 64 19.1342V49C64 51.7614 61.7614 54 59 54H15C12.2386 54 10 51.7614 10 49V15Z" fill="black" fill-opacity="0.5"/>
+</g>
+<defs>
+<filter id="filter0_f_0_18" x="0" y="0" width="74" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="5" result="effect1_foregroundBlur_0_18"/>
+</filter>
+</defs>
+</svg>
