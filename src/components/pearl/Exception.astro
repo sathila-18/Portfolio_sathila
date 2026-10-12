@@ -1,0 +1,85 @@
+---
+// Pearl › 06 — The Exception: an aside (label, italic quote, short accent rule) beside two
+// italic paragraphs. Set in Google Sans Code italic on purpose (DESIGN.md › Google Sans Code).
+// 80px band padding instead of 120. Figma's 32 line height on the paragraphs uses the
+// pearl-quote token's 30.
+import Section from './Section.astro';
+---
+
+<Section tone="white" width="wide" compact labelledby="exception-title">
+  <div class="layout">
+    <aside class="aside">
+      <h2 class="text-label-s label" id="exception-title">one exception, early in the build</h2>
+      <p class="text-pearl-quote quote">A quiet lesson about skipping the queue.</p>
+      <span class="rule" aria-hidden="true"></span>
+    </aside>
+
+    <div class="body text-pearl-quote">
+      <p>
+        Before Pearl covered dark mode, the client asked for two screens ahead of schedule — Home
+        Screen and My Plan. Home Screen made sense early; it settled UI direction everyone needed
+        to agree on. My Plan didn't need to jump the queue, but it did anyway.
+      </p>
+      <p>
+        The cost showed up later. When dark mode became urgent for the dev team, both screens had
+        to be retrofitted component by component, because they'd never been built against the
+        system in the first place. It was avoidable, and it's the clearest argument I have for
+        pushing back harder next time a “quick” UI request tries to skip the system.
+      </p>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .layout {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-64);
+  }
+
+  /* Figma gap 18, snapped to 16. Label and quote wrap at the 220 width, as in Figma. */
+  .aside {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    width: 220px;
+  }
+
+  .label {
+    max-width: 120px;
+    color: var(--text-tertiary);
+    text-wrap: balance;
+  }
+
+  /* The 16/24 pearl-quote size. */
+  .quote {
+    max-width: 200px;
+    font-size: var(--body-l-size);
+    line-height: var(--body-l-line);
+    color: var(--text-primary);
+  }
+
+  .rule {
+    width: 52px;
+    height: 2px;
+    background-color: var(--pearl-accent-line);
+  }
+
+  /* Figma gap 22, snapped to 24. */
+  .body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+    color: var(--text-secondary);
+  }
+
+  /* Tablet and mobile: the aside sits above the paragraphs. */
+  @media (max-width: 1199px) {
+    .layout {
+      flex-direction: column;
+      gap: var(--space-40);
+    }
+  }
+</style>

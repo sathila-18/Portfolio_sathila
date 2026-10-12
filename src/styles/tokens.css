@@ -223,6 +223,8 @@
   --pearl-badge-text: #6B5C38;
   /* Pearl "The Third Surface": carousel slide background. */
   --pearl-slide-bg: #DBDEEF;
+  /* Pearl "The Exception": short accent rule under the aside. */
+  --pearl-accent-line: var(--tertiary-2-200);
   --sampath-bg-warm: #F7F3EF;
   --sampath-bg-warm-alt: #EDEAE5;
   --sampath-border-warm: #E0D9D0;
