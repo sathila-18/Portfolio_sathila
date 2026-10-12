@@ -1,0 +1,237 @@
+---
+// MEGT › The product (DESIGN.md › Layout › MEGT case study, item 6): section heading, then a
+// form builder preview with a caption and four feature tabs. 120px under How it was built.
+//
+// Tabs 02–04 reuse the Form canvas image and caption as placeholders until their content
+// exists (user's decision). Tab corners snapped from 12 to rounded.md; the violet active state
+// is as in Figma.
+import { Image } from 'astro:assets';
+import SectionHeading from './SectionHeading.astro';
+import builder from '../../assets/images/megt/02_hero-form-builder-preview__image-form-builder.png';
+import forwardIcon from '../../assets/icons/megt/forward.svg';
+
+const caption =
+  'The new tool needed to handle conditional logic, an intervention library, role-based permissions, and a reusable question library, while staying simple enough for non-technical case workers to use daily without training.';
+
+const features = [
+  { id: 'canvas', title: 'Form canvas', image: builder, alt: 'The form builder canvas with the question type picker open.', caption },
+  { id: 'workflow', title: 'Workflow builder', image: builder, alt: 'The form builder canvas with the question type picker open.', caption },
+  { id: 'library', title: 'Question library', image: builder, alt: 'The form builder canvas with the question type picker open.', caption },
+  { id: 'assessment', title: 'Assessment view', image: builder, alt: 'The form builder canvas with the question type picker open.', caption },
+];
+---
+
+<section id="product" class="product" aria-labelledby="product-title">
+  <SectionHeading
+    id="product-title"
+    eyebrow="The product"
+    lead="The new tool needed to handle conditional logic, an intervention library, role-based permissions, and a reusable question library, while staying simple enough for non-technical case workers to use daily without training."
+    width={996}
+  >
+    See how the form builder works.
+  </SectionHeading>
+
+  <div class="showcase" data-tabs>
+    {features.map(({ id, image, alt, caption }, i) => (
+      <div
+        class="panel"
+        id={`product-panel-${id}`}
+        role="tabpanel"
+        aria-labelledby={`product-tab-${id}`}
+        hidden={i !== 0}
+      >
+        <div class="preview">
+          <Image
+            class="shot"
+            src={image}
+            alt={alt}
+            widths={[934, 1868]}
+            sizes="(min-width: 1800px) 934px, 78vw"
+          />
+        </div>
+        <p class="caption text-body-m">{caption}</p>
+      </div>
+    ))}
+
+    <div class="tabs" role="tablist" aria-label="Product features">
+      {features.map(({ id, title }, i) => (
+        <button
+          class="tab"
+          id={`product-tab-${id}`}
+          type="button"
+          role="tab"
+          aria-selected={i === 0 ? 'true' : 'false'}
+          aria-controls={`product-panel-${id}`}
+          tabindex={i === 0 ? 0 : -1}
+        >
+          <span class="tab-text">
+            <span class="number text-label-l">{String(i + 1).padStart(2, '0')}</span>
+            <span class="title text-h6">{title}</span>
+          </span>
+          <img class="chevron" src={forwardIcon.src} alt="" width="24" height="24" />
+        </button>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .product {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-48);
+    margin-top: var(--space-120);
+  }
+
+  .showcase {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+    container-type: inline-size;
+  }
+
+  .panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  .panel[hidden] {
+    display: none;
+  }
+
+  /* Figma: the 934 × 526 screenshot centred in a 1200 × 537 frame. */
+  .preview {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1200 / 537;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+  }
+
+  .shot {
+    width: calc(934 / 1200 * 100%);
+    height: auto;
+    border-radius: 4px; /* artwork */
+  }
+
+  /* Figma: 918 wide, centred under the preview. */
+  .caption {
+    width: 100%;
+    max-width: 918px;
+    margin: 0 auto;
+    color: var(--text-secondary);
+  }
+
+  .tabs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-24);
+  }
+
+  /* Inactive: 1px border-media. Active: 2px violet border on violet-50, padding trimmed by 1px
+     so the tabs stay the same size. */
+  .tab {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-8);
+    padding: var(--space-16);
+    border: 1px solid var(--border-media);
+    border-radius: var(--radius-md);
+    background: none;
+    font: inherit;
+    text-align: left;
+    color: var(--text-heading-brand);
+    cursor: pointer;
+    transition: border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .tab:hover {
+    border-color: var(--tertiary-2-500);
+  }
+
+  .tab:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .tab[aria-selected='true'] {
+    padding: calc(var(--space-16) - 1px);
+    border: 2px solid var(--tertiary-2-500);
+    background-color: var(--tertiary-2-50);
+  }
+
+  .tab-text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--space-8);
+    min-width: 0;
+  }
+
+  .tab[aria-selected='true'] .title {
+    color: var(--text-primary);
+  }
+
+  .chevron {
+    flex: none;
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Four across need about 1100px for "Assessment view" to stay on one line; narrower
+     content columns (small laptops, tablet) go two by two. */
+  @container (max-width: 1099px) {
+    .tabs {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* Mobile: the preview fills the width, as the screenshot is too small inside its frame. */
+  @media (max-width: 767px) {
+    .preview {
+      aspect-ratio: auto;
+    }
+
+    .shot {
+      width: 100%;
+    }
+
+    .tabs {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-12);
+    }
+  }
+</style>
+
+<script>
+  // Tabs (WAI-ARIA tabs pattern): click or arrow keys switch the panel; Home/End jump to the ends.
+  for (const root of document.querySelectorAll<HTMLElement>('[data-tabs]')) {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const select = (tab: HTMLButtonElement, focus = false) => {
+      for (const other of tabs) {
+        const selected = other === tab;
+        other.setAttribute('aria-selected', String(selected));
+        other.tabIndex = selected ? 0 : -1;
+        const panel = document.getElementById(other.getAttribute('aria-controls') ?? '');
+        if (panel) panel.hidden = !selected;
+      }
+      if (focus) tab.focus();
+    };
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => select(tab));
+      tab.addEventListener('keydown', (event) => {
+        const next = {
+          ArrowRight: tabs[(i + 1) % tabs.length],
+          ArrowLeft: tabs[(i - 1 + tabs.length) % tabs.length],
+          Home: tabs[0],
+          End: tabs[tabs.length - 1],
+        }[event.key];
+        if (next) {
+          event.preventDefault();
+          select(next, true);
+        }
+      });
+    });
+  }
+</script>

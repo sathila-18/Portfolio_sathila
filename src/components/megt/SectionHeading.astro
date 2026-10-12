@@ -16,7 +16,7 @@ interface Props {
 const { id, eyebrow, lead, leadWidth, width, dark = false } = Astro.props;
 ---
 
-<header class:list={['heading', { dark }]} style={width ? `max-width: ${width}px` : undefined}>
+<header class:list={['heading', { dark }]} style={width ? `max-width: ${width}px; --h2-max: ${width}px` : undefined}>
   <div class="titles">
     <p class="eyebrow text-label-m">{eyebrow}</p>
     <h2 id={id}><slot /></h2>
@@ -43,7 +43,7 @@ const { id, eyebrow, lead, leadWidth, width, dark = false } = Astro.props;
 
   /* text-primary, as on Pearl and Sampath (user's decision; Figma has some in heading-brand). */
   h2 {
-    max-width: 690px;
+    max-width: var(--h2-max, 690px);
     color: var(--text-primary);
   }
 

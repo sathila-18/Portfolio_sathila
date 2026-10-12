@@ -66,7 +66,7 @@ Status values: `not started` · `in progress` · `approved`
 | Context | approved |
 | The challenge | approved |
 | How it was built | approved |
-| The product | not started |
+| The product | approved |
 | Before and after | not started |
 | Canvas behavior | not started |
 | Design system | not started |
