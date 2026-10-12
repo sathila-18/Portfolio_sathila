@@ -69,7 +69,7 @@ Status values: `not started` · `in progress` · `approved`
 | The product | approved |
 | Before and after | approved |
 | Canvas behavior | approved |
-| Design system | not started |
+| Design system | approved |
 | Honest reflections | not started |
 
 ### Pearl case study

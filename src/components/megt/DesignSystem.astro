@@ -1,0 +1,284 @@
+---
+// MEGT › Design system (DESIGN.md › Layout › MEGT case study, item 6): full-bleed bg-inverse band
+// with the section heading, three 378 × 378 visuals (token architecture, components, example
+// screens), then three principle cards. 120px under Canvas behavior.
+//
+// Figma spacing: band 80 top and bottom, heading to visuals 32, visuals to cards 64, cards 48 apart.
+// Figma has the band's content at x 498; it follows the content column (480) like every section.
+import SectionHeading from './SectionHeading.astro';
+import Collage from './Collage.astro';
+import paletteIcon from '../../assets/images/megt/system/palette-icon.svg';
+import connector from '../../assets/images/megt/system/connector.svg';
+import avatar from '../../assets/images/megt/21_section-how-it-was-built__image-core-component-avatar.png';
+import search from '../../assets/images/megt/22_section-how-it-was-built__image-core-component-desktop-search.png';
+import tabs from '../../assets/images/megt/23_section-how-it-was-built__image-core-component-button-tabs.png';
+import checkbox from '../../assets/images/megt/24_section-how-it-was-built__image-core-component-checkbox.png';
+import toggle from '../../assets/images/megt/25_section-how-it-was-built__image-core-component-toggle.png';
+import button01 from '../../assets/images/megt/26_section-how-it-was-built__image-core-component-button-01.png';
+import button02 from '../../assets/images/megt/27_section-how-it-was-built__image-core-component-button-02.png';
+import button03 from '../../assets/images/megt/28_section-how-it-was-built__image-core-component-button-03.png';
+import badge from '../../assets/images/megt/29_section-how-it-was-built__image-core-component-primary-badge.png';
+import input from '../../assets/images/megt/30_section-how-it-was-built__image-core-component-standard-input.png';
+import radio from '../../assets/images/megt/46_section-design-system__image-component-detail.png';
+import example01 from '../../assets/images/megt/47_section-design-system__image-design-system-example-01.png';
+import example02 from '../../assets/images/megt/48_section-design-system__image-design-system-example-02.png';
+import example03 from '../../assets/images/megt/49_section-design-system__image-design-system-example-03.png';
+
+// Token diagram, in Figma's 378 units: layer label, then the token chip.
+const u = (n: number) => `calc(${n} * var(--u))`;
+const tokens = [
+  { label: 'Hex', labelAt: [105, 40], chip: '#0076BD', chipAt: [136, 37] },
+  { label: 'Primitive', labelAt: [63, 106], chip: 'Pantone-500', chipAt: [121, 103] },
+  { label: 'Alias', labelAt: [61, 170], chip: 'Brand-primary-500', chipAt: [97, 167] },
+  { label: 'Scoped', labelAt: [57, 233], chip: 'bg-brand-action', chipAt: [109, 230] },
+];
+// Connector tops; each is a 22-unit line at x 191.
+const connectors = [77, 139, 201, 264];
+
+const principles = [
+  {
+    title: 'Why a 3-Layer Token Architecture?',
+    body: 'Bypassed a standard 2-layer variable system to future-proof the application logic. By routing global primitives through semantic aliases and into component-scoped tokens, the system can scale infinitely without breaking downstream layouts.',
+  },
+  {
+    title: '2pt spacing scale for enterprise density',
+    body: 'Enterprise tables and dense forms need finer control than an 8pt scale. Made information-heavy screens breathe properly without wasting space.',
+  },
+  {
+    title: 'Accessibility built in, not bolted on',
+    body: 'WCAG AA on every color pair. 44×44px touch targets. Status indicators always pair icon with label and never color alone.',
+  },
+];
+---
+
+<!-- The nav goes white while this band is behind it; the sidebar links lighten over it. -->
+<section id="design-system" class="system" aria-labelledby="system-title" data-dark-hero>
+  <SectionHeading
+    id="system-title"
+    eyebrow="Design system"
+    lead="Started with the client's font, color palette, and 12 core atomic components. Built the rest of the system as screens needed it, not speculatively."
+    width={647}
+    dark
+  >
+    Client brand guidelines in. Enterprise design system out.
+  </SectionHeading>
+
+  <div class="visuals">
+    <div
+      class="diagram"
+      role="img"
+      aria-label="Token architecture: the hex value #0076BD becomes the primitive Pantone-500, then the alias Brand-primary-500, then the scoped token bg-brand-action, which colours the Customize theme button."
+    >
+      {tokens.map(({ label, labelAt, chip, chipAt }) => (
+        <>
+          <span class="layer-name" style={`left: ${u(labelAt[0])}; top: ${u(labelAt[1])};`}>{label}</span>
+          <span class="chip" style={`left: ${u(chipAt[0])}; top: ${u(chipAt[1])};`}><span class="swatch"></span>{chip}</span>
+        </>
+      ))}
+      {connectors.map((top) => (
+        <img class="connector" src={connector.src} alt="" style={`left: ${u(180)}; top: ${u(top + 10.5)};`} />
+      ))}
+      <span class="theme-button" style={`top: ${u(296)};`}>
+        <img src={paletteIcon.src} alt="" />Customize theme
+      </span>
+    </div>
+
+    <Collage
+      width={378}
+      height={378}
+      bg="var(--bg-subtle)"
+      label="Core components: input, tabs, buttons, avatar, toggle, badge, radio, checkbox and search."
+      layers={[
+        { src: avatar, box: [57, 121, 69, 68] },
+        { src: search, box: [138, 327, 224, 28] },
+        { src: tabs, box: [189, 0, 198, 40] },
+        { src: checkbox, box: [58, 312, 30, 30] },
+        { src: toggle, box: [167, 171, 73, 58] },
+        { src: button01, box: [266, 133, 96, 38] },
+        { src: button02, box: [9, 244, 96, 38] },
+        { src: button03, box: [312, 67, 50, 14] },
+        { src: badge, box: [249, 263, 78, 29] },
+        { src: input, box: [37, 39, 241, 56] },
+        { src: radio, box: [17, 315, 24, 24] },
+      ]}
+    />
+
+    <Collage
+      width={378}
+      height={378}
+      bg="var(--bg-subtle)"
+      label="Screens built with the system: the form canvas and the All users table."
+      layers={[
+        { src: example01, box: [128, 22, 260, 125] },
+        { src: example02, box: [-58, 167, 353, 198], radius: 2, shadow: true },
+        { src: example03, box: [-21, 46, 140, 97], crop: [-48.69, -13.06, 200.63, 163.9], radius: 3 },
+      ]}
+    />
+  </div>
+
+  <ul class="principles">
+    {principles.map(({ title, body }) => (
+      <li class="principle">
+        <h3 class="text-title-l">{title}</h3>
+        <p class="text-body-l">{body}</p>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  /* Full-bleed band from inside the content column, as How it was built. */
+  .system {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-32);
+    margin-top: var(--space-120);
+    padding-block: var(--space-80);
+    background-color: var(--bg-inverse);
+    box-shadow: 0 0 0 100vmax var(--bg-inverse);
+    clip-path: inset(0 -100vmax);
+    container-type: inline-size;
+  }
+
+  .visuals {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-24);
+  }
+
+  /* ── Token diagram: 378 × 378, positions in Figma units ───────── */
+
+  .diagram {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background-color: var(--bg-subtle);
+    font-family: Inter, system-ui, sans-serif; /* artwork */
+    font-weight: 500;
+  }
+
+  .diagram * {
+    --u: calc(100cqw / 378);
+  }
+
+  .layer-name,
+  .chip,
+  .connector,
+  .theme-button {
+    position: absolute;
+  }
+
+  .layer-name {
+    font-size: calc(12 * var(--u));
+    line-height: calc(24 * var(--u));
+    color: var(--text-tertiary);
+  }
+
+  .chip {
+    display: flex;
+    align-items: center;
+    gap: calc(10 * var(--u));
+    padding: calc(3 * var(--u)) calc(8 * var(--u));
+    border-radius: var(--radius-full);
+    background-color: #e3eff6; /* artwork */
+    font-size: calc(16 * var(--u));
+    line-height: calc(24 * var(--u));
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+
+  .swatch {
+    width: calc(13 * var(--u));
+    height: calc(13 * var(--u));
+    border-radius: var(--radius-full);
+    background-color: #0076bd; /* artwork */
+  }
+
+  /* The connector SVG is horizontal; Figma turns it 90° into a 22-unit vertical line. */
+  .connector {
+    width: calc(22 * var(--u));
+    height: calc(1 * var(--u));
+    max-width: none;
+    rotate: 90deg;
+  }
+
+  .theme-button {
+    left: calc(50% + 3 * var(--u));
+    translate: -50% 0;
+    display: flex;
+    align-items: center;
+    gap: calc(8 * var(--u));
+    padding: calc(6 * var(--u)) calc(24 * var(--u));
+    border-radius: calc(8 * var(--u));
+    background-color: #0076bd; /* artwork */
+    font-family: 'Public Sans', Inter, system-ui, sans-serif;
+    font-size: calc(14 * var(--u));
+    line-height: calc(24 * var(--u));
+    color: #fff;
+    white-space: nowrap;
+  }
+
+  .theme-button img {
+    width: calc(20 * var(--u));
+    height: calc(20 * var(--u));
+  }
+
+  /* ── Principles: two side by side, the third centred under them ── */
+
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-48);
+    margin: var(--space-32) 0 0; /* 32 + the band's 32 gap = Figma's 64 */
+    padding: 0;
+    list-style: none;
+  }
+
+  .principle {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    padding: var(--space-16);
+    border-radius: var(--radius-md);
+    background-color: var(--megt-card-dark);
+  }
+
+  .principle:last-child {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc((100% - var(--space-48)) / 2);
+  }
+
+  h3 {
+    color: var(--text-white);
+  }
+
+  .principle p {
+    margin: 0;
+    color: var(--text-off-white);
+  }
+
+  /* Narrow columns: visuals and cards one per row. */
+  @container (max-width: 700px) {
+    .visuals,
+    .principles {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .principles {
+      gap: var(--space-24);
+    }
+
+    .principle:last-child {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .system {
+      padding-block: var(--space-64);
+    }
+  }
+</style>
