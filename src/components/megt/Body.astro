@@ -1,0 +1,166 @@
+---
+// MEGT › Body with the sticky sidebar (DESIGN.md › Layout › MEGT case study, item 6, and
+// Components › Sticky sidebar). The sections go in the slot, each with the id its link points to.
+//
+// Desktop (≥ 1200): Figma's 1920 geometry — sidebar at x 120 (lined up with the nav logo), content
+// at x 480, up to 1200 wide. The 234px sidebar sits in a 240 column so 120 + 240 + 120 lands on 480.
+// Narrower windows shrink the content column, as on the Pawprint case study the user referenced:
+// the gap eases from 120 down to 48 between 1440 and 1368, then the content narrows.
+// Below 1200 the sidebar is hidden and the content uses the normal container (user's decision).
+const links = [
+  { id: 'context', label: 'Context' },
+  { id: 'challenge', label: 'The challenge' },
+  { id: 'how-it-was-built', label: 'How it was built' },
+  { id: 'product', label: 'The product' },
+  { id: 'before-and-after', label: 'Before & after' },
+  { id: 'canvas-behavior', label: 'Canvas behavior' },
+  { id: 'design-system', label: 'Design system' },
+  { id: 'reflections', label: 'Honest reflections' },
+];
+---
+
+<div class="body">
+  <aside class="sidebar" aria-label="Case study sections">
+    <a class="back text-label-l" href="/"><span aria-hidden="true">←</span> Go back</a>
+    <nav>
+      <ul class="links">
+        {links.map(({ id, label }, i) => (
+          <li>
+            <a class="link" href={`#${id}`} data-section={id} aria-current={i === 0 ? 'true' : undefined}>
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </aside>
+
+  <div class="content">
+    <slot />
+  </div>
+</div>
+
+<style>
+  /* Figma: 120 under the metrics band. */
+  .body {
+    margin-top: var(--space-120);
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .content {
+    width: 100%;
+    max-width: calc(var(--container-max) + 2 * var(--gutter));
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* Sections scroll in below the fixed nav. */
+  .content :global([id]) {
+    scroll-margin-top: calc(var(--nav-height) + var(--space-48));
+  }
+
+  @media (min-width: 1200px) {
+    .body {
+      display: grid;
+      grid-template-columns: 240px minmax(0, var(--container-max));
+      align-items: start;
+      column-gap: clamp(var(--space-48), calc(100vw - var(--width-1200) - var(--space-120)), var(--space-120));
+      padding-inline: var(--space-120);
+    }
+
+    .content {
+      max-width: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* 40 from "Go back" to the links; links 12 apart. */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--nav-height) + var(--space-48));
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-40);
+    }
+  }
+
+  .back {
+    color: var(--text-link-active);
+    text-decoration: none;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Inactive: title-l, text-tertiary. Active: label-l, text-link-active. */
+  .link {
+    font-size: var(--title-l-size);
+    line-height: var(--title-l-line);
+    font-weight: var(--weight-medium);
+    color: var(--text-tertiary);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .link:hover {
+    color: var(--text-link-active);
+  }
+
+  .link[aria-current='true'] {
+    font-size: var(--label-l-size);
+    line-height: var(--label-l-line);
+    font-weight: var(--weight-semibold);
+    color: var(--text-link-active);
+  }
+</style>
+
+<script>
+  // Highlights the link for the section being read: the one crossing a line just under the nav
+  // (nav-height 88 + 48, where the sticky sidebar and section anchors sit). Between sections the
+  // last one stays highlighted. Sections not built yet are skipped.
+  const LINE = 136;
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.sidebar .link')];
+  const sections = links
+    .map((link) => document.getElementById(link.dataset.section ?? ''))
+    .filter((section): section is HTMLElement => section !== null);
+
+  const setActive = (id: string) => {
+    for (const link of links) {
+      if (link.dataset.section === id) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    }
+  };
+
+  let observer: IntersectionObserver | undefined;
+  const observe = () => {
+    observer?.disconnect();
+    // A 1px band at the line: whatever section crosses it is being read.
+    observer = new IntersectionObserver(
+      () => {
+        // Entries can miss a section that was already touching the line edge-on, so check
+        // every section's position whenever any of them crosses it.
+        const current = sections.find((section) => {
+          const { top, bottom } = section.getBoundingClientRect();
+          return top <= LINE && bottom > LINE;
+        });
+        if (current) setActive(current.id);
+      },
+      { rootMargin: `-${LINE}px 0px -${Math.max(0, innerHeight - LINE - 1)}px 0px` },
+    );
+    sections.forEach((section) => observer!.observe(section));
+  };
+
+  if (sections.length) {
+    observe();
+    addEventListener('resize', observe);
+  }
+</script>

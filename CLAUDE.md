@@ -33,6 +33,8 @@ Built with these defaults until the user confirms:
 - `grey00` in DESIGN.md (violet-300) is treated as `tertiary-300`.
 - Gradient directions: brand is confirmed (149deg, from the logo SVG). "Fintech" runs left to right (90deg) and info-card icon top to bottom (180deg), unconfirmed.
 - Footer social links: LinkedIn, Instagram and Dribbble URLs still to come (placeholders in `src/components/Footer.astro`, no link yet). The footer icons are placeholders too and may be replaced.
+- MEGT sidebar: hidden below 1200px (user's decision, after the Pawprint case study they referenced); between 1200 and 1920 the content column shrinks instead. "← Go back" keeps DESIGN.md's arrow (Figma has none).
+- MEGT sidebar over the full-bleed dark sections ("How it was built", "Design system"): still to decide when those sections are built.
 - On mobile only `number-xl` shrinks (to 56/72.8), so `number-l` (80) is larger than `number-xl` there. Left as specified.
 
 ## Progress
@@ -60,7 +62,7 @@ Status values: `not started` · `in progress` · `approved`
 | Hero: project metadata | approved |
 | Hero: form builder preview | approved |
 | Project metrics | approved |
-| Sticky sidebar | not started |
+| Sticky sidebar | approved |
 | Context | not started |
 | The challenge | not started |
 | How it was built | not started |
