@@ -63,7 +63,7 @@ Status values: `not started` · `in progress` · `approved`
 | Hero: form builder preview | approved |
 | Project metrics | approved |
 | Sticky sidebar | approved |
-| Context | not started |
+| Context | approved |
 | The challenge | not started |
 | How it was built | not started |
 | The product | not started |

@@ -1,0 +1,300 @@
+---
+// MEGT › Context (DESIGN.md › Layout › MEGT case study, item 6, and Components › Story row):
+// section heading, then three story rows, each a 716 × 408 illustration beside its text.
+//
+// The illustrations are rebuilt from the Figma layers so they stay sharp, as on Sampath. Every
+// position is in Figma's 716 × 408 units (--u), so each one scales with its column. The gradient
+// backgrounds are SVG images (DESIGN.md › Elevation: gradients in imagery stay images).
+// Radii and the "Assessment" chip inside the artwork are left as they are (DESIGN.md › Shapes).
+import { Image } from 'astro:assets';
+import SectionHeading from './SectionHeading.astro';
+import bgDark from '../../assets/images/megt/context/story-bg-dark.svg';
+import bgLight from '../../assets/images/megt/context/story-bg-light.svg';
+import jotform from '../../assets/images/megt/03_section-group-context-and-challenge__image-legacy-tool-detail.png';
+import googleForms from '../../assets/images/megt/04_section-group-context-and-challenge__image-legacy-documents.jpg';
+import sheets from '../../assets/images/megt/05_section-group-context-and-challenge__image-legacy-excel.png';
+import typeform from '../../assets/images/megt/06_section-group-context-and-challenge__image-legacy-excel-detail.png';
+import bench01 from '../../assets/images/megt/07_section-group-context-and-challenge__image-creator-tool-benchmark-01.png';
+import bench02 from '../../assets/images/megt/08_section-group-context-and-challenge__image-creator-tool-benchmark-02.png';
+import bench03 from '../../assets/images/megt/09_section-group-context-and-challenge__image-creator-tool-benchmark-03.png';
+import bench04 from '../../assets/images/megt/10_section-group-context-and-challenge__image-creator-tool-benchmark-04.png';
+import threePanel from '../../assets/images/megt/11_section-group-context-and-challenge__image-three-panel-concept.png';
+import connector01 from '../../assets/images/megt/context/connector-01.svg';
+import connector02 from '../../assets/images/megt/context/connector-02.svg';
+import connector03 from '../../assets/images/megt/context/connector-03.svg';
+import connector04 from '../../assets/images/megt/context/connector-04.svg';
+import connector05 from '../../assets/images/megt/context/connector-05.svg';
+import connector06 from '../../assets/images/megt/context/connector-06.svg';
+
+// Places a layer: left, top, width, height in Figma units.
+const box = (l: number, t: number, w: number, h: number) => `--l: ${l}; --t: ${t}; --w: ${w}; --h: ${h};`;
+// Figma's image crop inside a layer, as percentages of the layer.
+const crop = (l: number, t: number, w: number, h: number) => `left: ${l}%; top: ${t}%; width: ${w}%; height: ${h}%;`;
+
+// Connectors: the bounding box, then the vector's own size, rotation, vertical flip and
+// Figma's stroke overhang (top, right, bottom, left, in %).
+const connectors = [
+  { src: connector01, box: box(186.68, 55.95, 122.321, 162.876), w: 25.854, h: 179.422, flip: false, inset: '0 0 -1.49% -8.83%' },
+  { src: connector02, box: box(404, 52.63, 128.881, 169.243), w: 30.874, h: 183.706, flip: true, inset: '-1.45% -8.64% 0 0' },
+  { src: connector03, box: box(160.2, 198, 173.674, 142.822), w: 172.313, h: 55.491, flip: false, inset: '-0.9% 0 -0.9% -1.55%' },
+  { src: connector04, box: box(380.3, 197.9, 178.219, 145.061), w: 179.122, h: 53.566, flip: true, inset: '-0.93% -1.49% -0.93% 0' },
+  { src: connector05, box: box(187, 148.91, 119.51, 111.176), w: 98.8, h: 67.241, flip: false, inset: '0 0 -3.97% -2.7%' },
+  { src: connector06, box: box(403.99, 144.55, 128.882, 119.894), w: 106.547, h: 72.514, flip: true, inset: '-3.68% -2.5% 0 0' },
+];
+
+// Story 2 collage, bottom layer first.
+const benchmarks = [
+  { src: bench01, box: box(33, 24, 247, 191), crop: crop(-53.44, -8.44, 204.86, 125.77), width: 1012 },
+  { src: bench02, box: box(335, 218, 389, 190), crop: crop(0, -0.06, 101.03, 100.12), width: 786 },
+  { src: bench03, box: box(310, 21, 414, 183), crop: crop(-23.44, -32.32, 129.75, 139.39), width: 1074 },
+  { src: bench04, box: box(13, 235, 288, 225), crop: crop(-5.56, -7.22, 111.81, 107.33), width: 644 },
+];
+const sheetsCrop = crop(-11.4, -12.34, 122.52, 123.64);
+---
+
+<section id="context" class="context" aria-labelledby="context-title">
+  <SectionHeading
+    id="context-title"
+    eyebrow="Context"
+    lead="How we went from a blank slate to a winning concept in 48 hours"
+    leadWidth={449}
+  >
+    Replacing tools that were never built for this work.
+  </SectionHeading>
+
+  <div class="stories">
+    <!-- 1 · Legacy assessment tools -->
+    <div class="story">
+      <div
+        class="illus"
+        role="img"
+        aria-label="Google Sheets feeding into Google Forms, Typeform and Jotform, which all fed into one assessment."
+      >
+        <img class="bg" src={bgDark.src} alt="" />
+        {connectors.map(({ src, box, w, h, flip, inset }) => (
+          <div class="layer connector" style={box}>
+            <div class:list={['vector', { flip }]} style={`--vw: ${w}; --vh: ${h};`}>
+              <span class="stroke" style={`inset: ${inset};`}><img src={src.src} alt="" /></span>
+            </div>
+          </div>
+        ))}
+        <div class="layer tile" style={box(312, 288, 92, 90)}>
+          <Image class="fill" src={jotform} alt="" widths={[184]} sizes="92px" />
+        </div>
+        <div class="layer tile" style={box(312, 28, 92, 90)}>
+          <Image class="crop" src={googleForms} alt="" style={crop(0, -0.45, 100, 100.91)} widths={[184]} sizes="92px" />
+        </div>
+        <div class="layer tile white" style={box(75, 149, 111, 110)}>
+          <Image class="crop" src={sheets} alt="" style={sheetsCrop} widths={[272]} sizes="136px" />
+        </div>
+        <div class="layer tile white chip" style={box(530, 169, 129, 70)}>Assessment</div>
+        <div class="layer tile white" style={box(312, 159, 92, 90)}>
+          <Image class="crop" src={sheets} alt="" style={sheetsCrop} widths={[272]} sizes="136px" />
+          <Image class="fill" src={typeform} alt="" widths={[342]} sizes="171px" />
+        </div>
+      </div>
+      <p class="text text-body-l">
+        MEGT is a not-for-profit partnered with Workforce Australia. Their case workers were building
+        assessments in Google forms and Typeform, and tracking conditional logic in spreadsheets
+        alongside them. It was fragile, inconsistent, and impossible to hand off.
+      </p>
+    </div>
+
+    <!-- 2 · Two-hour benchmark: text on the left -->
+    <div class="story text-first">
+      <div class="text">
+        <h3 class="text-title-l">The 2-hour benchmark</h3>
+        <p class="text-body-l">
+          Facing a strict 2-day pitching window, me and our UX researcher time-boxed an intense
+          2-hour benchmarking sprint. We mapped common spatial layout patterns across
+          industry-standard creator tools like Figma, Photoshop, and Illustrator.
+        </p>
+      </div>
+      <div class="illus" role="img" aria-label="Screenshots of the form and workflow builders we benchmarked.">
+        <img class="bg" src={bgLight.src} alt="" />
+        {benchmarks.map(({ src, box, crop, width }) => (
+          <div class="layer shot" style={box}>
+            <Image class="crop" src={src} alt="" style={crop} widths={[width]} sizes={`${width / 2}px`} />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- 3 · Familiar mental models -->
+    <div class="story">
+      <div
+        class="illus"
+        role="img"
+        aria-label="The three-panel concept: questions on the left, the assessment on the canvas in the middle, and page elements on the right."
+      >
+        <img class="bg" src={bgDark.src} alt="" />
+        <div class="layer concept" style={box(48, 10, 620, 388)}>
+          <Image class="fill" src={threePanel} alt="" widths={[1240]} sizes="620px" />
+        </div>
+      </div>
+      <div class="text">
+        <h3 class="text-title-l">Leveraging familiar mental models</h3>
+        <p class="text-body-l">
+          We realized that despite our users being non-designers, the classic 3-panel layout (Layers
+          on the left, Art board canvas in the center, Contextual Settings on the right) offered the
+          most stable, organized environment to transition them away from chaotic spreadsheets. The
+          client immediately bought into this vision during the pitch.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .context {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-48);
+  }
+
+  .stories {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-80);
+  }
+
+  /* Figma: 716 illustration + 457 text in 1200; the gap is snapped from 27/28 to 24. */
+  .story {
+    display: grid;
+    grid-template-columns: 716fr 460fr;
+    gap: var(--space-24);
+    align-items: start;
+  }
+
+  .story.text-first {
+    grid-template-columns: 460fr 716fr;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    margin: 0;
+    color: var(--text-secondary);
+  }
+
+  .text p {
+    margin: 0;
+  }
+
+  h3 {
+    color: var(--text-primary);
+  }
+
+  /* ── Illustrations: 716 × 408, positions in Figma units ───────── */
+
+  .illus {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 716 / 408;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-media);
+  }
+
+  .illus * {
+    --u: calc(100cqw / 716);
+  }
+
+  .bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .layer {
+    position: absolute;
+    left: calc(var(--l) * var(--u));
+    top: calc(var(--t) * var(--u));
+    width: calc(var(--w) * var(--u));
+    height: calc(var(--h) * var(--u));
+    overflow: hidden;
+  }
+
+  .tile {
+    border-radius: calc(16 * var(--u));
+  }
+
+  .white {
+    background-color: var(--bg-cards);
+  }
+
+  .shot {
+    border-radius: calc(4 * var(--u));
+  }
+
+  .concept {
+    border-radius: calc(8 * var(--u));
+  }
+
+  .fill {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .crop {
+    position: absolute;
+    max-width: none;
+  }
+
+  /* Figma's chip: Inter Bold 14/24 in highland-green-900, centred. */
+  .chip {
+    display: grid;
+    place-items: center;
+    font-family: Inter, var(--font-sans);
+    font-size: calc(14 * var(--u));
+    line-height: calc(24 * var(--u));
+    font-weight: 700; /* artwork, not a type token */
+    color: var(--text-heading-brand);
+  }
+
+  .connector {
+    display: grid;
+    place-items: center;
+    overflow: visible;
+  }
+
+  .vector {
+    position: relative;
+    width: calc(var(--vw) * var(--u));
+    height: calc(var(--vh) * var(--u));
+    rotate: 34.24deg;
+  }
+
+  .vector.flip {
+    rotate: 145.76deg;
+    scale: 1 -1;
+  }
+
+  .stroke {
+    position: absolute;
+  }
+
+  .stroke img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+  }
+
+  /* Mobile: illustration first, then its text. */
+  @media (max-width: 767px) {
+    .story,
+    .story.text-first {
+      grid-template-columns: 1fr;
+    }
+
+    .story.text-first .text {
+      order: 1;
+    }
+  }
+</style>

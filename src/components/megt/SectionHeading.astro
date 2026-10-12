@@ -1,0 +1,48 @@
+---
+// MEGT › Section heading (DESIGN.md › Components › Section heading): eyebrow, h2, then an
+// optional lead paragraph 48px below. The section adds its content 48px below that.
+interface Props {
+  id: string;
+  eyebrow: string;
+  lead?: string;
+  /** Lead width from Figma; DESIGN.md keeps the h2 to ~690. */
+  leadWidth?: number;
+}
+
+const { id, eyebrow, lead, leadWidth } = Astro.props;
+---
+
+<header class="heading">
+  <div class="titles">
+    <p class="eyebrow text-label-m">{eyebrow}</p>
+    <h2 id={id}><slot /></h2>
+  </div>
+  {lead && <p class="lead text-body-xl" style={leadWidth ? `max-width: ${leadWidth}px` : undefined}>{lead}</p>}
+</header>
+
+<style>
+  .heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-48);
+  }
+
+  .titles {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .eyebrow {
+    color: var(--text-tertiary);
+  }
+
+  h2 {
+    max-width: 690px;
+    color: var(--text-heading-brand);
+  }
+
+  .lead {
+    color: var(--text-secondary);
+  }
+</style>
