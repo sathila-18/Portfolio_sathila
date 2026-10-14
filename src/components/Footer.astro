@@ -14,9 +14,16 @@ const socials = [
   { label: 'Instagram', icon: Instagram, href: null },
   { label: 'Dribbble', icon: Dribbble, href: null },
 ];
+
+interface Props {
+  /** No top margin: the page's last section sets the gap itself (the case studies). */
+  flush?: boolean;
+}
+
+const { flush = false } = Astro.props;
 ---
 
-<footer class="footer">
+<footer class:list={['footer', { flush }]}>
   <div class="content">
     <ul role="list" class="socials">
       {socials.map(({ label, icon: Icon, href }) => (
@@ -47,6 +54,10 @@ const socials = [
     margin-top: var(--space-80);
     background-color: var(--bg-primary);
     color: var(--text-secondary);
+  }
+
+  .footer.flush {
+    margin-top: 0;
   }
 
   /* As in Figma: the group is centred, and the icons and copyright line inside it

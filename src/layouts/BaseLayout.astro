@@ -11,6 +11,8 @@ interface Props {
   darkHero?: boolean;
   /** Page background token, e.g. `--pearl-bg` (DESIGN.md › Layout); shows behind the top nav. */
   pageBg?: string;
+  /** The last section sets the gap above the footer (case studies: 120, 48 on mobile). */
+  footerFlush?: boolean;
 }
 
 const {
@@ -18,6 +20,7 @@ const {
   description = 'Sathila De Silva: designing products and the systems that hold them together.',
   darkHero = false,
   pageBg,
+  footerFlush = false,
 } = Astro.props;
 ---
 
@@ -41,6 +44,6 @@ const {
   <body style={pageBg ? `background-color: var(${pageBg})` : undefined}>
     <TopNav watchDark={darkHero} />
     <slot />
-    <Footer />
+    <Footer flush={footerFlush} />
   </body>
 </html>

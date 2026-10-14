@@ -75,7 +75,7 @@ const reflections = [
     display: flex;
     flex-direction: column;
     gap: var(--space-48);
-    margin-block: var(--space-120) var(--space-240);
+    margin-block: var(--space-120); /* 120 above the footer (user's decision) */
   }
 
   .cards {
@@ -147,7 +147,7 @@ const reflections = [
     .reflections {
       margin-top: var(--space-48);
       gap: var(--space-32); /* Mobile: content 32 below the heading block. */
-      margin-bottom: var(--space-120);
+      margin-bottom: var(--space-48); /* 48 above the footer */
     }
 
     .cards {

@@ -35,6 +35,7 @@ Built with these defaults until the user confirms:
 - Footer social links: LinkedIn, Instagram and Dribbble URLs still to come (placeholders in `src/components/Footer.astro`, no link yet). The footer icons are placeholders too and may be replaced.
 - MEGT sidebar: hidden below 1200px (user's decision, after the Pawprint case study they referenced); between 1200 and 1920 the content column shrinks instead. "← Go back" keeps DESIGN.md's arrow (Figma has none).
 - MEGT sidebar over the full-bleed dark sections ("How it was built", "Design system"): each item lightens while it's over a band ("Go back" and the active link white, the rest `text-light`), since green is borderline there (about 4.5:1). Confirmed by the user.
+- Gap above the footer on the case studies (user's decision): the footer has no top margin there (`footerFlush`); the last section sets the gap, 120 on desktop and 48 on mobile. Pearl's last band (white, like the footer) has no bottom padding at all. Home keeps the footer's 80.
 - On mobile only `number-xl` shrinks (to 56/72.8), so `number-l` (80) is larger than `number-xl` there. Left as specified.
 
 ## Progress

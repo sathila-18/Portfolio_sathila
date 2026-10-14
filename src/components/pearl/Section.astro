@@ -9,9 +9,11 @@ interface Props {
   width?: 'narrow' | 'wide';
   /** 80px top and bottom instead of 120 ("The Exception", DESIGN.md). */
   compact?: boolean;
+  /** The page's last band: no bottom padding, it runs straight into the footer (user's decision). */
+  last?: boolean;
 }
 
-const { tone, labelledby, width = 'narrow', compact = false } = Astro.props;
+const { tone, labelledby, width = 'narrow', compact = false, last = false } = Astro.props;
 // Optional full-bleed content after the column (a carousel), taking the band's bottom padding.
 const hasBleed = Astro.slots.has('bleed');
 ---
@@ -22,7 +24,7 @@ const hasBleed = Astro.slots.has('bleed');
   aria-labelledby={labelledby}
   data-dark-hero={tone === 'dark' ? '' : undefined}
 >
-  <div class:list={['inner', width, { compact, 'has-bleed': hasBleed }]}>
+  <div class:list={['inner', width, { compact, 'has-bleed': hasBleed, last }]}>
     <slot />
   </div>
   {hasBleed && (
@@ -91,5 +93,10 @@ const hasBleed = Astro.slots.has('bleed');
     .bleed {
       padding-bottom: var(--space-48);
     }
+  }
+
+  /* After the breakpoints so it wins at every width. */
+  .inner.last {
+    padding-bottom: 0;
   }
 </style>

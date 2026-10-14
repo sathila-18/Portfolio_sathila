@@ -7,9 +7,11 @@ interface Props {
   labelledby: string;
   /** Bottom padding of 56 instead of 120 (80 on mobile), e.g. when an image band follows. */
   tightBottom?: boolean;
+  /** The page's last band: 48 bottom padding on mobile, the gap above the footer (user's decision). */
+  last?: boolean;
 }
 
-const { tone, labelledby, tightBottom = false } = Astro.props;
+const { tone, labelledby, tightBottom = false, last = false } = Astro.props;
 ---
 
 <!-- Dark bands also switch the top nav to white while they're behind it. -->
@@ -18,7 +20,7 @@ const { tone, labelledby, tightBottom = false } = Astro.props;
   aria-labelledby={labelledby}
   data-dark-hero={tone === 'dark' ? '' : undefined}
 >
-  <div class:list={['inner', { 'tight-bottom': tightBottom }]}>
+  <div class:list={['inner', { 'tight-bottom': tightBottom, last }]}>
     <slot />
   </div>
 </section>
@@ -58,5 +60,11 @@ const { tone, labelledby, tightBottom = false } = Astro.props;
 
   .inner.tight-bottom {
     padding-bottom: var(--space-56);
+  }
+
+  @media (max-width: 767px) {
+    .inner.last {
+      padding-bottom: var(--space-48);
+    }
   }
 </style>
