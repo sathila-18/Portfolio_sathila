@@ -288,6 +288,19 @@ const sheetsCrop = crop(-11.4, -12.34, 122.52, 123.64);
 
   /* Mobile: illustration first, then its text. */
   @media (max-width: 767px) {
+    .context {
+      gap: var(--space-32); /* Mobile: content 32 below the heading block. */
+    }
+
+    /* Mobile: 36 between stories, 8 between a story's title and description (user's decision). */
+    .stories {
+      gap: var(--space-36);
+    }
+
+    .text {
+      gap: var(--space-8);
+    }
+
     .story,
     .story.text-first {
       grid-template-columns: 1fr;

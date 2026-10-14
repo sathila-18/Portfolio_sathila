@@ -189,6 +189,12 @@ const features = [
 
   /* Mobile: the preview fills the width, as the screenshot is too small inside its frame. */
   @media (max-width: 767px) {
+    /* Mobile: 48 between sections (user's decision). */
+    .product {
+      margin-top: var(--space-48);
+      gap: var(--space-32); /* Mobile: content 32 below the heading block. */
+    }
+
     .preview {
       aspect-ratio: auto;
     }

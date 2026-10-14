@@ -46,7 +46,9 @@ const meta = [
 
   /* Mobile: two by two. */
   @media (max-width: 767px) {
+    /* Mobile: 32 below the description (user's decision). */
     .meta {
+      margin-top: var(--space-32);
       display: grid;
       grid-template-columns: repeat(2, 1fr);
     }

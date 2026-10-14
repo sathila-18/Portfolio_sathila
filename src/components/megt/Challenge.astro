@@ -103,6 +103,12 @@ const cards = [
 
   /* Mobile: one card per row. */
   @media (max-width: 767px) {
+    /* Mobile: 48 below Context, matching the 48 of light background around the dark bands (user's decision). */
+    .challenge {
+      margin-top: var(--space-48);
+      gap: var(--space-32); /* Mobile: content 32 below the heading block. */
+    }
+
     .cards {
       grid-template-columns: 1fr;
     }

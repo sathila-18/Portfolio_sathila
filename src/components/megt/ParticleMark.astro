@@ -1,8 +1,11 @@
 ---
 // MEGT › Particle mark: a canvas that fills its parent (give the parent a size and position:
 // relative), with ~250 dots drifting loosely across all of it that ease into a 160px ✓ or ✗ at
-// the centre while its trigger (the closest [data-particle-trigger]) is hovered or focused, and on
-// touch devices while it's on screen. With reduced motion the mark is drawn once, still.
+// the centre while its trigger (the closest [data-particle-trigger]) is hovered or focused. On
+// touch tablets it forms while 60% is on screen. On mobile it forms once the canvas is fully on
+// screen (clear of the bottom 20%) and scatters as it scrolls out; there the mark fills the height
+// less 32 above and below (same dots) and the drift and cloud ↔ mark change run slower (user's decisions). With reduced motion
+// the mark is drawn once, still.
 // Canvas 2D, no libraries. Decorative: the item carries a visually hidden label instead.
 interface Props {
   mark: 'check' | 'cross';
@@ -35,10 +38,16 @@ const { mark } = Astro.props;
 
 <script>
   const SIZE = 160; // the mark, CSS px
+  // Mobile: the mark grows to leave this much space above and below it, same dots (user's decision).
+  const MOBILE_INSET = 32; // CSS px, space-32
+  const MAX_DOT_RADIUS = 1.5;
   const SPREAD_X = 0.46; // how far the cloud reaches from the centre, as a share of the width…
   const SPREAD_Y = 0.44; // …and height (it fills nearly the whole canvas)
   const COUNT = 250;
   const DURATION = 600; // ms, cloud ↔ mark
+  // Mobile: slower drift and a slower cloud ↔ mark change.
+  const MOBILE_DURATION = 1000; // ms
+  const MOBILE_DRIFT_SPEED = 0.6; // share of the desktop drift speed
   // Marks in a 100-unit box, sampled along their strokes so the dots form clean lines.
   const PATHS = {
     check: 'M22 54 L42 74 L80 30',
@@ -52,6 +61,7 @@ const { mark } = Astro.props;
 
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const touch = matchMedia('(hover: none)');
+  const mobile = matchMedia('(max-width: 767px)');
   const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
 
   // Resolves a CSS colour (including var()) to [r, g, b].
@@ -109,13 +119,20 @@ const { mark } = Astro.props;
     const active = rgb(getComputedStyle(canvas).getPropertyValue('--mark-color').trim());
 
     const targets = markPoints(mark);
+    // The dots' extent in the mark, so mobile can fit it to the canvas height and centre it.
+    const ys = targets.map((t) => t.y);
+    const xs = targets.map((t) => t.x);
+    const markTop = Math.min(...ys);
+    const markHeight = Math.max(...ys) - markTop;
+    const markMidX = (Math.min(...xs) + Math.max(...xs)) / 2;
+    const markMidY = markTop + markHeight / 2;
     const dots: Dot[] = targets.map((t) => {
       return {
         u: Math.random() * 2 - 1,
         v: Math.random() * 2 - 1,
         mx: t.x,
         my: t.y,
-        r: 1 + Math.random() * 0.5, // 2–3px dots
+        r: 1 + Math.random() * (MAX_DOT_RADIUS - 1), // 2–3px dots
         ax: Math.random() * Math.PI * 2,
         ay: Math.random() * Math.PI * 2,
         sx: 0.3 + Math.random() * 0.5,
@@ -132,17 +149,23 @@ const { mark } = Astro.props;
     const draw = (time: number) => {
       const p = easeInOut(progress);
       const drift = 6 * (1 - p * 0.85); // the mark keeps a faint shimmer
-      const t = time / 1000;
+      const t = (time / 1000) * (mobile.matches ? MOBILE_DRIFT_SPEED : 1);
       const [r, g, b] = idle.map((c, i) => Math.round(c + (active[i] - c) * p));
       ctx.clearRect(0, 0, width, height);
       ctx.fillStyle = `rgb(${r} ${g} ${b})`;
       const midX = width / 2;
       const midY = height / 2;
+      // Desktop: the 160 box at the centre. Mobile: scaled so the dots sit MOBILE_INSET from the top
+      // and bottom, centred on the mark itself.
+      const fit = mobile.matches;
+      const scale = fit ? (height - 2 * (MOBILE_INSET + MAX_DOT_RADIUS)) / markHeight : 1;
+      const originX = fit ? markMidX : SIZE / 2;
+      const originY = fit ? markMidY : SIZE / 2;
       for (const d of dots) {
         const cx = midX + d.u * width * SPREAD_X;
         const cy = midY + d.v * height * SPREAD_Y;
-        const mx = midX - SIZE / 2 + d.mx;
-        const my = midY - SIZE / 2 + d.my;
+        const mx = midX + (d.mx - originX) * scale;
+        const my = midY + (d.my - originY) * scale;
         const x = cx + (mx - cx) * p + Math.sin(t * d.sx + d.ax) * drift;
         const y = cy + (my - cy) * p + Math.cos(t * d.sy + d.ay) * drift;
         ctx.beginPath();
@@ -168,28 +191,39 @@ const { mark } = Astro.props;
     const tick = (time: number) => {
       if (progress !== target) {
         if (!started) started = time;
-        const step = Math.min(1, (time - started) / DURATION);
+        const step = Math.min(1, (time - started) / (mobile.matches ? MOBILE_DURATION : DURATION));
         progress = from + (target - from) * step;
         if (step === 1) progress = target;
       }
       draw(time);
-      frame = visible ? requestAnimationFrame(tick) : 0;
+      // Off screen, keep going only until the dots settle, so a scroll-out still scatters them.
+      frame = visible || progress !== target ? requestAnimationFrame(tick) : 0;
     };
     const setTarget = (value: number) => {
       if (value === target) return;
       from = progress;
       target = value;
       started = 0;
+      if (!frame) frame = requestAnimationFrame(tick);
     };
 
-    // Only animate while on screen; on touch devices, being on screen is the trigger.
+    // Only animate while on screen. Touch tablets: being 60% on screen is the trigger.
     new IntersectionObserver(
       ([entry]) => {
         visible = entry.isIntersecting;
-        if (touch.matches) setTarget(entry.intersectionRatio >= 0.6 ? 1 : 0);
+        if (touch.matches && !mobile.matches) setTarget(entry.intersectionRatio >= 0.6 ? 1 : 0);
         if (visible && !frame) frame = requestAnimationFrame(tick);
       },
       { threshold: [0, 0.6] },
+    ).observe(canvas);
+
+    // Mobile: form the mark when the whole canvas is in view above the bottom 20% of the screen,
+    // scatter as soon as part of it leaves (scrolling on, or back up).
+    new IntersectionObserver(
+      ([entry]) => {
+        if (touch.matches && mobile.matches) setTarget(entry.intersectionRatio >= 0.99 ? 1 : 0);
+      },
+      { rootMargin: '0px 0px -20% 0px', threshold: [0, 0.99] },
     ).observe(canvas);
 
     trigger.addEventListener('mouseenter', () => setTarget(1));

@@ -202,6 +202,19 @@ const states = [
       gap: var(--space-12);
     }
   }
+
+  /* Mobile: 48 between sections (user's decision). */
+  @media (max-width: 767px) {
+    .canvas {
+      margin-top: var(--space-48);
+      gap: var(--space-32); /* Mobile: content 32 below the heading block. */
+    }
+
+    /* Mobile: cards 32 below the video (user's decision). */
+    .showcase {
+      gap: var(--space-32);
+    }
+  }
 </style>
 
 <script>

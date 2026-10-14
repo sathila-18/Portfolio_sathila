@@ -176,8 +176,30 @@ const BEFORE_BG = '#E9EAEE';
   }
 
   @media (max-width: 767px) {
+    /* Mobile: 48 between sections (user's decision). */
+    .before-after {
+      margin-top: var(--space-48);
+      gap: var(--space-32); /* Mobile: content 32 below the heading block. */
+    }
+
+    /* Mobile: 36 between comparisons (user's decision). */
     .comparisons {
-      gap: var(--space-64);
+      gap: var(--space-36);
+    }
+
+    /* Mobile: title 24 above its cards, cards 16 apart (user's decision). */
+    .comparison {
+      gap: var(--space-24);
+    }
+
+    .cards {
+      gap: var(--space-16);
+    }
+
+    /* Mobile: Before / After in title-m, a step below the 16px comparison title (user's decision). */
+    h4 {
+      font-size: var(--title-m-size);
+      line-height: var(--title-m-line);
     }
   }
 </style>

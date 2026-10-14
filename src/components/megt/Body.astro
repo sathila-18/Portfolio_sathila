@@ -138,6 +138,13 @@ const links = [
   .link.on-dark:hover {
     color: var(--text-white);
   }
+
+  /* Mobile: tighter after the metrics band, as on Pearl. */
+  @media (max-width: 767px) {
+    .body {
+      margin-top: var(--space-48);
+    }
+  }
 </style>
 
 <script>

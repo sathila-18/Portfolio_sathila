@@ -63,4 +63,16 @@ const metrics = [
       grid-template-columns: repeat(2, 1fr);
     }
   }
+
+  /* Mobile: 48 above and 48 padding, metrics stacked one per row (user's decision). */
+  @media (max-width: 767px) {
+    .band {
+      margin-top: var(--space-48);
+      padding-block: var(--space-48);
+    }
+
+    .metrics {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
 </style>

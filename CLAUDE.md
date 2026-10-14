@@ -71,6 +71,7 @@ Status values: `not started` · `in progress` · `approved`
 | Canvas behavior | approved |
 | Design system | approved |
 | Honest reflections | approved |
+| Mobile pass: spacing (48 between sections, tighter in-section gaps), stacked metrics, reflection animation on scroll | approved |
 
 ### Pearl case study
 | Section | Status |

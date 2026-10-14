@@ -143,13 +143,16 @@ const reflections = [
 
   /* Mobile: one per row, as tall as their content. */
   @media (max-width: 767px) {
+    /* Mobile: 48 between sections (user's decision). */
     .reflections {
+      margin-top: var(--space-48);
+      gap: var(--space-32); /* Mobile: content 32 below the heading block. */
       margin-bottom: var(--space-120);
     }
 
     .cards {
       grid-template-columns: minmax(0, 1fr);
-      row-gap: var(--space-48);
+      row-gap: var(--space-36); /* Mobile: 36 between cards (user's decision). */
     }
 
     .card {
@@ -159,7 +162,7 @@ const reflections = [
 
     .art {
       flex: none;
-      height: 216px;
+      height: 200px;
       margin: calc(-1 * var(--space-16)) calc(-1 * var(--space-16)) 0;
     }
 

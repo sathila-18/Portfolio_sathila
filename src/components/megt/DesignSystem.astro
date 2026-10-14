@@ -277,8 +277,21 @@ const principles = [
   }
 
   @media (max-width: 767px) {
+    /* Mobile: 48 between sections, and 48 padding inside the band (as on Pearl). */
     .system {
-      padding-block: var(--space-64);
+      margin-top: var(--space-48);
+      padding-block: var(--space-48);
+    }
+
+    /* Mobile: illustrations 8 apart, principles 32 below them (the band's gap alone) and 16
+       apart (user's decision). */
+    .visuals {
+      gap: var(--space-8);
+    }
+
+    .principles {
+      gap: var(--space-16);
+      margin-top: 0;
     }
   }
 </style>

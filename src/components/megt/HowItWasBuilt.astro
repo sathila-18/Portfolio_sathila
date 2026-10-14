@@ -370,9 +370,11 @@ const phases = [
 
   /* Mobile: the label moves above the stages, next to the dot; the rail runs down the left. */
   @media (max-width: 767px) {
+    /* Mobile: 48 between sections, and 48 padding inside the band (as on Pearl). */
     .built {
-      gap: var(--space-64);
-      padding-block: var(--space-64);
+      gap: var(--space-32); /* Mobile: content 32 below the heading block. */
+      margin-top: var(--space-48);
+      padding-block: var(--space-48);
     }
 
     .phase {
