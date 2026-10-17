@@ -1,50 +1,45 @@
 ---
-// Sampath › Hero (DESIGN.md › Layout › Sampath case study, item 2).
+// Sampath › Hero (Figma "sampath-chat-test" › hero 1, node 156:2927). Light hero: eyebrow, h1
+// and h5 lead on the left, then the metadata band over a blurred strip of the silk image.
 import { Image } from 'astro:assets';
-import photo from '../../assets/images/sampath/01_hero__hero.png';
-import overlay from '../../assets/images/sampath/00_hero__hero-meta-overlay.png';
+import silk from '../../assets/images/sampath/01_hero__meta-silk.png';
 import Dot from './Dot.astro';
 
 // Joins items with the Figma separator ("  ·  "); the non-breaking spaces keep each dot
 // on the line before it when the text wraps.
-const list = (...items: string[]) => items.join('\u00a0\u00a0·  ');
+const list = (...items: string[]) => items.join('  ·  ');
 
+// Multi-word tools use a non-breaking space so a name never splits across lines.
 // Each value: an optional emphasised first line, then the regular line.
 const meta = [
   { label: 'Role', lead: 'Design system lead', text: 'Final UI delivery' },
-  { label: 'Timeline', lead: '3 months', text: 'system ready in 2.5 days' },
+  { label: 'Timeline', lead: '3 months to phase-one launch', text: 'System ready in 2.5 days' },
   { label: 'Industry', text: list('Digital banking', 'Sri Lanka') },
-  { label: 'Tools', text: list('Figma', 'Figma Variables', 'Claude', 'Notion') },
+  { label: 'Tools', text: list('Figma', 'Figma Variables', 'Claude Code', 'Widgetbook', 'Notion') },
 ];
 ---
 
 <section class="hero" aria-labelledby="hero-title">
-  <!-- The photo fills the whole hero from tablet up; on mobile it fills only the stage
-       and the metadata band sits below it on a light background. -->
-  <div class="stage" data-dark-hero>
-    <Image
-      class="photo"
-      src={photo}
-      alt="Two people laughing while using their phones"
-      widths={[photo.width]}
-      loading="eager"
-      fetchpriority="high"
-    />
-
-    <div class="intro container">
-      <p class="eyebrow text-h6">
-        <Dot />
-        <span class="eyebrow-text">{list('Design system', 'Fintech', 'Sri Lanka', '2025')}</span>
-      </p>
+  <div class="intro">
+    <p class="eyebrow text-h6">
+      <Dot />
+      <span class="eyebrow-text">{list('Design system', 'Fintech', 'Sri Lanka', '2026')}</span>
+    </p>
+    <div class="text">
       <h1 id="hero-title" class="title">
         <span class="line">Sampath</span> <span class="line">Design System</span>
       </h1>
+      <p class="subtitle text-h5">
+        Built in 2.5 days. 96 onboarding screens the next day. 400+ screens since, and now moving
+        into code.
+      </p>
     </div>
   </div>
 
-  <!-- Dark (over the photo) from tablet up only; keep in step with the mobile breakpoint below. -->
-  <div class="meta" data-dark-hero="(min-width: 768px)">
-    <Image class="meta-overlay" src={overlay} alt="" aria-hidden="true" loading="eager" />
+  <!-- Figma: the 1920 × 887 silk image, blurred 25px and centred on the band, so only its
+       middle strip shows. A 19% black layer sits on top under a 40px backdrop blur. -->
+  <div class="meta" data-dark-hero>
+    <Image class="silk" src={silk} alt="" widths={[silk.width]} loading="eager" />
     <dl class="cells">
       {meta.map(({ label, lead, text }) => (
         <div class="cell">
@@ -60,76 +55,47 @@ const meta = [
 </section>
 
 <style>
+  /* Starts below the fixed nav, like every page. */
   .hero {
-    position: relative;
-    isolation: isolate;
-    display: flex;
-    flex-direction: column;
-    min-height: 887px;
-    /* Starts below the fixed nav so the nav never covers the photo at the top of the page. */
     margin-top: var(--nav-height);
-    overflow: hidden;
-    background-color: var(--sampath-bg-dark);
-    color: var(--text-white);
+    background-color: var(--bg-primary);
   }
 
-  .stage {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .photo {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* Figma: content starts 318px down (279 padding + centring); snapped to 240 + 80.
-     The bottom padding matches the 52px spacer (snapped to 48) so the glow centres on the block. */
+  /* Figma: 120 from the left edge. Equal space above and below so the block sits in the
+     middle of the white area (user's decision; Figma has 163 above and 96 below). */
   .intro {
-    position: relative;
-    flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--space-24);
-    padding-top: calc(var(--space-240) + var(--space-80));
-    padding-bottom: var(--space-48);
-    text-align: center;
-  }
-
-  .intro::before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    top: calc(var(--space-240) + var(--space-80));
-    left: 50%;
-    width: 480px;
-    aspect-ratio: 1;
-    translate: -50% calc(-50% + var(--glow-offset));
-    background: var(--gradient-sampath-hero-glow);
-    pointer-events: none;
-    /* Half the eyebrow + gap + title + bottom space puts the glow on the block's centre. */
-    --glow-offset: calc((var(--h6-line) + var(--space-24) + 2 * var(--h1-line) + var(--space-48)) / 2);
+    padding-block: var(--space-120);
+    padding-inline: var(--space-120);
   }
 
   .eyebrow {
     display: flex;
     align-items: center;
     gap: var(--space-8);
-    color: var(--text-sampath-secondary);
+    color: var(--text-tertiary);
   }
 
   .eyebrow-text {
     white-space: pre-wrap;
   }
 
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-32);
+    max-width: var(--sampath-hero-text-width);
+  }
+
   .title {
-    color: var(--text-white);
+    color: var(--text-primary);
+  }
+
+  .subtitle {
+    color: var(--text-secondary);
   }
 
   /* Two lines from tablet up, as in Figma; on mobile the title wraps naturally. */
@@ -141,31 +107,48 @@ const meta = [
 
   /* ── Metadata band ─────────────────────────────────────────────── */
 
+  /* Figma: 88 side padding + 32 in each cell puts the text on the 120 line. */
   .meta {
     position: relative;
-    padding-inline: var(--space-80);
-    border-top: 1px solid var(--sampath-border-warm);
+    isolation: isolate;
+    overflow: hidden;
+    padding-inline: calc(var(--space-120) - var(--space-32));
+    color: var(--text-white);
+  }
+
+  .silk {
+    position: absolute;
+    z-index: -2;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: var(--sampath-hero-silk-height);
+    translate: 0 -50%;
+    /* Scaled up a little so the blur's soft edges fall outside the band at the sides. */
+    scale: 1.05;
+    object-fit: cover;
+    filter: blur(var(--sampath-hero-silk-blur));
+  }
+
+  /* Black at the nav's 19% (user's decision, replacing Figma's grey overlay image), so the
+     blurred silk still shows through. */
+  .meta::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background-color: var(--sampath-hero-meta-bg);
     -webkit-backdrop-filter: blur(var(--sampath-hero-meta-blur));
     backdrop-filter: blur(var(--sampath-hero-meta-blur));
+    pointer-events: none;
   }
 
   .cells {
-    position: relative;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
   }
 
-  .meta-overlay {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-    pointer-events: none;
-  }
-
   .cell {
-    position: relative;
     display: flex;
     flex-direction: column;
     gap: var(--space-8);
@@ -177,7 +160,6 @@ const meta = [
   }
 
   dt {
-    color: var(--text-white);
     text-transform: uppercase;
   }
 
@@ -187,36 +169,28 @@ const meta = [
     margin: 0;
   }
 
-  .lead {
-    color: var(--text-white);
-  }
-
   .value {
     color: var(--sampath-text-white-muted);
     white-space: pre-wrap;
   }
 
-  /* Tablet: two by two, dividers on the inner edges only. */
+  /* Tablet: gutter padding, two by two, dividers on the inner edges only. */
   @media (max-width: 1199px) {
-    .hero {
-      min-height: 0;
-    }
-
     .intro {
-      padding-top: var(--space-120);
-      padding-bottom: var(--space-120);
-    }
-
-    .intro::before {
-      top: var(--space-120);
+      padding-block: var(--space-80);
+      padding-inline: var(--gutter);
     }
 
     .meta {
-      padding-inline: var(--gutter);
+      padding-inline: 0;
     }
 
     .cells {
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cell {
+      padding-inline: var(--gutter);
     }
 
     .cell + .cell {
@@ -232,40 +206,20 @@ const meta = [
     }
   }
 
-  /* Mobile: the band moves out of the photo onto a light background, one column,
-     dividers between rows. Text uses the light-background tokens. */
+  /* Mobile: one column, dividers between rows; the band keeps the silk background. */
   @media (max-width: 767px) {
-    .hero {
-      background-color: var(--sampath-bg-warm);
+    .intro {
+      padding-top: var(--space-48);
+      padding-bottom: calc(2 * var(--space-48));
     }
 
-    .stage {
-      position: relative;
-      isolation: isolate;
-      overflow: hidden;
+    /* Mobile keeps the 24 gap between title and lead, as before the Figma update. */
+    .text {
+      gap: var(--space-24);
     }
 
     .meta {
-      border-top: 0;
-      border-bottom: 1px solid var(--sampath-border-warm);
-      -webkit-backdrop-filter: none;
-      backdrop-filter: none;
-    }
-
-    .meta-overlay {
-      display: none;
-    }
-
-    dt {
-      color: var(--text-tertiary);
-    }
-
-    .lead {
-      color: var(--text-primary);
-    }
-
-    .value {
-      color: var(--text-secondary);
+      padding-inline: var(--gutter);
     }
 
     .cells {
@@ -281,7 +235,7 @@ const meta = [
     }
 
     .cell + .cell {
-      border-top: 1px solid var(--sampath-border-warm);
+      border-top: 1px solid var(--sampath-border-white-subtle);
     }
   }
 </style>

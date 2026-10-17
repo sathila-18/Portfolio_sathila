@@ -36,6 +36,8 @@ Built with these defaults until the user confirms:
 - MEGT sidebar: hidden below 1200px (user's decision, after the Pawprint case study they referenced); between 1200 and 1920 the content column shrinks instead. "← Go back" keeps DESIGN.md's arrow (Figma has none).
 - MEGT sidebar over the full-bleed dark sections ("How it was built", "Design system"): each item lightens while it's over a band ("Go back" and the active link white, the rest `text-light`), since green is borderline there (about 4.5:1). Confirmed by the user.
 - Gap above the footer on the case studies (user's decision): the footer has no top margin there (`footerFlush`); the last section sets the gap, 120 on desktop and 48 on mobile. Pearl's last band (white, like the footer) has no bottom padding at all. Home keeps the footer's 80.
+- Sampath hero (user's decisions, on top of Figma "hero 1"): text block centred in the white area (120/120 desktop, 80/80 tablet, 48/96 mobile); the band's grey overlay image is replaced by black at 19% with a 40px backdrop blur; the Team row from the revised copy is left out; Claude dropped from Tools. Mobile band keeps the silk background (the old light-background mobile band was not asked back yet).
+- Revised Sampath copy (`~/Downloads/sampath-design-system-case-study.md`) is being applied section by section; desktop Figma updates must not change the agreed mobile spacing.
 - On mobile only `number-xl` shrinks (to 56/72.8), so `number-l` (80) is larger than `number-xl` there. Left as specified.
 
 ## Progress
@@ -94,6 +96,7 @@ Status values: `not started` · `in progress` · `approved`
 | Section | Status |
 |---|---|
 | Hero | approved |
+| Hero rebuild: revised copy, Figma "hero 1" (light hero, silk metadata band) | approved |
 | 01 · Starting Point | approved |
 | 02 · The plan changed (Figma frame "Frame 1853320920") | approved |
 | 03 · Building the System | approved |

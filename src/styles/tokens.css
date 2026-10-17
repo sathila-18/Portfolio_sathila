@@ -237,8 +237,14 @@
   --sampath-card-dark: #3C3C41;
   /* Sampath hero metadata band: values in white at 70%, cell dividers in white at 10%. */
   --sampath-text-white-muted: rgb(255 255 255 / 0.7);
-  --sampath-border-white-subtle: rgb(255 255 255 / 0.1);
+  /* Hero (Figma "hero 1"): text column width, and the metadata band's silk background
+     (a 1920 × 887 image blurred 25px, centred on the band) under 19% black with a 40px backdrop blur. */
+  --sampath-hero-text-width: 975px;
+  --sampath-hero-silk-height: 887px;
+  --sampath-hero-silk-blur: 25px;
   --sampath-hero-meta-blur: 40px;
+  --sampath-hero-meta-bg: rgb(0 0 0 / 0.19);
+  --sampath-border-white-subtle: rgb(255 255 255 / 0.1);
   /* Sampath "Starting Point" list: icon tiles and category badges. */
   --sampath-icon-tile-bg: #F6E5DB;
   --sampath-badge-bg: var(--sampath-blue-100);
@@ -269,8 +275,6 @@
   --gradient-fintech: linear-gradient(90deg, #333333 0%, #759563 54%, #B4B975 100%);
   /* MEGT info-card icons */
   --gradient-info-icon: linear-gradient(180deg, #FACAFF 0%, #C90FD7 100%);
-  /* Sampath hero: dark glow behind the title (Figma: 237px circle, centred on the title block) */
-  --gradient-sampath-hero-glow: radial-gradient(circle 240px at center, #272727 0%, rgb(39 39 39 / 0) 100%);
 
   /* ── Typography ────────────────────────────────────────────────── */
 

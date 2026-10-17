@@ -597,8 +597,6 @@ belongs to the image.
   top-left to bottom-right (CSS `149deg`), as in the exported logo SVG.
 - **"Fintech" highlight** in the Home hero: `#333333 0% → #759563 54% → #B4B975 100%`.
 - **Info-card icons** (MEGT): `#FACAFF → #C90FD7` (pink to violet).
-- **Sampath hero glow**: radial `#272727 → transparent`, a ~240px circle centred
-  behind the hero title so the white type stays legible over the photo.
 
 Use gradients only on these elements. Never on large surfaces or body text.
 
@@ -755,18 +753,22 @@ every page.
 ### Sampath case study (no sidebar)
 1. **Top nav** above the hero (the hero starts below it). See Components for the
    nav on dark heroes.
-2. **Hero**: full-bleed dark image, 887px tall, content **centred**. Eyebrow
-   (`h6`, `text-sampath-secondary`) with an 8px `fg-sampath` dot, then the `h1`
-   title in `text-white`. Below that, a translucent metadata band of 4 cells
-   (label `label-s` uppercase in white; value: first line `label-l`, then
-   `body-l`, in white at 70%). The band is the Figma overlay image under a 40px
-   backdrop blur, with a `sampath-border-warm` top hairline and 1px white-10%
-   dividers between all four cells. Padding 32 (snapped from 28), band side
-   padding 80 (snapped from 88).
-   *Mobile (confirmed by the user):* the band moves out of the photo and sits
-   below it on `sampath-bg-warm`, one cell per row with `sampath-border-warm`
-   dividers. Label `text-tertiary`; value first line `text-primary`, then
-   `text-secondary`.
+2. **Hero** (Figma "sampath-chat-test" › hero 1): white background, content
+   **left-aligned** on the 120 line. Eyebrow (`h6`, `text-tertiary`) with an 8px
+   `fg-sampath` dot; 24 below it a text box (max 975 wide) holding the `h1` title
+   (`text-primary`, two lines) and the lead in `h5` (`text-secondary`), 32 apart.
+   Padding 120 above and below the block (centred in the white area; Figma has
+   163/96). Tablet 80/80 with the gutter.
+   Below it, the metadata band of 4 cells (label `label-s` uppercase in white;
+   value: first line `label-l` in white, then `body-l` in white at 70%), with 1px
+   white-10% dividers. Background: the silk image at 1920 × 887, blurred 25px and
+   centred on the band so only its middle strip shows, under black at 19% with a
+   40px backdrop blur (the black layer replaces Figma's grey overlay image; user's
+   decision). Cell padding 32 (snapped from 28), band side padding 88 so the text
+   sits on the 120 line. Tablet: 2 × 2 cells.
+   *Mobile:* padding 48 above and 96 below the text block, 24 between title and
+   lead (kept from the mobile pass). The band keeps the silk background, one cell
+   per row with white-10% dividers.
 3. **Numbered sections** ("01 — Starting Point" … "08 — Reflection"): full-bleed
    bands alternating `sampath-bg-warm` and `sampath-bg-dark`. Inside each, a
    1200 container with 64px side padding and 120px top and bottom padding.
