@@ -1,6 +1,7 @@
 ---
-// Sampath › 02 — The plan changed (Figma frame "Frame 1853320920"): dark text band,
-// then a band of two Figma variables screenshots that bleed off its bottom edge.
+// Sampath › 02 — The plan changed (Figma "sampath-chat-test", node 160:3242): dark text band
+// (two columns of paragraphs, a full-width paragraph, then a centred card), then a band of
+// two Figma variables screenshots that bleed off its bottom edge.
 import { Image } from 'astro:assets';
 import Section from './Section.astro';
 import Palette from '../../assets/icons/sampath/palette.svg';
@@ -13,41 +14,58 @@ import typography from '../../assets/images/sampath/03_transition-image-replace-
     <span class="line">The plan changed.</span> <span class="line">The deadline didn't.</span>
   </h2>
 
-  <div class="cols">
-    <div class="left">
-      <p class="quote text-h6">Build the system and design the final UI simultaneously.</p>
-      <p class="text-body-xl body">
-        The team used an AI-generated prototype to get client direction approved fast. Developers
-        needed Figma. Component-level specs, no exceptions. The brief changed mid-project and the
-        deadline didn't move.
-      </p>
+  <div class="content">
+    <div class="cols text-body-xl">
+      <div class="col">
+        <p>
+          The bank wanted more than fixes. It wanted a branchless app: open accounts, manage cards
+          and FDs, and transact by chatting with an AI assistant. And the first release had to go
+          live within three months.
+        </p>
+        <p>
+          Our PMs and BAs locked the flows with the client, and the team built the initial flows in
+          high-fidelity with Claude as a clickable prototype. It got approval fast.
+        </p>
+      </div>
+      <div class="col">
+        <p>
+          Then came the gap. The prototype had unlocked client alignment, but developers could not
+          build production UI from it. With the deadline fixed, they needed Figma with
+          component-level specs, clear states, and a system they could implement confidently.
+        </p>
+        <p>
+          The plan was for me to build the foundation: a design system in Figma that developers
+          could build from, component by component.
+        </p>
+      </div>
     </div>
 
-    <div class="right">
+    <p class="scope text-body-xl">
+      Then the scope grew. I'd also design the final UI, using the AI screens as wireframes.
+      Onboarding came first, and it was needed within three days.
+    </p>
+
+    <div class="card">
       <div class="point">
         <h3 class="text-title-l">What the AI screens got right</h3>
-        <p class="text-body-l body">
-          A fast, approvable direction. The client could see the product's intent. Enough to move
-          things forward.
-        </p>
+        <p class="text-body-l body">A direction the client could see and approve, in days.</p>
       </div>
       <div class="point">
         <h3 class="text-title-l">What they missed</h3>
         <p class="text-body-l body">
-          Unwanted extra steps in flows. No edge cases or negative scenarios. None of it visible at
-          a glance, only when working closely through the UI in Figma.
+          I never believed AI screens should be the final UI, and this proved it. Up close in Figma,
+          the problems showed. Extra steps users didn't need, a home section title styled unlike
+          any other page, and only the happy path, with no edge cases or error states.
         </p>
       </div>
+      <p class="note">
+        <span class="note-icon" aria-hidden="true"><Palette width={24} height={24} /></span>
+        <span class="text-body-m">
+          My ownership from here is the Figma design system and all final UI.
+        </span>
+      </p>
     </div>
   </div>
-
-  <!-- Full width under both columns. -->
-  <p class="note">
-    <span class="note-icon" aria-hidden="true"><Palette width={24} height={24} /></span>
-    <span class="text-body-m">
-      My ownership from this point — Figma design system and all final UI delivery.
-    </span>
-  </p>
 </Section>
 
 <div class="shots" data-dark-hero>
@@ -82,39 +100,45 @@ import typography from '../../assets/images/sampath/03_transition-image-replace-
     }
   }
 
-  .cols {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  /* Figma: 72 below the heading; the blocks are 40 apart and centred. */
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: var(--space-40);
     margin-top: var(--space-72);
   }
 
-  .left {
+  /* Two equal columns, 24 apart; paragraphs 28 apart in Figma, snapped to 32. */
+  .cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-24);
+    width: 100%;
+    color: var(--text-light);
+  }
+
+  .col {
     display: flex;
     flex-direction: column;
     gap: var(--space-32);
   }
 
-  /* Figma left padding 22, snapped to 24. */
-  .quote {
-    padding-left: var(--space-24);
-    border-left: 2px solid var(--border-sampath);
-    color: var(--text-sampath-secondary);
-  }
-
-  /* Figma text width inside the 516 column. */
-  .left .body {
-    max-width: 494px;
-  }
-
-  .body {
+  .scope {
+    width: 100%;
     color: var(--text-light);
   }
 
-  .right {
+  /* Figma: 516 wide, padding 24, radius 16, items 24 apart. */
+  .card {
     display: flex;
     flex-direction: column;
     gap: var(--space-24);
+    width: 100%;
+    max-width: 516px;
+    padding: var(--space-24);
+    border-radius: var(--radius-md);
+    background-color: var(--sampath-card-dark-subtle);
   }
 
   .point {
@@ -127,10 +151,13 @@ import typography from '../../assets/images/sampath/03_transition-image-replace-
     color: var(--text-sampath-secondary);
   }
 
+  .body {
+    color: var(--text-light);
+  }
+
   /* Figma: padding 20/16 and radius 10, snapped to 24/16 and rounded.sm. */
   .note {
     display: flex;
-    margin-top: var(--space-40);
     align-items: center;
     gap: var(--space-12);
     padding: var(--space-16) var(--space-24);
@@ -151,11 +178,15 @@ import typography from '../../assets/images/sampath/03_transition-image-replace-
     background-color: var(--sampath-note-icon-bg);
   }
 
-  /* Mobile: columns stack. */
+  /* Mobile: columns stack (paragraph gaps as on desktop); 48 below the heading. */
   @media (max-width: 767px) {
+    .content {
+      margin-top: var(--space-48);
+    }
+
     .cols {
       grid-template-columns: 1fr;
-      margin-top: var(--space-48);
+      gap: var(--space-32);
     }
   }
 

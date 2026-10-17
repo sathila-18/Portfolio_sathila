@@ -235,6 +235,7 @@
   --sampath-bg-dark: #141416;
   --sampath-bg-dark-alt: #313136;
   --sampath-card-dark: #3C3C41;
+  --sampath-card-dark-subtle: #262629; /* "What the AI screens got right" card */
   /* Sampath hero metadata band: values in white at 70%, cell dividers in white at 10%. */
   --sampath-text-white-muted: rgb(255 255 255 / 0.7);
   /* Hero (Figma "hero 1"): text column width, and the metadata band's silk background

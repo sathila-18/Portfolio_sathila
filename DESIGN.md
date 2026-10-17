@@ -789,16 +789,19 @@ every page.
      badge sits above the text, gap 8, with the tile top-aligned (confirmed by
      the user).
      32 below the list, a closing `body-xl` `text-secondary` paragraph, 629 wide.
-   - **02 — The plan changed** (dark): `h2` on two lines, 72 below a two-column
-     row (gap 40). Left: pull quote (`h6`, 2px `border-sampath` left rule,
-     padding-left 24) and a `body-xl` paragraph. Right (gap 24): two
-     `title-l` + `body-l` points. Then, 40 below both columns and full width
-     (moved by the user from the right column), an ownership note
-     (`sampath-note-*`, `rounded.sm`, padding 16/24, 44px icon box, `body-m` in
-     `text-white`). 56 from the note to the screenshot band on every screen size.
+   - **02 — The plan changed** (dark; Figma "sampath-chat-test" 160:3242): `h2`
+     on two lines, 72 below it (48 on mobile) a centred stack, blocks 40 apart:
+     two equal columns (gap 24) of two `body-xl` `text-light` paragraphs each
+     (28 apart in Figma, snapped to 32); a full-width `body-xl` paragraph; then a
+     516-wide card (`sampath-card-dark-subtle`, `rounded.md`, padding 24, gap 24)
+     with two `title-l` (`text-sampath-secondary`) + `body-l` (`text-light`)
+     points and the ownership note (`sampath-note-*`, `rounded.sm`, padding
+     16/24, 44px icon box, `body-m` in `text-white`). Columns stack on mobile
+     (all four paragraphs 32 apart) and the card goes full width. 56 from the
+     card to the screenshot band on every screen size.
      Followed by a full-bleed `sampath-bg-darker` band of two Figma screenshots
      laid out on a 1920×523 canvas that scales with the viewport, bleeding off
-     the bottom. Columns stack on mobile. On mobile the screenshots become a
+     the bottom. On mobile the screenshots become a
      swipeable row (confirmed by the user): each 85% wide, gap 16, snapping, top
      padding 32, row exactly as tall as the first screenshot. Screenshots are never cropped at the sides (the
      user asked; Figma crops the left one); only the band's bottom edge cuts them.
