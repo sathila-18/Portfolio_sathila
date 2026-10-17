@@ -1,16 +1,16 @@
 ---
-// Sampath › 06 — Built to Last: intro, then two label/content rows (Documentation, Agentic
-// system) separated by a rule. Same row layout as 04 — Components.
+// Sampath › 06 — Built to Last: intro, then three label/content rows (Documentation, Agentic
+// system, Into code) separated by rules. Same row layout as 04 — Components.
 //
-// The doc panel is an 864 × 472 canvas (`--u` is one Figma pixel), like the anatomy panel.
-// Figma's panel is 912 wide (its row has no gap); both pages shift left 24 to stay centred.
+// The panels are 864 × 472 canvases (`--u` is one Figma pixel), like the anatomy panel.
+// Figma's doc panel is 912 wide (its row has no gap); both pages shift left 24 to stay centred.
 import { Image } from 'astro:assets';
 import Section from './Section.astro';
-import BrokenLink from '../../assets/icons/sampath/broken-link.svg';
 import docPage from '../../assets/images/sampath/21_06-built-to-last__image-185.png';
 import avatarDoc from '../../assets/images/sampath/28_06-built-to-last__image-187.png';
 import tokenPanel from '../../assets/images/sampath/22_06-built-to-last__screenshot-2026-09-12-at-22-07-39-2.png';
-import jsonExport from '../../assets/images/sampath/24_06-built-to-last__screenshot-2026-09-12-at-22-02-57-1.png';
+import jsonExport from '../../assets/images/sampath/29_06-built-to-last__screenshot-2026-10-17-at-19-16-00-1.png';
+import widgetbook from '../../assets/images/sampath/30_06-built-to-last__screenshot-2026-10-17-at-19-28-53-1.png';
 ---
 
 <Section tone="dark" labelledby="built-to-last-title">
@@ -59,12 +59,21 @@ import jsonExport from '../../assets/images/sampath/24_06-built-to-last__screens
         <h3 class="text-title-l">Machine-readable by design</h3>
       </div>
       <div class="row-content">
-        <p class="text-body-l body">
-          If a screen is going to be generated from this system, the documentation needs to be
-          machine-readable, not just human-readable. A JSON export of all variables was run
-          through Claude, which caught two 900-shade alias tokens that were not linked correctly.
-          The system ran a quality check on itself.
-        </p>
+        <div class="cols text-body-l body">
+          <p>
+            If screens are going to be built from this system with AI, a token name alone isn’t
+            enough. So every color token carries a description of where to use it, like “Use this
+            for main background of the screens” on bg-primary. When the variables are exported,
+            that description travels with the token into the code. An AI reading it doesn’t have
+            to guess what bg-primary is for, because the file already tells it.
+          </p>
+          <p>
+            The real test came in October. The client needed to see the AI assistant chat
+            working, and the team planned static screens. Instead, I gave Claude Code the exported
+            tokens and a DESIGN.md describing the system, and within three hours I had a working
+            prototype that matched the Figma file.
+          </p>
+        </div>
 
         <div class="split">
           <figure class="split-col">
@@ -82,27 +91,58 @@ import jsonExport from '../../assets/images/sampath/24_06-built-to-last__screens
           <figure class="split-col">
             <figcaption class="text-body-m split-title">Same token in JSON export</figcaption>
             <div class="code">
-              <!-- Shows the top-left 377 × 313 of the export, as in Figma. -->
+              <!-- Shows the top-left 378 × 313 of the export, as in Figma. -->
               <div class="json-crop">
                 <Image
                   class="json-shot"
                   src={jsonExport}
-                  alt="The exported code: each colour token, such as bgPrimary, carries its Figma name and usage description as a comment."
-                  widths={[597, 1194]}
-                  sizes="597px"
+                  alt="The exported JSON: each colour token, such as bg-primary, carries its type, its usage description and its light and dark values."
+                  widths={[413, 826]}
+                  sizes="413px"
                 />
               </div>
             </div>
           </figure>
         </div>
+      </div>
+    </div>
 
-        <p class="note">
-          <span class="note-icon" aria-hidden="true"><BrokenLink width={24} height={24} /></span>
-          <span class="text-body-m">
-            The initial JSON export caught two 900-shade alias tokens that were not linked
-            correctly. The system ran a quality check on itself.
-          </span>
-        </p>
+    <hr />
+
+    <!-- Into code · A system devs can actually use -->
+    <div class="row">
+      <div class="row-label">
+        <p class="text-label-m eyebrow">Into code</p>
+        <h3 class="text-title-l">A system devs can actually use</h3>
+      </div>
+      <div class="row-content">
+        <div class="cols text-body-l body">
+          <p>
+            Developers started building halfway through the UI phase, and they still had no
+            proper design system or token structure on their side. Shipping this release
+            mattered, but so did what would come after it. The app will keep growing for years,
+            through phases, updates and new features, and the real test starts when millions of
+            the bank’s customers begin using it. Every change will need to ship fast without
+            breaking quality or consistency.
+          </p>
+          <p>
+            So I decided we needed a system in code, a GitHub repo built with Claude Code from
+            the same tokens as Figma. The app is built in Flutter, so every component lives in
+            Widgetbook, a tool made for Flutter that fits the team’s existing workflow. Each one
+            has a live preview and a code snippet devs can copy. It’s early, with icon sizes,
+            avatars and dividers so far, but the next developer won’t have to start from a
+            screenshot.
+          </p>
+        </div>
+        <figure class="figure">
+          <div
+            class="panel"
+            role="img"
+            aria-label="The Sampath component library in Widgetbook: a component tree on the left, a live avatar preview with its Flutter code snippet in the centre, and its properties on the right."
+          >
+            <Image class="widgetbook" src={widgetbook} alt="" widths={[776, 1552]} sizes="(min-width: 1200px) 776px, 90vw" />
+          </div>
+        </figure>
       </div>
     </div>
   </div>
@@ -175,6 +215,13 @@ import jsonExport from '../../assets/images/sampath/24_06-built-to-last__screens
     color: var(--text-light);
   }
 
+  /* Paragraph pairs side by side. Figma gap 20, snapped to 24. */
+  .cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-24);
+  }
+
   /* ── Doc panel: 864 × 472 canvas ───────────────────────────────── */
 
   .figure {
@@ -207,6 +254,16 @@ import jsonExport from '../../assets/images/sampath/24_06-built-to-last__screens
     left: calc(484 * var(--u));
     top: calc(21 * var(--u));
     width: calc(279 * var(--u));
+  }
+
+  /* Widgetbook screenshot, cropped by the panel's bottom edge, as in Figma. */
+  .widgetbook {
+    position: absolute;
+    left: calc(44 * var(--u));
+    top: calc(53 * var(--u));
+    width: calc(776 * var(--u));
+    height: auto;
+    border-radius: calc(8 * var(--u));
   }
 
   /* ── Token / JSON split ────────────────────────────────────────── */
@@ -260,39 +317,16 @@ import jsonExport from '../../assets/images/sampath/24_06-built-to-last__screens
 
   .json-crop {
     flex: none;
-    width: 377px;
+    width: 378px;
     height: 313px;
     overflow: hidden;
   }
 
   .json-shot {
-    width: 158.36%;
+    width: 109.17%;
     max-width: none;
     height: auto;
-    margin-left: -0.27%;
-  }
-
-  /* ── Note (same as 02 and 04). Figma: padding 20/16, radii 10 and 5, snapped. ── */
-
-  .note {
-    display: flex;
-    align-items: center;
-    gap: var(--space-12);
-    padding: var(--space-16) var(--space-24);
-    border: 0.5px solid var(--sampath-note-border);
-    border-radius: var(--radius-sm);
-    background-color: var(--sampath-note-bg);
-    color: var(--text-sampath-secondary);
-  }
-
-  .note-icon {
-    display: grid;
-    flex: none;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    border-radius: var(--radius-sm);
-    background-color: var(--sampath-note-icon-bg);
+    margin-left: -1.73%;
   }
 
   /* ── Tablet: the label sits above its content ──────────────────── */
@@ -318,12 +352,18 @@ import jsonExport from '../../assets/images/sampath/24_06-built-to-last__screens
       aspect-ratio: 691.2 / 472;
     }
 
-    .doc {
+    .doc,
+    .widgetbook {
       margin-left: calc(-86.4 * var(--u));
     }
 
-    .split {
+    .split,
+    .cols {
       grid-template-columns: 1fr;
+    }
+
+    .cols {
+      gap: var(--space-16);
     }
 
     .split-col + .split-col {

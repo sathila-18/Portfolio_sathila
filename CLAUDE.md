@@ -109,5 +109,6 @@ Status values: `not started` · `in progress` · `approved`
 | 05 · Impact | approved |
 | 05 · Impact rebuild: revised copy, Figma 173:63 (intro and first timeline row) | approved |
 | 06 · Built to Last | approved |
+| 06 · Built to Last rebuild: revised copy, Figma 175:200 (new Into code row, JSON screenshot swapped, note removed) | approved |
 | 07 · Delivery | approved |
 | 08 · Reflection | approved |

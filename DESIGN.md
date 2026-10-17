@@ -836,6 +836,14 @@ every page.
      343-wide artboard, with the leftover height shared equally between rows;
      on short screens the artboard shrinks so everything fits. Each snippet
      keeps its crop and proportions.
+   - **06 — Built to Last** (dark; Figma "sampath-chat-test" 175:200): `h2`
+     (two lines) + `body-xl` lead, then three rows in the Components layout
+     (56 around each `sampath-card-dark` rule; 32 on mobile): Documentation (an
+     864×472 panel of two doc pages), Agentic system (two `body-l` paragraphs
+     side by side, then the token / JSON-export split) and Into code (two
+     paragraphs, then an 864×472 panel with the Widgetbook screenshot, cropped
+     by the bottom edge). Paragraph pairs: gap 24 (Figma 20), stacked on
+     mobile 16 apart. Panels zoom 1.25× on mobile like the others.
 4. **Footer**.
 
 ### Pearl case study (page background `pearl-bg`, no sidebar)
