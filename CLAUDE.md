@@ -111,4 +111,5 @@ Status values: `not started` · `in progress` · `approved`
 | 06 · Built to Last | approved |
 | 06 · Built to Last rebuild: revised copy, Figma 175:200 (new Into code row, JSON screenshot swapped, note removed) | approved |
 | 07 · Delivery | approved |
+| 07 · Delivery rebuild: revised copy, Figma 178:60 (note removed, decision paragraphs added) | approved |
 | 08 · Reflection | approved |

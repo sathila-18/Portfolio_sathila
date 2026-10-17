@@ -1,10 +1,9 @@
 ---
-// Sampath › 07 — Delivery: two problems outside the system. The Spine / Lottie / Rive
-// decision (note + three option cards), a rule, then the bank-staff testing findings
-// (Figma's card borders and footnote removed by the user).
+// Sampath › 07 — Delivery: two surprises along the way. The Spine / Lottie / Rive decision
+// (three option cards, then two paragraphs side by side), a rule, then the bank-staff testing
+// findings (Figma's card borders and footnote removed by the user).
 import { Image } from 'astro:assets';
 import Section from './Section.astro';
-import BrokenLink from '../../assets/icons/sampath/broken-link.svg';
 import spineLogo from '../../assets/images/sampath/25_07-delivery__image-186.png';
 import lottieLogo from '../../assets/images/sampath/26_07-delivery__image-186.png';
 import riveLogo from '../../assets/images/sampath/27_07-delivery__image-186.png';
@@ -31,7 +30,7 @@ const options = [
     outlined: true,
     name: 'Rive',
     tagline: 'Interactive animation · state machine',
-    text: 'More capable for app-level animation. Ruled out, too large a change given the constraint.',
+    text: 'More capable for app-level animation. A new package and new learning for the team.',
   },
 ];
 
@@ -39,85 +38,91 @@ const findings = [
   {
     status: 'Clear to users',
     tone: 'positive',
-    title: 'Quick actions carousel was immediately understood',
+    title: 'Quick actions carousel was understood immediately',
     text: 'The micro interaction showing horizontal scroll was enough. Users engaged with the carousel without prompting and navigated it confidently.',
   },
   {
     status: 'Not noticed',
     tone: 'caution',
     title: 'Account carousel was not seen as swipeable',
-    text: "The section showing accounts, FDs, and loans had no scroll affordance. Users didn't attempt to swipe. The same micro interaction pattern from the quick actions carousel was missing here.",
+    text: "The section showing accounts, FDs, and loans had no scroll affordance. Users didn't attempt to swipe. Reusing the quick actions micro-interaction would only feel repetitive, so we started exploring a different way to show it scrolls.",
   },
   {
     status: 'Not noticed',
     tone: 'caution',
     title: "Card details page entry point wasn't visible",
-    text: "On the credit and debit card pages, users didn't realise tapping the card would open the details and transaction history. Nothing communicated it was interactive.",
+    text: "On the credit and debit card pages, users didn't realise tapping the card would open the details and transaction history. No call to action to communicate it was interactive.",
   },
 ];
 ---
 
 <Section tone="warm" labelledby="delivery-title">
-  <!-- A tool conflict and a fast decision -->
+  <!-- The right fix for now, the right tool for next -->
   <div class="part">
     <div class="intro">
       <h2 id="delivery-title">
-        <span class="line">Two problems the system</span>{' '}
-        <span class="line">didn't cause.</span>
+        <span class="line">Two surprises</span>{' '}
+        <span class="line">along the way.</span>
       </h2>
       <div class="sub">
-        <h3 class="text-h6">A tool conflict and a fast decision</h3>
+        <h3 class="text-h6">The right fix for now, the right tool for next</h3>
         <p class="text-body-l body">
-          Custom illustrations were animated in Spine. The dev codebase used Lottie. The
-          animations didn't render correctly in the build and nobody could find why. A screenshot
-          of the broken output went into AI, which returned both the diagnosis and the options
-          within minutes.
+          Developers started building halfway through the UI phase, and the first thing that
+          broke was the animations. Our animator had made them in Spine, but the developers were
+          using the Lottie package, and the illustrations simply wouldn’t render. For a while,
+          none of us could work out why. So I took a screenshot of the error and gave it to
+          Claude. It came back with the cause and three ways forward, which gave the team
+          something concrete to decide on.
         </p>
       </div>
     </div>
 
-    <div class="group">
-      <p class="note">
-        <span class="note-icon" aria-hidden="true"><BrokenLink width={24} height={24} /></span>
-        <span class="text-body-m">
-          Diagnosed with AI. No one on the team could identify the root cause. A screenshot of
-          the broken build output went into Claude and came back with the problem and three paths
-          forward.
-        </span>
-      </p>
+    <ul class="cards" role="list">
+      {options.map(({ logo, inset, outlined, chosen, name, tagline, text }) => (
+        <li class="card">
+          <div class="card-head">
+            <span class:list={['logo', { inset, outlined }]}>
+              <Image src={logo} alt="" widths={[44, 88]} sizes="44px" />
+            </span>
+            {chosen && <span class="chosen text-label-xs">Chosen</span>}
+          </div>
+          <div class="card-name">
+            <h4 class="text-title-l">{name}</h4>
+            <p class="text-title-s tagline">{tagline}</p>
+          </div>
+          <p class="text-body-m body">{text}</p>
+        </li>
+      ))}
+    </ul>
 
-      <ul class="cards" role="list">
-        {options.map(({ logo, inset, outlined, chosen, name, tagline, text }) => (
-          <li class="card">
-            <div class="card-head">
-              <span class:list={['logo', { inset, outlined }]}>
-                <Image src={logo} alt="" widths={[44, 88]} sizes="44px" />
-              </span>
-              {chosen && <span class="chosen text-label-xs">Chosen</span>}
-            </div>
-            <div class="card-name">
-              <h4 class="text-title-l">{name}</h4>
-              <p class="text-title-s tagline">{tagline}</p>
-            </div>
-            <p class="text-body-m body">{text}</p>
-          </li>
-        ))}
-      </ul>
+    <div class="cols text-body-l body">
+      <p>
+        My pick was Rive. It handles complex, interactive animation at a fraction of the weight,
+        and the gamification features coming in phase 2 will need exactly that. But switching
+        packages mid-build meant new R&amp;D with the deadline fixed, and the risk wasn't worth it
+        for phase 1.
+      </p>
+      <p>
+        So we split the decision. Lottie now, to ship on time. Rive for phase 2, which I made the
+        case for with our PO, and they agreed. Lottie solved the problem for now, and Rive is
+        ready for what comes next.
+      </p>
     </div>
   </div>
 
   <hr />
 
-  <!-- User testing with bank staff -->
+  <!-- Testing with bank staff -->
   <div class="part">
     <div class="sub">
-      <h3 class="text-h6">User testing with bank staff</h3>
+      <h3 class="text-h6">Testing with bank staff</h3>
       <p class="text-body-l body">
-        10 to 15 bank staff tested a few major flows on a prototype built with Claude. We were
-        able to get a working prototype within a few hours. Getting to something testable that
-        fast meant we could run a real session before the final build was ready. The reactions
-        were genuine. Not a formal study, but early enough that what it surfaced could actually be
-        acted on.
+        The real build was still in its early stages in code, but the main flows needed testing
+        before it caught up. So our design team built a working prototype with Claude Code in a
+        few hours. We then put it in front of 15 bank staff and watched them work through the main
+        flows on their own. Getting there that fast meant we could run a real session long before
+        the final build was ready. The reactions were genuine. It wasn’t a formal study, but it
+        came early enough that what it surfaced could actually be acted on.
       </p>
     </div>
 
@@ -134,7 +139,7 @@ const findings = [
 </Section>
 
 <style>
-  /* ── Parts: intro, then note and cards 40 below ────────────────── */
+  /* ── Parts: intro, cards and paragraphs 40 apart ───────────────── */
 
   .part {
     display: flex;
@@ -175,9 +180,10 @@ const findings = [
     color: var(--text-secondary);
   }
 
-  .group {
-    display: flex;
-    flex-direction: column;
+  /* Figma gap 28; 24 to match the paragraph pairs in 06. */
+  .cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: var(--space-24);
   }
 
@@ -185,29 +191,6 @@ const findings = [
     margin-block: var(--space-56);
     border: 0;
     border-top: 1px solid var(--sampath-border-warm);
-  }
-
-  /* ── Note: light version, as in 03. Figma padding 20/16 and radii 10 and 5, snapped. ── */
-
-  .note {
-    display: flex;
-    align-items: center;
-    gap: var(--space-12);
-    padding: var(--space-16) var(--space-24);
-    border: 0.5px solid var(--border-default);
-    border-radius: var(--radius-sm);
-    background-color: var(--bg-cards);
-    color: var(--text-secondary);
-  }
-
-  .note-icon {
-    display: grid;
-    flex: none;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    border-radius: var(--radius-sm);
-    background-color: var(--sampath-note-icon-bg-light);
   }
 
   /* ── Cards: three across from tablet up. Figma gap 10, snapped to 8. ── */
@@ -303,11 +286,16 @@ const findings = [
     color: var(--sampath-pill-caution-text);
   }
 
-  /* ── Mobile: 32 either side of the rule, as in 04 and 06 ───────── */
+  /* ── Mobile: 32 either side of the rule, as in 04 and 06; paragraphs stacked 16 apart ── */
 
   @media (max-width: 767px) {
     hr {
       margin-block: var(--space-32);
+    }
+
+    .cols {
+      grid-template-columns: 1fr;
+      gap: var(--space-16);
     }
   }
 </style>

@@ -844,6 +844,13 @@ every page.
      paragraphs, then an 864×472 panel with the Widgetbook screenshot, cropped
      by the bottom edge). Paragraph pairs: gap 24 (Figma 20), stacked on
      mobile 16 apart. Panels zoom 1.25× on mobile like the others.
+   - **07 — Delivery** (warm; Figma "sampath-chat-test" 178:60): `h2` (two
+     lines) + `h6` / `body-l` intro, three tool cards (Spine, Lottie "Chosen",
+     Rive), then two `body-l` paragraphs side by side (gap 24, Figma 28;
+     stacked 16 apart on mobile), all 40 apart. A rule (56 around; 32 on
+     mobile), then "Testing with bank staff" and three finding cards. No note,
+     no card borders or footnote; the positive pill uses the "Chosen" blue
+     (user).
 4. **Footer**.
 
 ### Pearl case study (page background `pearl-bg`, no sidebar)
