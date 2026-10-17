@@ -815,12 +815,14 @@ every page.
      token-insight note (the bottom-nav research), 32 below its paragraphs
      (user; 24 in Figma). Panels are rebuilt from the Figma layers on a 1072×520 canvas that
      scales with the width (chips set in Google Sans Flex, not Inter).
-   - **04 — Components** (dark): `h2` (two lines) + `body-xl` lead in
-     `text-light`, then three rows (label column 160: `label-m` `text-sampath`
+   - **04 — Components** (dark): `h2` (two lines) + two `body-xl` lead
+     paragraphs in `text-light`, side by side (up to 500 wide each, gap 24;
+     stacked on mobile), then three rows (label column 160: `label-m` `text-sampath`
      + `title-l`; gap 48; padding 48) with `sampath-card-dark` rules between
      rows only (56 either side; no rule above the first row, removed by the user). Anatomy: an 864×472 panel
-     rebuilt from its Figma layers, then the ownership-style note. Focus ring:
-     `body-l` paragraph, then before/after cards (`sampath-card-translucent`,
+     rebuilt from its Figma layers, then the ownership-style note. Focus ring
+     (Figma "sampath-chat-test" 168:290): two `body-l` paragraphs side by side
+     (gap 16, stacked on mobile), then before/after cards (`sampath-card-translucent`,
      `rounded.md`, padding 24) with Sampath's input field recreated in HTML.
      Current scale: three `number-l` stats with `label-m` labels. Rows stack
      their label above the content below 1200; cards and stats stack on mobile.

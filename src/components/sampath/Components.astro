@@ -23,10 +23,21 @@ const stats = [
     <h2 id="components-title">
       <span class="line">One base. Every change,</span> <span class="line">everywhere, instantly.</span>
     </h2>
-    <p class="text-body-xl lead">
-      Components with most number variables starts from a base that controls every element
-      through Boolean properties. State and style variants layer on top.
-    </p>
+    <div class="lead text-body-xl">
+      <p>
+        For molecules like buttons, inputs, lists and accordions, I follow a build method I’ve
+        refined over a few systems in Figma. I start with a base component that holds every
+        element of the component, and I switch each one on or off with a boolean property.
+        Figma’s new slots feature gives me even more control, without detaching components or
+        building too many variants. Only then I build the state, style and other properties on
+        top of that base.
+      </p>
+      <p>
+        Some of these bases sit behind four to eight variants, and that’s where this approach
+        earns its time. If the client asks for a change in the style, I don’t go through every
+        variant and instance. I change the base once, and everything follows.
+      </p>
+    </div>
   </div>
 
   <div class="rows">
@@ -68,14 +79,19 @@ const stats = [
         <h3 class="text-title-l">Focus ring</h3>
       </div>
       <div class="row-content">
-        <p class="text-body-l body">
-          The AI prototype had a focus ring on input and search fields with more visual depth, a
-          soft glow visible in focus and typing states. When I built the component I added a
-          simple outline instead. I only noticed the difference after all the input field
-          variants were already done, normal, dropdown, password, and search. I updated the base
-          component with the focus ring and it came through on every variant, every state,
-          without touching a single one individually.
-        </p>
+        <div class="cols text-body-l body">
+          <p>
+            This is where building from a base component paid off. The AI prototype gave the
+            input and search fields a soft glow when they were focused or being typed in. When I
+            built the component, I went with a simple outline instead, and I didn’t notice the
+            difference until the normal, dropdown, password and search variants were all done.
+          </p>
+          <p>
+            Normally that would mean going back through every one of them. Instead, I updated the
+            base component once, and the glow came through on every variant and every state
+            without me touching any of them individually.
+          </p>
+        </div>
         <div class="ba">
           <div class="ba-card">
             <h4 class="text-title-m">Before · Simple outline</h4>
@@ -141,8 +157,11 @@ const stats = [
     }
   }
 
+  /* Two paragraphs side by side, up to 500 wide each. */
   .lead {
-    max-width: 500px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 500px));
+    gap: var(--space-24);
     color: var(--text-light);
   }
 
@@ -187,6 +206,13 @@ const stats = [
 
   .body {
     color: var(--text-light);
+  }
+
+  /* Focus ring text: two paragraphs side by side. */
+  .cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
   }
 
   /* ── Anatomy panel: 864 × 472 canvas ───────────────────────────── */
@@ -384,8 +410,10 @@ const stats = [
       margin-left: 0;
     }
 
+    .lead,
     .ba,
-    .stats {
+    .stats,
+    .cols {
       grid-template-columns: 1fr;
     }
 

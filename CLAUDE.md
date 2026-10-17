@@ -104,6 +104,7 @@ Status values: `not started` · `in progress` · `approved`
 | 03 · Building the System | approved |
 | 03 · Building the System rebuild: revised copy, Figma 164:45 (research note moved into Typography) | approved |
 | 04 · Components | approved |
+| 04 · Components rebuild: revised copy, Figma 168:290 (two-paragraph intro, Focus ring text in two columns) | approved |
 | Transition image band | approved |
 | 05 · Impact | approved |
 | 06 · Built to Last | approved |
