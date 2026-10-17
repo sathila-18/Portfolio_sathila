@@ -1,5 +1,6 @@
 ---
-// Sampath › 01 — Starting Point: intro text, then the list of what was broken.
+// Sampath › 01 — Starting Point (Figma "sampath-chat-test", node 158:3077): heading and two
+// intro paragraphs side by side, the list of what was broken, then a closing paragraph.
 import Section from './Section.astro';
 import BackArrow from '../../assets/icons/sampath/back-arrow.svg';
 import SplitArrows from '../../assets/icons/sampath/split-arrows.svg';
@@ -20,12 +21,22 @@ const problems = [
 
 <Section tone="warm" labelledby="starting-point-title">
   <div class="text">
-    <h2 id="starting-point-title">The app was broken. Users had no choice but to adapt.</h2>
-    <p class="text-body-xl lead">
-      I used this app as a customer. I got used to the patterns eventually but I was waiting for
-      a redesign the whole time. These weren't edge cases. They were how the app worked, every
-      session, for every user.
-    </p>
+    <h2 id="starting-point-title">
+      <span class="line">The app was broken.</span> <span class="line">Users had no choice</span>
+      <span class="line">but to adapt.</span>
+    </h2>
+    <div class="paras text-body-xl">
+      <p>
+        It wasn't just me. Friends, customers and App Store reviews all said the same thing: simple
+        tasks took too much effort, navigation changed from screen to screen, and people were left
+        guessing what to do next.
+      </p>
+      <p>
+        I was one of those customers. I got used to it eventually, but I was waiting for a redesign
+        the whole time. So when our team took on the project, I saw it as a chance to fix the
+        experience properly, not just redesign screens.
+      </p>
+    </div>
   </div>
 
   <ul class="list" role="list">
@@ -41,6 +52,11 @@ const problems = [
       </li>
     ))}
   </ul>
+
+  <p class="closing text-body-xl">
+    These were not six isolated bugs. They were symptoms of a product growing without shared rules.
+    Fixing screens one by one would not have prepared the app for the journeys Sampath wanted next.
+  </p>
 </Section>
 
 <style>
@@ -48,15 +64,31 @@ const problems = [
     display: flex;
     flex-direction: column;
     gap: var(--space-24);
-    /* Figma text box width; the heading wraps into the same three lines naturally. */
-    max-width: 560px;
   }
 
   h2 {
     color: var(--text-primary);
   }
 
-  .lead {
+  /* Three lines from tablet up, as in Figma; on mobile the heading wraps naturally. */
+  @media (min-width: 768px) {
+    .line {
+      display: block;
+    }
+  }
+
+  /* Figma: two equal columns, 24 apart, across the full width. Stacked on mobile. */
+  .paras {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-24);
+    color: var(--text-secondary);
+  }
+
+  /* Figma: 629 wide, 32 below the list. */
+  .closing {
+    max-width: 629px;
+    margin-top: var(--space-32);
     color: var(--text-secondary);
   }
 
@@ -106,6 +138,13 @@ const problems = [
     border-radius: var(--radius-full);
     background-color: var(--sampath-badge-bg);
     color: var(--sampath-badge-text);
+  }
+
+  @media (max-width: 767px) {
+    .paras {
+      grid-template-columns: 1fr;
+      gap: var(--space-16);
+    }
   }
 
   /* Tablet and up: badge moves to the right end of the row. */

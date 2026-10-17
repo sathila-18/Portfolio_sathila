@@ -778,14 +778,17 @@ every page.
      eyebrows `text-sampath`.
    - Tablet and mobile: side padding follows the gutter; mobile vertical
      padding 80 (recommendation).
-   - **01 — Starting Point**: `h2` + `body-xl` lead (560 wide, gap 24), then 32
-     below, a list of rows (`sampath-border-warm` hairlines, padding 16,
+   - **01 — Starting Point** (Figma "sampath-chat-test" 158:3077): `h2` on three
+     lines (natural wrap on mobile), 24 below it two `body-xl` `text-secondary`
+     paragraphs side by side (equal columns, gap 24; stacked on mobile, gap 16),
+     then 32 below, a list of rows (`sampath-border-warm` hairlines, padding 16,
      gap 16; no numbers, removed by the user): 44px icon tile
      (`sampath-icon-tile-bg`, `rounded.sm`, 24px orange icon), text `title-l`
      `text-primary`, with a pill badge (`label-s`, `sampath-badge-*`, padding 4/8)
      at the row's right end from tablet up, centred on the tile; on mobile the
      badge sits above the text, gap 8, with the tile top-aligned (confirmed by
      the user).
+     32 below the list, a closing `body-xl` `text-secondary` paragraph, 629 wide.
    - **02 — The plan changed** (dark): `h2` on two lines, 72 below a two-column
      row (gap 40). Left: pull quote (`h6`, 2px `border-sampath` left rule,
      padding-left 24) and a `body-xl` paragraph. Right (gap 24): two

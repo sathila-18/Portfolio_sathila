@@ -98,6 +98,7 @@ Status values: `not started` · `in progress` · `approved`
 | Hero | approved |
 | Hero rebuild: revised copy, Figma "hero 1" (light hero, silk metadata band) | approved |
 | 01 · Starting Point | approved |
+| 01 · Starting Point rebuild: revised copy, Figma 158:3077 (two-column intro, closing paragraph) | approved |
 | 02 · The plan changed (Figma frame "Frame 1853320920") | approved |
 | 03 · Building the System | approved |
 | 04 · Components | approved |
