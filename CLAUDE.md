@@ -102,6 +102,7 @@ Status values: `not started` · `in progress` · `approved`
 | 02 · The plan changed (Figma frame "Frame 1853320920") | approved |
 | 02 · The plan changed rebuild: revised copy, Figma 160:3242 (paragraph columns, centred card) | approved |
 | 03 · Building the System | approved |
+| 03 · Building the System rebuild: revised copy, Figma 164:45 (research note moved into Typography) | approved |
 | 04 · Components | approved |
 | Transition image band | approved |
 | 05 · Impact | approved |

@@ -1,6 +1,7 @@
 ---
 // Sampath › 03 — Building the System: intro, two audit cards, then Color, Typography and
-// Icons, each a 1072 × 520 visual panel with two paragraphs, then the token insight note.
+// Icons, each a 1072 × 520 visual panel with two paragraphs. Typography also holds the
+// bottom-nav research note.
 //
 // The panels are rebuilt from the Figma layers (not flattened screenshots) so they stay sharp.
 // Each is drawn on a 1072 × 520 canvas: `--u` is one Figma pixel, scaled to the panel width.
@@ -22,7 +23,7 @@ const audit = [
   {
     label: 'Build order · Atomic approach',
     title: 'Foundations first. Atoms. Molecules. Organisms.',
-    text: 'Started with the foundations file, primitives and semantics. Then built atoms in Figma. Then molecules from atoms. Then organisms. Every layer above had something solid to stand on.',
+    text: 'I built it from the ground up. The foundations file came first, holding the primitives and semantics. Then the atoms, starting with icon sizes, since almost every other component contains one. Molecules grew out of the atoms, and organisms out of the molecules. Each layer stood on something already solid.',
   },
 ];
 
@@ -59,8 +60,10 @@ const lightLines = [
         <span class="line">A strong system starts</span> <span class="line">with strong foundations.</span>
       </h2>
       <p class="text-body-xl lead">
-        Three files — foundations, icons, components — kept separate from the start. Changes
-        don't cascade. Developers pull from isolated sources.
+        I didn't start from zero. A teammate had pulled a starter system out of the AI screens,
+        but its spacing and sizing weren't consistent. I fixed those while setting up the
+        primitives, and split everything into three files: foundations, icons and components. A
+        change in one can't break the others.
       </p>
     </div>
 
@@ -112,13 +115,15 @@ const lightLines = [
       </figure>
       <div class="cols">
         <p>
-          Three layers — primitives carry the hex values, alias maps them to roles, scoped
-          collection assigns intent. Light and dark mode live in layer three, built incrementally
-          as the product grew.
+          Three layers. Primitives hold the brand hex values, alias gives them roles (primary,
+          success…), and the scoped layer gives them meaning (bg-action, border-active). Light and
+          dark mode live in that third layer. It grows with the product: I only add a token when a
+          real component needs one.
         </p>
         <p>
-          The JSON export caught two 900-shade alias tokens that weren't linked correctly. The
-          system ran a quality check on itself.
+          Later, I exported the variables as JSON and ran them through Claude. It caught two
+          900-shade alias tokens I hadn't linked. Small, but exactly the kind of mistake that
+          quietly spreads across hundreds of screens.
         </p>
       </div>
     </div>
@@ -142,14 +147,25 @@ const lightLines = [
       </figure>
       <div class="cols">
         <p>
-          Font sizes, weights, kerning, and line-heights as primitives. Mapped to alias roles — h1
-          through caption. Styles carry the same naming as alias — one source of truth.
+          Typography followed the same thinking. I set up the primitives first: font families,
+          weights, letter spacing, line heights and sizes. Then I planned the roles on top of them.
+          Headings run from 36px down to 16px, body text sits at 16, 14 and 12px, and labels,
+          titles and captions fill in the rest.
         </p>
         <p>
-          Research finding: 10px for bottom nav labels, validated against major apps before
-          locking in. Most use 10 to 11px. Captions use 10, 11, and 12px as well.
+          Once the aliases were mapped to their primitives, I went one step further, as I usually
+          do, and turned them into text styles with the same names. Whether someone picks a style
+          or a variable, the name means the same thing.
         </p>
       </div>
+      <p class="insight">
+        <span class="insight-icon" aria-hidden="true"><TypeInfo width={24} height={24} /></span>
+        <span class="text-body-l">
+          One small question needed a bit of research. How small can a bottom nav label go? I’d
+          planned 10px, so we checked what the major apps do. Most sit between 10 and 11px, so
+          10px stayed. Captions ended up using 10, 11 and 12px as well.
+        </span>
+      </p>
     </div>
   </div>
 
@@ -170,24 +186,21 @@ const lightLines = [
       </figure>
       <div class="cols">
         <p>
-          Iconoir for utility icons. Custom illustrated set for brand-specific contexts. Both use
-          the same fg-* token family.
+          For icons, the planning mattered more than the drawing. The client wanted icons that
+          felt like their own, so my decision is to split the set in two. Iconoir’s free library
+          covered the utility icons, things like arrows, chevrons, search, notifications and
+          dates. Brand-related icons would be custom, drawn by the illustrator we brought onto the
+          project, and they joined the library once they were ready.
         </p>
         <p>
-          Naming tokens fg-primary rather than icon-primary meant illustrations worked with the
-          same tokens in dark mode. One call, weeks of rework avoided.
+          The decision that paid off was a naming one. Instead of calling the color tokens
+          icon-primary, I named them as foreground tokens, like fg-primary. So when the custom
+          illustrations arrived, they could use the same tokens as the icons. And when dark mode
+          came in, both switched together.
         </p>
       </div>
     </div>
   </div>
-
-  <p class="insight">
-    <span class="insight-icon" aria-hidden="true"><TypeInfo width={24} height={24} /></span>
-    <span class="text-body-l">
-      One naming call, weeks of rework avoided. If it had been named icon-primary, illustrations
-      would have needed a separate token set. fg-primary covered both.
-    </span>
-  </p>
 </Section>
 
 <style>
@@ -434,12 +447,13 @@ const lightLines = [
 
   /* ── Token insight ─────────────────────────────────────────────── */
 
-  /* Figma: padding 20/16, radius 10 and icon radius 5, snapped to 24/16 and rounded.sm. */
+  /* Sits in the Typography stack, 32 below its paragraphs (the stack's 24 plus 8; user).
+     Figma: padding 20/16, radius 10 and icon radius 5, snapped to 24/16 and rounded.sm. */
   .insight {
     display: flex;
     align-items: flex-start;
     gap: var(--space-12);
-    margin-top: var(--space-56);
+    margin-top: var(--space-8);
     padding: var(--space-16) var(--space-24);
     border: 0.5px solid var(--sampath-border-warm);
     border-radius: var(--radius-sm);
@@ -468,11 +482,6 @@ const lightLines = [
     /* Heading sits closer to its panel on mobile (confirmed by the user). */
     .topic {
       gap: var(--space-24);
-    }
-
-    /* Token insight sits closer to the Icons paragraphs on mobile (confirmed by the user). */
-    .insight {
-      margin-top: var(--space-32);
     }
 
     .cols {
