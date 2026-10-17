@@ -107,6 +107,7 @@ Status values: `not started` · `in progress` · `approved`
 | 04 · Components rebuild: revised copy, Figma 168:290 (two-paragraph intro, Focus ring text in two columns) | approved |
 | Transition image band | approved |
 | 05 · Impact | approved |
+| 05 · Impact rebuild: revised copy, Figma 173:63 (intro and first timeline row) | approved |
 | 06 · Built to Last | approved |
 | 07 · Delivery | approved |
 | 08 · Reflection | approved |
