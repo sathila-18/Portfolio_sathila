@@ -1,6 +1,6 @@
 ---
-// Pearl › 01 — The Setup: label, headline (second half muted) and lead paragraph.
-// The headline wraps naturally; Figma's forced break after "given time" is dropped (user).
+// Pearl › 01 — The Setup (Figma 186:2844): label, headline (second half muted) and lead
+// paragraph. The headline wraps naturally (user).
 import Section from './Section.astro';
 ---
 
@@ -8,13 +8,17 @@ import Section from './Section.astro';
   <div class="heading">
     <p class="text-label-m label">The setup</p>
     <h2 id="setup-title">
-      Built for speed <span class="muted">it wasn't given time to prepare for</span>
+      A plan built from what was clear, <span class="muted">not a guess at the whole</span>
     </h2>
   </div>
   <p class="text-body-xl lead">
-    Wireframes and UI work had to run in parallel instead of one after the other, across three
-    platforms, with no room for delay. A design system built to absorb that speed was the only
-    way consistency and velocity could both survive.
+    Before Pearl had a single token, the client wanted to know when it would be done. It was a
+    fair question, but there was no honest answer yet. I’d usually audit the wireframes first to
+    see which components the product actually needs, and here the wireframes were still being
+    drawn. So instead of guessing at the whole system, I committed to the parts I could see
+    clearly, the foundations and the atomic components the early wireframes already showed. I
+    estimated them in hours rather than days, which made every step easy to track, and the rest of
+    the system would take shape as the wireframes did.
   </p>
 </Section>
 
@@ -29,10 +33,8 @@ import Section from './Section.astro';
     color: var(--text-tertiary);
   }
 
-  /* Balanced so the natural wrap doesn't leave "for" alone on the last line. */
   h2 {
     color: var(--text-primary);
-    text-wrap: balance;
   }
 
   .muted {

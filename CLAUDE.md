@@ -86,6 +86,8 @@ Status values: `not started` · `in progress` · `approved`
 | Hero metadata | approved |
 | Metrics band | approved |
 | 01 · The Setup | approved |
+| 01 · The Setup: revised copy, Figma 186:2844 | approved |
+| 02 · First Move: revised description | approved |
 | 02 · First Move | approved |
 | 03 · Architecture Call | approved |
 | 04 · Foundations | approved |
