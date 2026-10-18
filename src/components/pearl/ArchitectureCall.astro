@@ -1,8 +1,9 @@
 ---
-// Pearl › 03 — The Architecture Call: label, headline and lead in the narrow column, the
-// four-file list, two paragraphs side by side, then (wide) a stat strip and the file diagram.
+// Pearl › 03 — The Architecture Call (Figma 189:2876): label, headline and lead in the narrow
+// column, the four-file list, two columns of paragraphs, then (wide) a stat strip and the file
+// diagram.
 //
-// The section sits in the wide band; the text is held to the 612 reading column inside it.
+// The section sits in the wide band; the text is held to the 740 column inside it.
 // The diagram is a 972 × 607.6 canvas (`--u` is one Figma pixel) scaled to the column width:
 // the blurred backdrop, then the 675 × 512 artwork rebuilt from its Figma layers (the image
 // ring, the "Foundation" pearl, its three connector lines and three chips). Layer positions
@@ -63,15 +64,16 @@ const lines = [
     <div class="heading">
       <p class="text-label-m label">The architecture call</p>
       <h2 id="architecture-title">
-        Four files, <span class="muted">not one,</span> and a reason for each
+        <span class="line">Four files, <span class="muted">not one,</span></span>
+        <span class="line">and a reason for each</span>
       </h2>
     </div>
 
     <div class="body">
       <p class="text-body-xl">
-        Most systems start as a single file. A single file couldn't hold three platforms without
-        becoming unmanageable as the product scaled, so Pearl didn't, on purpose. Four files, each
-        with one job:
+        Keeping everything in one file would have been simpler at the start. But one file holding
+        three platforms would only get harder to manage as the product grew, so I split Pearl into
+        four, each with one job.
       </p>
 
       <ol class="files">
@@ -86,19 +88,28 @@ const lines = [
       </ol>
 
       <div class="columns text-body-xl text-body-l-mobile">
+        <div class="col">
+          <p>
+            Mobile and web got their own libraries because they behave differently. Web needed
+            hover and focus states, mobile needed touch states, and keeping them apart meant each
+            could grow without affecting the other.
+          </p>
+          <p>
+            The icon library needed a decision of its own. Batelco’s icon set had scaling issues,
+            and we only had access to part of it. At first, filling the gaps meant digging through
+            their Confluence for missing icons, which was eating into design time. So I raised it
+            through our PM, and we agreed to use Material icons wherever Batelco’s were missing.
+            From there, my aim was to keep Batelco’s icons for brand moments and let Material carry
+            the everyday utility ones.
+          </p>
+        </div>
         <p>
-          Splitting mobile and web meant each could carry its own states and interaction patterns.
-          Hover and focus on web, touch states on mobile — without either file becoming
-          unmanageable as the product scaled. Icons got the same separation for a practical
-          reason: the client's own set had scaling issues and only partial coverage, so brand
-          icons stayed reserved for brand moments while Material filled every utility need
-          underneath.
-        </p>
-        <p>
-          That decision got tested directly. Partway through, the client asked for “one unified
-          system” instead of a split one. I held the architecture — our side was producing the
-          larger share of UI, and one bloated file would slow both teams down as things grew. The
-          split stayed.
+          Where Pearl lived got tested too. The client had started keeping foundations in their own
+          Figma, and partway through they asked for one unified system instead of one on each side.
+          I talked it through with my design head and our PM, then explained our reasoning to the
+          client. Our side was producing the larger share of the UI, and keeping the system where
+          that UI was being built made it far easier to maintain as the project grew. Pearl stayed
+          with us during the build, and at handoff it moved into their environment.
         </p>
       </div>
     </div>
@@ -149,9 +160,9 @@ const lines = [
 </Section>
 
 <style>
-  /* Narrow reading column (612) centred in the wide band. */
+  /* Narrow column (740, no side padding in Figma) centred in the wide band. */
   .column {
-    max-width: 612px;
+    max-width: 740px;
     margin-inline: auto;
   }
 
@@ -167,6 +178,13 @@ const lines = [
 
   h2 {
     color: var(--text-primary);
+  }
+
+  /* Two lines from tablet up, as in Figma; on mobile it wraps naturally. */
+  @media (min-width: 768px) {
+    .line {
+      display: block;
+    }
   }
 
   .muted {
@@ -206,10 +224,18 @@ const lines = [
     color: var(--text-primary);
   }
 
+  /* Figma: two columns 24 apart; the left one holds two paragraphs, 24 apart. */
   .columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-32);
+    align-items: start;
+    gap: var(--space-24);
+  }
+
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
   }
 
   /* Stat strip: 64 below the text, three equal cells. Figma radius 12 snapped to rounded.md. */
