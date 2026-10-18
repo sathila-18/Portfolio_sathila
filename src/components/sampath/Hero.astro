@@ -105,6 +105,23 @@ const meta = [
     }
   }
 
+  /* Desktop: the hero fills the window below the nav, so the band always sits on the bottom
+     edge (user's decision). The text stays centred in the white area; on short windows its
+     padding shrinks to 48 so the band still fits. */
+  @media (min-width: 1200px) {
+    .hero {
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100svh - var(--nav-height));
+    }
+
+    .intro {
+      flex: 1;
+      justify-content: center;
+      padding-block: var(--space-48);
+    }
+  }
+
   /* ── Metadata band ─────────────────────────────────────────────── */
 
   /* Figma: 88 side padding + 32 in each cell puts the text on the 120 line. */
