@@ -80,6 +80,7 @@ Status values: `not started` · `in progress` · `approved`
 | Section | Status |
 |---|---|
 | Hero | approved |
+| Hero: revised eyebrow and lead copy | approved |
 | Hero metadata | approved |
 | Metrics band | approved |
 | 01 · The Setup | approved |
