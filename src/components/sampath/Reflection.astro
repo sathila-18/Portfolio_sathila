@@ -1,11 +1,20 @@
 ---
-// Sampath › 08 — Reflection: heading, then three numbered lessons.
+// Sampath › 08 — Reflection: heading, then three numbered lessons (title + text), Figma 182:7.
 import Section from './Section.astro';
 
 const lessons = [
-  "AI moves fast for direction but it won't catch what's wrong until you're close to it in Figma. The screens unlocked the project. They also had structural problems only visible when working through the UI properly. Both things are true at the same time.",
-  'Naming tokens for intent rather than content is the decision that compounds. fg-primary instead of icon-primary felt minor at the time. It saved meaningful rework when illustrations entered the project and again in dark mode. One naming call, weeks of rework avoided.',
-  "Building for AI readability isn't something to plan for later. Documentation that works for a BA or a PM is the same documentation that works for an AI agent. Write it that way from the start.",
+  {
+    title: 'Let AI set the direction, not the final UI.',
+    text: 'The AI prototype won the client over within days, and at a glance it looked finished. It was only when I worked through it screen by screen in Figma that the extra steps, the mismatched patterns and the missing edge cases showed up.',
+  },
+  {
+    title: 'Name tokens for what they do, not what they’re for today.',
+    text: 'Calling the color tokens fg-primary instead of icon-primary felt like a small naming call at the time. Then the illustrations arrived and could use the same tokens, and when dark mode came in, icons and illustrations switched together.',
+  },
+  {
+    title: 'Write the intent down, not just the name.',
+    text: 'A token name is enough for a person who knows the product, but AI only knows what’s written. The usage descriptions I added in Figma travelled into the JSON export, and that’s what let Claude Code build the chat prototype without guessing.',
+  },
 ];
 ---
 
@@ -16,10 +25,13 @@ const lessons = [
   </h2>
 
   <ol class="lessons" role="list">
-    {lessons.map((text, i) => (
+    {lessons.map(({ title, text }, i) => (
       <li class="lesson">
         <span class="num text-title-m">{String(i + 1).padStart(2, '0')}</span>
-        <p class="text-body-l">{text}</p>
+        <div class="lesson-text">
+          <h3 class="text-title-l">{title}</h3>
+          <p class="text-body-l">{text}</p>
+        </div>
       </li>
     ))}
   </ol>
@@ -51,7 +63,17 @@ const lessons = [
     grid-template-columns: subgrid;
     align-items: start;
     padding-block: var(--space-24);
-    color: var(--text-tertiary);
+    color: var(--text-primary);
+  }
+
+  .lesson-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .lesson-text p {
+    color: var(--text-secondary);
   }
 
   /* Lines between rows only, not above the first or below the last, as in Impact (user). */

@@ -113,3 +113,4 @@ Status values: `not started` · `in progress` · `approved`
 | 07 · Delivery | approved |
 | 07 · Delivery rebuild: revised copy, Figma 178:60 (note removed, decision paragraphs added) | approved |
 | 08 · Reflection | approved |
+| 08 · Reflection rebuild: revised copy, Figma 182:7 (each lesson gets a title, body in text-secondary) | approved |
