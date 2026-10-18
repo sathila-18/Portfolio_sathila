@@ -1,6 +1,6 @@
 ---
-// Sampath › 02 — The plan changed (Figma "sampath-chat-test", node 160:3242): dark text band
-// (two columns of paragraphs, a full-width paragraph, then a centred card), then a band of
+// Sampath › 02 — The plan changed (Figma "sampath-chat-test", node 183:50): dark text band
+// (two columns of paragraphs, then a centred card), then a band of
 // two Figma variables screenshots that bleed off its bottom edge.
 import { Image } from 'astro:assets';
 import Section from './Section.astro';
@@ -18,32 +18,34 @@ import typography from '../../assets/images/sampath/03_transition-image-replace-
     <div class="cols text-body-xl">
       <div class="col">
         <p>
-          The bank wanted more than fixes. It wanted a branchless app: open accounts, manage cards
-          and FDs, and transact by chatting with an AI assistant. And the first release had to go
-          live within three months.
+          The bank wanted more than fixes. It wanted a branchless app where customers could open
+          accounts, manage cards and FDs, and transact just by chatting with an AI assistant. And
+          the first release had to go live within three months.
         </p>
         <p>
-          Our PMs and BAs locked the flows with the client, and the team built the initial flows in
-          high-fidelity with Claude as a clickable prototype. It got approval fast.
+          Our PMs and BAs locked the flows with the client, and the team turned them into a
+          high-fidelity clickable prototype with Claude. It got approval fast.
         </p>
-      </div>
-      <div class="col">
         <p>
           Then came the gap. The prototype had unlocked client alignment, but developers could not
           build production UI from it. With the deadline fixed, they needed Figma with
           component-level specs, clear states, and a system they could implement confidently.
         </p>
+      </div>
+      <div class="col">
         <p>
-          The plan was for me to build the foundation: a design system in Figma that developers
-          could build from, component by component.
+          So my part was meant to be the foundation. I’d build the design system in Figma, the
+          foundations and the component library, and hand it to the developers so they could build
+          the product one component at a time.
+        </p>
+        <p>
+          Along the way, the plan shifted a little. Alongside the system, I’d also design the final
+          UI in Figma, with the AI screens as my wireframes. Onboarding came first, and the team
+          needed those screens within three days. But the system didn’t exist in Figma yet. So I
+          built it first, and left the last day for the screens.
         </p>
       </div>
     </div>
-
-    <p class="scope text-body-xl">
-      Then the scope grew. I'd also design the final UI, using the AI screens as wireframes.
-      Onboarding came first, and it was needed within three days.
-    </p>
 
     <div class="card">
       <div class="point">
@@ -122,11 +124,6 @@ import typography from '../../assets/images/sampath/03_transition-image-replace-
     display: flex;
     flex-direction: column;
     gap: var(--space-32);
-  }
-
-  .scope {
-    width: 100%;
-    color: var(--text-light);
   }
 
   /* Figma: 516 wide, padding 24, radius 16, items 24 apart. */

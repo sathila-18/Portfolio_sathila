@@ -101,6 +101,7 @@ Status values: `not started` · `in progress` · `approved`
 | 01 · Starting Point rebuild: revised copy, Figma 158:3077 (two-column intro, closing paragraph) | approved |
 | 02 · The plan changed (Figma frame "Frame 1853320920") | approved |
 | 02 · The plan changed rebuild: revised copy, Figma 160:3242 (paragraph columns, centred card) | approved |
+| 02 · The plan changed copy update: Figma 183:50 (scope paragraph folded into the right column) | approved |
 | 03 · Building the System | approved |
 | 03 · Building the System rebuild: revised copy, Figma 164:45 (research note moved into Typography) | approved |
 | 04 · Components | approved |
