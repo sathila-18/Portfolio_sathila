@@ -9,11 +9,11 @@
 // on the line before it when the text wraps.
 const list = (...items: string[]) => items.join('  ·  ');
 
-// Each value: an optional emphasised first line, then the regular line.
+// Each value: an optional emphasised first line, then the regular line (\n breaks it, shown via pre-wrap).
 const meta = [
   { label: 'Role', lead: 'Sole UI designer', text: 'Design system owner' },
   { label: 'Duration', lead: '5 months', text: 'Foundations to dev handoff' },
-  { label: 'Deliverables', text: list('3 Figma libraries + icon system', '920+ screens', 'dev handoff & docs') },
+  { label: 'Team', text: '2 UX researchers\n2 UI/UX designers' },
   { label: 'Tools', text: list('Figma', 'Figma Variables', 'Claude', 'Notion') },
 ];
 ---
@@ -64,7 +64,7 @@ const meta = [
     color: var(--text-primary);
   }
 
-  /* Deliverables keeps Figma's 346px measure, so it wraps after "920+ screens  ·". */
+  /* Keeps Figma's 346px measure for the longer values. */
   .value {
     max-width: 346px;
     color: var(--text-secondary);

@@ -81,6 +81,8 @@ Status values: `not started` · `in progress` · `approved`
 |---|---|
 | Hero | approved |
 | Hero: revised eyebrow and lead copy | approved |
+| Hero: lead copy adds Batelco context | approved |
+| Hero metadata: Deliverables swapped for Team (Figma 184:27) | approved |
 | Hero metadata | approved |
 | Metrics band | approved |
 | 01 · The Setup | approved |
