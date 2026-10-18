@@ -1,6 +1,6 @@
 ---
-// Pearl › 04 — Foundations: label and headline, three paragraphs side by side, a short note,
-// then the token diagram.
+// Pearl › 04 — Foundations (Figma 190:2995): label and headline, two columns of two paragraphs,
+// a short note, then the token diagram.
 //
 // The diagram is a 972 × 631 canvas (`--u` is one Figma pixel) scaled to the column width: a
 // light half and a dark half, each tracing one colour from hex value to primitive to brand
@@ -52,31 +52,46 @@ const arrows = [
   </div>
 
   <div class="columns text-body-xl">
-    <p>
-      Color tokens ran through three levels: a <strong>primitive</strong> core (named raw values,
-      not just hex), an <strong>alias</strong> layer mapping primitives to brand meaning, and
-      a <strong>scoped</strong> outer layer — the contextual, theme-aware tokens actually used in
-      components, covering light and dark mode. It's the same shape a pearl grows in: a core,
-      wrapped in layer after layer, each one giving the last its finished meaning.
-    </p>
-    <p class="text-body-l-mobile">
-      The client had already proposed a token structure, but it split colors into too many
-      overlapping groups to stay manageable at scale. I simplified it to four scoped groups —
-      background, text, border, icon — plus a fifth for overlay and alpha values. Fewer groups,
-      same coverage, far easier to maintain as the system grew.
-    </p>
-    <p class="text-body-l-mobile">
-      Type had its own quiet inconsistency: the original scale resized body, label, and caption
-      at every breakpoint, not just headings, so components like input fields changed size along
-      with the screen for no real reason. I checked what other production systems did and
-      limited responsive resizing to headings only.
-    </p>
+    <div class="col">
+      <p>
+        The foundations almost stalled before they started. The client’s graphic design team had
+        sent an early list of color token names, but we were still waiting on the final colors,
+        and a week passed without a reply. I knew how much faster the UI would move once a system
+        was in place, so I kept going with what I had and finished the foundations in two days.
+      </p>
+      <p class="text-body-l-mobile">
+        Color tokens ran through three layers. The primitive layer holds the raw color values, each
+        hex code given a name like Deep Cove-500. The alias collection sits in the middle and maps
+        to the primitives, then the scoped layer sits on top, with meaningful token names mapped to
+        the aliases, and it’s the layer that carries light and dark mode. It’s the same shape a
+        pearl grows in, a core wrapped in layer after layer.
+      </p>
+    </div>
+    <div class="col">
+      <p class="text-body-l-mobile">
+        That early token list saved time on naming, but the way it was grouped wouldn’t have
+        scaled. Alongside background, text and icon groups, there were separate groups for actions
+        and alerts, and borders weren’t defined at all. That would have meant a growing pile of
+        tokens to manage, so I kept it to four groups, background, text, border and icon, plus a
+        fifth for overlay and alpha values. I’d usually call the icon group foreground, but icon
+        was the name the client would recognise, and that mattered more than my habit.
+      </p>
+      <p class="text-body-l-mobile">
+        Type had a similar issue, and it only showed up later, while I was building the web
+        components. The type scale the client provided resized body, label and caption text at
+        every breakpoint, not just headings, so input fields and other components changed size
+        with the screen for no real reason. After checking how other production systems handle
+        it, I limited responsive resizing to headings. From then on, components kept the same size
+        on every screen, and only the headings scaled.
+      </p>
+    </div>
   </div>
 
   <p class="text-body-l note">
-    Also: a 4px spacing scale, with a 2px exception where it ran too coarse. Corner radius
-    followed the same arc — inconsistent across components before, unified once Pearl was in
-    place.
+    There’s also a 4px spacing scale, with a 2px exception for the tighter spots. The largest step
+    started at 120px for the gap between main web sections, and came down to 80px once we saw it
+    against the full website. Corner radius followed the same arc, inconsistent across components
+    before Pearl and unified once it was in place.
   </p>
 
   <figure class="figure">
@@ -134,18 +149,20 @@ const arrows = [
     color: var(--text-light);
   }
 
+  /* Figma: two columns 24 apart, two paragraphs in each, 24 apart. */
   .columns {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-32);
+    grid-template-columns: repeat(2, 1fr);
+    align-items: start;
+    gap: var(--space-24);
     margin-top: var(--space-16);
     color: var(--text-tertiary);
   }
 
-  /* The three layer names stand out in text-primary, same weight. */
-  strong {
-    color: var(--text-primary);
-    font-weight: inherit;
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
   }
 
   /* Figma 20 + 20, snapped to 40. */
@@ -299,7 +316,7 @@ const arrows = [
     border-radius: var(--radius-full);
   }
 
-  /* Tablet: the three paragraphs stack; at this width three columns run too narrow. */
+  /* Tablet: the paragraphs stack, as before the two-column update. */
   @media (max-width: 1199px) {
     .columns {
       grid-template-columns: 1fr;

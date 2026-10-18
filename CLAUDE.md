@@ -92,6 +92,7 @@ Status values: `not started` · `in progress` · `approved`
 | 03 · Architecture Call | approved |
 | 03 · Architecture Call: revised copy, Figma 189:2876 (740 column, no side padding) | approved |
 | 04 · Foundations | approved |
+| 04 · Foundations: revised copy, Figma 190:2995 (two columns of two paragraphs) | approved |
 | 05 · Building the Engine | approved |
 | The Third Surface (Figma frame mislabelled "Section 07 — Handoff") | approved |
 | 06 · The Exception | approved |
