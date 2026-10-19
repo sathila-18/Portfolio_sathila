@@ -102,6 +102,7 @@ Status values: `not started` · `in progress` · `approved`
 | 07 · Handoff | approved |
 | 07 · Handoff: revised copy, Figma 204:87 (text only) | approved |
 | 08 · Close | approved |
+| 08 · Close: revised copy, Figma 205:112 (text only) | approved |
 
 ### Sampath case study
 | Section | Status |
