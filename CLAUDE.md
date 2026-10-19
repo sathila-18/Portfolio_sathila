@@ -98,6 +98,7 @@ Status values: `not started` · `in progress` · `approved`
 | The Third Surface (Figma frame mislabelled "Section 07 — Handoff") | approved |
 | The Third Surface: revised copy, Figma 200:11 (text only) | approved |
 | 06 · The Exception | approved |
+| 06 · The Exception: revised copy, Figma 202:54 (text only) | approved |
 | 07 · Handoff | approved |
 | 08 · Close | approved |
 
