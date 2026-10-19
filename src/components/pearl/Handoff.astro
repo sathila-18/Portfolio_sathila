@@ -20,15 +20,20 @@ import headerRules from '../../assets/images/pearl/16_section-07-handoff__image-
 
   <div class="columns text-body-xl">
     <p>
-      Each core component had a Figma documentation page — anatomy, states, and the tokens it
-      pulled from — so Pearl could be picked up by someone who hadn't built it.
+      Each core component got a documentation page in Figma, covering its anatomy, its states and
+      the tokens it pulls from, so Pearl could be picked up by someone who hadn’t built it. But one
+      question had followed me from the start. Every UI we designed was linked to Pearl in our
+      Figma, so how would the system move to the client without breaking those links? I left it
+      until the end of the project, and I’d likely answer it earlier next time.
     </p>
     <p class="text-body-l-mobile">
-      Handing it over meant migrating four large files into the client's Figma environment,
-      using Figma's native move-file and library-swap features. It mostly went cleanly — until
-      the component library swap, which stalled Figma for over an hour and briefly corrupted some
-      component instances, a known limitation when swapping large libraries. Everything resolved
-      on inspection, but it stretched what should've been a same-day handoff into two.
+      When the time came, I asked Claude for options and went with Figma’s own move-file and
+      library-swap features, the cleanest and safest of them. The tutorials made it look like a
+      few clicks, but with a system this size, it wasn’t. The foundations and icon library swapped
+      across easily, while the component library stalled Figma for about an hour and a half, and a
+      few components needed fixing by hand. In total, moving every library took about two days. By
+      the end, Pearl was fully settled in the client’s Figma environment, ready for whoever picks
+      it up next.
     </p>
   </div>
 
