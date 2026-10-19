@@ -1,9 +1,9 @@
 ---
-// Pearl › 05 — Building the Engine (dark band, the centerpiece): badge, label and centred
-// headline, two paragraphs, a three-stat row, then the focus-state paragraph and two
-// sub-points ("The harder calls", "The harder test") in the reading column.
+// Pearl › 05 — Building the Engine (dark band, the centerpiece, Figma 195:968): badge, label
+// and centred headline, two paragraphs, a three-stat row, then two sub-points ("The harder
+// calls", "The harder test") in the reading column.
 //
-// The band is wide so the stats can span 972; the text is held to the 612 column inside it.
+// The band is wide so the stats can span 972; the text is held to the 740 column inside it.
 // The nav goes white while this band is behind it (Section tone="dark").
 import Section from './Section.astro';
 
@@ -20,24 +20,22 @@ const stats = [
       <span class="text-title-l badge">Centerpiece</span>
       <p class="text-label-m label">Building the engine</p>
       <h2 id="engine-title">
-        One base component, <span class="accent">ninety variants,</span> one edit point
+        One base component,<br /> <span class="accent">ninety variants,</span><br /> one edit point
       </h2>
     </div>
 
     <div class="lead text-body-xl">
       <p>
-        The audit had already shown what inconsistency have cost. The old design ran two
-        competing input field styles side by side, and buttons varied in size across scenarios
-        that should have matched. Every major component in Pearl started as a single base
-        instead, built with boolean properties rather than duplicated instances. The input field
-        is the clearest example — one base component with 8 core variants generated roughly 90
-        downstream variants, covering every style and state combination.
+        For Pearl, I tried a new way of building components, and it was a risk. Every major
+        component started as a single base, with each part switched on or off by a boolean
+        property, instead of duplicated instances. The input field shows it best. One base with
+        8 core variants grew into roughly 90 variants downstream, covering every style and state.
       </p>
       <p class="text-body-l-mobile">
-        That structure paid for itself the first time it mattered. Mid-project, the client asked
-        to move the input label from inside the field to sitting on the border. Instead of
-        updating 90 variants individually, I changed the base component once. Everything
-        downstream updated with it.
+        The risk paid off mid-project. Our inputs used a traditional layout, with the label
+        sitting outside the field, and the client asked for the label to sit on the border
+        instead. Rather than updating 90 variants one by one, I changed the base component once,
+        and every variant updated with it.
       </p>
     </div>
   </div>
@@ -52,41 +50,44 @@ const stats = [
   </dl>
 
   <div class="column">
-    <p class="text-body-xl text-body-l-mobile focus">
-      The same logic shaped harder calls, like focus states. Mobile and web needed different
-      treatments — a border adjustment on mobile, a visible ring on web, a specific fix where a
-      ring was causing layout shift on forms — and disabled buttons needed their own separate
-      reasoning about whether a focus state made sense at all. Each was checked against how
-      Material, Atlassian, and eBay had solved the same problem, before deciding what Pearl's
-      version should do.
-    </p>
-
     <div class="points">
       <section class="point" aria-labelledby="engine-calls">
         <h3 class="text-title-m point-title" id="engine-calls">The harder calls</h3>
         <div class="pair text-body-xl text-body-l-mobile">
           <p>
-            Focus itself needed correcting once. Buttons initially treated it as a plain state,
-            until it became clear a user could hover or press at the same time — so focus became
-            its own property instead, independent of the rest.
+            Focus states were the hardest call on web. On mobile, an input showed focus by
+            thickening its border from 1px to 2px in the active color, with no ring. On web,
+            accessibility pointed toward a focus ring, but a ring on input fields added a 2px gap
+            that pushed whole forms out of line. Material, Atlassian and eBay all used a ring on
+            most components but adjusted the border on inputs, in the same color. So Pearl did the
+            same, and I changed the focus color to match the input’s active color so the two never
+            clashed.
           </p>
-          <p>
-            Disabled buttons split into two cases. A hard-disabled button loses focus outright,
-            the browser kills it. A soft-disabled one — still showing a tooltip on hover — hadn't
-            actually lost it, so it kept its ring.
-          </p>
+          <div class="stack">
+            <p>
+              Focus itself needed rethinking once. I first treated it as one of the button states,
+              until I realised a user could hover or press while a button was focused. So focus
+              became its own true or false property, separate from the rest.
+            </p>
+            <p>
+              Disabled buttons raised one more question. A hard-disabled button loses focus
+              completely, because the browser removes it. But a soft-disabled button still shows a
+              tooltip on hover, so it can still be focused, and in Pearl it kept its focus ring.
+            </p>
+          </div>
         </div>
       </section>
 
       <section class="point" aria-labelledby="engine-test">
         <h3 class="text-title-m point-title" id="engine-test">The harder test</h3>
         <p class="text-body-xl text-body-l-mobile">
-          The list component was the hardest test of the model. Duplicating mobile's variants
-          into web didn't hold — the structure broke down, so the rebuild started over from just
-          the base component, updating slot instances once instead. A second near-miss followed:
-          focus states were about to be duplicated across every named list type before realizing
-          that would double the maintenance problem all over again. Focus moved into the base
-          instead, the same discipline the rest of the system already relied on.
+          The list component was the hardest test of the model. My first attempt copied the
+          mobile variants into web, and the structure broke down. So I started over from just the
+          base component and updated its slot instances once. Then came a near-miss. I was about
+          to add focus states to every named list type, like list-radio and list-checkbox, before
+          I realised that would double the variants all over again. Focus mostly matters for
+          documentation and dev handoff in a Figma design system, not day-to-day design, so it
+          moved into the base instead, the same discipline the rest of the system relied on.
         </p>
       </section>
     </div>
@@ -94,9 +95,9 @@ const stats = [
 </Section>
 
 <style>
-  /* Narrow reading column (612) centred in the wide band. */
+  /* Narrow reading column (740, no side padding in Figma) centred in the wide band. */
   .column {
-    max-width: 612px;
+    max-width: 740px;
     margin-inline: auto;
     color: var(--text-off-white);
   }
@@ -160,10 +161,6 @@ const stats = [
     color: var(--text-pearl);
   }
 
-  .focus {
-    margin-top: var(--space-80);
-  }
-
   .points {
     display: flex;
     flex-direction: column;
@@ -201,6 +198,13 @@ const stats = [
     gap: var(--space-24);
   }
 
+  /* Right column of "The harder calls": two paragraphs, 24 apart. */
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
   @media (max-width: 1199px) {
     .stat {
       padding-inline: var(--space-16);
@@ -227,10 +231,6 @@ const stats = [
     .stat {
       gap: var(--space-8);
       padding-block: var(--space-24);
-    }
-
-    .focus {
-      margin-top: var(--space-48);
     }
 
     .pair {

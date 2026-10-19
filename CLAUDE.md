@@ -94,6 +94,7 @@ Status values: `not started` · `in progress` · `approved`
 | 04 · Foundations | approved |
 | 04 · Foundations: revised copy, Figma 190:2995 (two columns of two paragraphs) | approved |
 | 05 · Building the Engine | approved |
+| 05 · Building the Engine: revised copy, Figma 195:968 (740 column, focus paragraph folded into The harder calls) | approved |
 | The Third Surface (Figma frame mislabelled "Section 07 — Handoff") | approved |
 | 06 · The Exception | approved |
 | 07 · Handoff | approved |
