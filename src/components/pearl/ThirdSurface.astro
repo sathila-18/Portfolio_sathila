@@ -58,20 +58,25 @@ const slides: Layer[][] = [
 
   <div class="columns text-body-xl">
     <p>
-      The web library wasn't just app screens. It also had its own category for marketing
-      content. I called it “Content block”. This covers the patterns that showed up across
-      Batelco's site. Hero images, text blocks, plan cards, FAQs. Built with the same discipline
-      as everything else, so the client could compose common pages later by connecting these
-      pieces like templates, instead of designing each page from scratch.
+      The website needed something the app never did. Batelco’s site was full of marketing
+      content, hero images, text blocks, plan cards and FAQs, and the same patterns kept coming
+      back from page to page. Designing every page from scratch would have undone everything the
+      system was for. So I gave these patterns their own home in the web library, a category I
+      called Content block. Researching it with Claude led me to Wise and Adobe, and to a name.
+      The pattern is usually called editorial, and because it mostly serves marketing, few design
+      systems treat it as a core component. Wise’s version was the closest match to what Batelco
+      needed. Like Wise, I built these blocks as templates, so a new page could be assembled from
+      pieces that already existed.
     </p>
     <p class="text-body-l-mobile">
-      The pattern itself doesn't have a settled name across the industry — it's usually called
-      an “editorial” component, used mainly for marketing content, and rarely treated as core
-      enough to document clearly, so most systems just call it something else. Researching it
-      through Claude surfaced Wise and Adobe as the clearest examples, since ordinary search
-      barely covers it. Benchmarking Wise's version confirmed the plan I’d already forming from
-      the audit. Batelco's patterns should build as templates, not one-off page layouts, grouped
-      and named the same practical way Wise had grouped its own.
+      Before any block could exist, there was a smaller question to answer first. What shape
+      should the images be? Only Wise and eBay had clear answers, and Batelco’s pages might need
+      something different. So I gave Claude the landing page and the inner-page banners, asked
+      which ratios the site would actually need, and refined that list into the first component.
+      From there, the blocks came together from atoms that already existed. The plan card was the
+      one that didn’t sit right with me. It ran too long, and I knew a layout like that would
+      struggle on mobile. I talked it through with our UX designer, came back with options, and
+      the client approved one.
     </p>
   </div>
 
