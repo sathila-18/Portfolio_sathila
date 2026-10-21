@@ -299,7 +299,7 @@
 
   /* "S" logo mark, footer social icons: portfolio blue, bottom-right to top-left (from the
      exported logo SVG). */
-  --gradient-brand: linear-gradient(308deg, #2C3CE9 0%, #192283 100%);
+  --gradient-brand: linear-gradient(310deg, #3746F1 0%, #192283 100%);
   /* "Fintech" highlight in the Home hero (Figma 223:1934) */
   --gradient-fintech: linear-gradient(-30deg, #6F7AF6 19.5%, #192283 94%);
   /* MEGT info-card icons (the exported SVGs carry it; Figma 224:2028) */
