@@ -5,7 +5,7 @@
 //
 // Tabs 02–04 reuse the Form canvas image and caption as placeholders until their content
 // exists (user's decision). Tabs are one line ("01 Form canvas", title-m) with 8px corners
-// (rounded.sm); the violet active state is as in Figma.
+// (rounded.sm); the active state uses the portfolio blue (user's decision; Figma has violet).
 import { Image } from 'astro:assets';
 import SectionHeading from './SectionHeading.astro';
 import builder from '../../assets/images/megt/02_hero-form-builder-preview__image-form-builder.png';
@@ -147,8 +147,9 @@ const features = [
     gap: var(--space-24);
   }
 
-  /* Inactive: 1px border-media, number and title in heading-brand. Active: 2px violet border on
-     violet-50, title in text-primary; padding trimmed by 1px so the tabs stay the same size. */
+  /* Inactive: 1px border-media, number and title in heading-brand (blue 900). Active: 2px portfolio
+     blue 500 border on blue 50, title in text-primary; padding trimmed by 1px so the tabs stay the
+     same size. */
   .tab {
     display: flex;
     align-items: center;
@@ -166,7 +167,7 @@ const features = [
   }
 
   .tab:hover {
-    border-color: var(--tertiary-2-500);
+    border-color: var(--primary-1-500);
   }
 
   .tab:focus-visible {
@@ -176,8 +177,8 @@ const features = [
 
   .tab[aria-selected='true'] {
     padding: calc(var(--space-16) - 1px);
-    border: 2px solid var(--tertiary-2-500);
-    background-color: var(--tertiary-2-50);
+    border: 2px solid var(--primary-1-500);
+    background-color: var(--primary-1-50);
   }
 
   .tab[aria-selected='true'] .title {

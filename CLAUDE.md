@@ -82,6 +82,7 @@ Status values: `not started` · `in progress` · `approved`
 | How it was built: pinned scroll stepper (still full-height ruler, marker travels down it, stages centred), Figma 215:1487 | approved |
 | The product: tabs moved above the preview, one-line title-m tabs with 8px corners, Figma 212:1049 | approved |
 | The product: own caption per tab (images still the Form canvas placeholder) | approved |
+| Portfolio blue on MEGT: blue links/Go back/tab text/focus ring, text-tertiary metadata labels, #008622 / #D00021 reflection marks (OKLCH L 0.54, a touch lighter than portfolio blue 500), Product active tab in blue | approved |
 
 ### Pearl case study
 | Section | Status |

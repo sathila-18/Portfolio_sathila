@@ -224,9 +224,10 @@ colors:
   bg-subtle: "#F7F7F7" # MEGT page background, project media wells, client-logo tiles
   bg-inverse: "{colors.tertiary-3-700}" # MEGT full-bleed dark sections + metrics band (#242424)
   bg-icon-subtle: "{colors.primary-1-50}" # footer social-icon circles
-  text-heading-brand: "{colors.primary-900}" # case-study section headings (h2), metadata labels (#313E29)
-  text-link-active: "{colors.primary-500}" # active sidebar link, "Go back"
-  feedback-negative: "#E8706A" # ✗ marks in MEGT Honest reflections (the ✓ marks use primary-500)
+  text-heading-brand: "{colors.primary-1-900}" # MEGT Product tabs, Context chip (#121962)
+  text-link-active: "{colors.primary-1-500}" # active sidebar link, "Go back" (#2C3CE9)
+  feedback-positive: "#008622" # ✓ marks in MEGT Honest reflections (OKLCH L 0.54, a touch lighter than portfolio blue 500)
+  feedback-negative: "#D00021" # ✗ marks (same lightness, in red)
   border-media: "{colors.tertiary-3-100}" # 1px outline on product screenshots (#C0C0C0)
   # ── Case-study backgrounds (local to each case study, never global) ──
   pearl-bg: "#F2F4FF" # Pearl page + alternating sections (with white)
@@ -568,12 +569,13 @@ own tokens (`text-pearl*`, `text-sampath*`).
 | Token | Value | Use |
 |---|---|---|
 | `text-primary` | #333333 | Hero headlines, project titles, info-card titles, Home "Clients and Brands" |
-| `text-heading-brand` | #313E29 | Case-study section headings (`h2`), metadata labels |
+| `text-heading-brand` | #121962 | MEGT Product tab text, Context "Assessment" chip |
 | `text-tertiary` | #5C5C5C | Nav links, hero eyebrows, section eyebrows, inactive sidebar links, metadata labels in hero bands |
 | `text-secondary` | #767676 | Lead paragraphs, body copy, metadata values, footer |
 | `text-label` | #1F2BA5 | Project category line ("Enterprise • Product Design • Web App") |
-| `text-link-active` | #749362 | Active sidebar link, "Go back" |
-| `feedback-negative` | #E8706A | ✗ marks in MEGT Honest reflections ("Would change"); the ✓ marks use `primary-500` |
+| `text-link-active` | #2C3CE9 | Active sidebar link, "Go back" |
+| `feedback-positive` | #008622 | ✓ marks in MEGT Honest reflections ("Would keep") |
+| `feedback-negative` | #D00021 | ✗ marks in MEGT Honest reflections ("Would change") |
 | `text-white` / `text-off-white` | #FFFFFF / #EBEBEB | Headings / body on dark sections (MEGT, Pearl) |
 | `text-sampath-secondary` / `text-light` | #FEF2E9 / #A1A1A1 | Headings / body on Sampath dark sections |
 | `text-sampath` | #F57921 | Sampath eyebrows on dark sections, big Sampath numbers |
@@ -626,10 +628,10 @@ Use gradients only on these elements. Never on large surfaces or body text.
 
 ### Accessibility
 Check contrast against the actual background:
-- On white: `text-primary` 12.6:1, `text-heading-brand` 11.3:1,
+- On white: `text-primary` 12.6:1, `text-heading-brand` 15.7:1,
   `text-tertiary` 6.7:1 ✅. `text-secondary` 4.54:1 ✅.
 - On `bg-subtle` (#F7F7F7, the MEGT page): `text-secondary` is **4.24:1**,
-  just under AA for body text. `text-link-active` 3.22:1 also falls short. Build as designed, note it in a code comment, and keep
+  just under AA for body text. `text-link-active` is 6.7:1 there ✅. Build as designed, note it in a code comment, and keep
   `text-secondary` paragraphs at `body-xl` / `body-l`.
 - On dark sections: `text-light` (#A1A1A1) on #141416 is 7.1:1 ✅ and
   `text-sampath` (#F57921) on #141416 is 6.7:1 ✅. Both are fine there. On white
@@ -958,7 +960,7 @@ paragraph (`body-xl`, `text-secondary`) 48px below. Content 48px below that.
 Sampath and Pearl use the same `h2` + `body-xl` pairing with the colours listed
 for their sections.
 
-**Metadata item** (MEGT): label (`title-l`, `text-heading-brand`), gap 12, then
+**Metadata item** (MEGT): label (`title-l`, `text-tertiary`), gap 12, then
 values as a list (`body-m`, `text-secondary`) with 8px gap.
 
 **Metrics band**: full-bleed, 334px tall, content centred. Each metric: value
@@ -988,7 +990,7 @@ rather than an icon (the user's decision), left-aligned with the icon row.
 padding 12/24, `rounded.full`, with the contrast note in Colors.
 
 ### Interaction states (not designed in Figma; use these defaults)
-- Links: hover `text-primary`. Focus: 2px `primary-700` outline, 2px offset.
+- Links: hover `text-primary`. Focus: 2px `primary-1-700` (portfolio blue) outline, 2px offset.
 - Cards: hover as above. Focus-visible ring on the card link.
 - Keep motion to 150–250ms ease-out and respect `prefers-reduced-motion`.
 - Touch targets ≥ 44px.
