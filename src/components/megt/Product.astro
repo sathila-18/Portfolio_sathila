@@ -1,23 +1,44 @@
 ---
-// MEGT › The product (DESIGN.md › Layout › MEGT case study, item 6): section heading, then a
-// form builder preview with a caption and four feature tabs. 120px under How it was built.
+// MEGT › The product (DESIGN.md › Layout › MEGT case study, item 6; Figma 212:1049): section
+// heading, then four feature tabs above a form builder preview and its caption. 120px under How
+// it was built.
 //
 // Tabs 02–04 reuse the Form canvas image and caption as placeholders until their content
-// exists (user's decision). Tab corners snapped from 12 to rounded.md; the violet active state
-// is as in Figma.
+// exists (user's decision). Tabs are one line ("01 Form canvas", title-m) with 8px corners
+// (rounded.sm); the violet active state is as in Figma.
 import { Image } from 'astro:assets';
 import SectionHeading from './SectionHeading.astro';
 import builder from '../../assets/images/megt/02_hero-form-builder-preview__image-form-builder.png';
-import forwardIcon from '../../assets/icons/megt/forward.svg';
 
 const caption =
   'Every assessment starts with a name and a business unit, then opens onto the three-panel canvas, with questions on the left, the form in the middle and settings on the right. Each question type had to feel like part of the same form, and it took many rounds of iteration before one layout could carry them all.';
 
 const features = [
   { id: 'canvas', title: 'Form canvas', image: builder, alt: 'The form builder canvas with the question type picker open.', caption },
-  { id: 'workflow', title: 'Workflow builder', image: builder, alt: 'The form builder canvas with the question type picker open.', caption },
-  { id: 'library', title: 'Question library', image: builder, alt: 'The form builder canvas with the question type picker open.', caption },
-  { id: 'assessment', title: 'Assessment view', image: builder, alt: 'The form builder canvas with the question type picker open.', caption },
+  {
+    id: 'workflow',
+    title: 'Workflow builder',
+    image: builder,
+    alt: 'The form builder canvas with the question type picker open.',
+    caption:
+      'Branching logic is where forms usually get confusing, since one answer can lead somewhere completely different. So each question connects to the next as a node, and case workers can see exactly where every answer goes. We also designed a screen for every situation the logic could run into, so nothing would leave them stuck halfway through a form.',
+  },
+  {
+    id: 'library',
+    title: 'Question library',
+    image: builder,
+    alt: 'The form builder canvas with the question type picker open.',
+    caption:
+      'Saved questions pile up quickly, and finding the right one can turn into a search of its own. So we built the library to work like folders in Google Drive, SharePoint or Windows, places most people already know how to find things in. Questions can be browsed as a table or a grid, whichever suits the moment.',
+  },
+  {
+    id: 'assessment',
+    title: 'Assessment view',
+    image: builder,
+    alt: 'The form builder canvas with the question type picker open.',
+    caption:
+      'This is where the assessment is actually carried out, one question at a time, on any device. Once an answer is chosen, its interventions appear, and one has to be picked before moving on, with room for a comment on every question. Each template can also have its own colours. Whatever colour someone picked, we only changed its HSL lightness, setting backgrounds at 98 and 95 so text always stayed readable, and the developers built the same rule into the code.',
+  },
 ];
 ---
 
@@ -32,6 +53,23 @@ const features = [
   </SectionHeading>
 
   <div class="showcase" data-tabs>
+    <div class="tabs" role="tablist" aria-label="Product features">
+      {features.map(({ id, title }, i) => (
+        <button
+          class="tab text-title-m"
+          id={`product-tab-${id}`}
+          type="button"
+          role="tab"
+          aria-selected={i === 0 ? 'true' : 'false'}
+          aria-controls={`product-panel-${id}`}
+          tabindex={i === 0 ? 0 : -1}
+        >
+          <span class="number">{String(i + 1).padStart(2, '0')}</span>
+          <span class="title">{title}</span>
+        </button>
+      ))}
+    </div>
+
     {features.map(({ id, image, alt, caption }, i) => (
       <div
         class="panel"
@@ -52,26 +90,6 @@ const features = [
         <p class="caption text-body-m">{caption}</p>
       </div>
     ))}
-
-    <div class="tabs" role="tablist" aria-label="Product features">
-      {features.map(({ id, title }, i) => (
-        <button
-          class="tab"
-          id={`product-tab-${id}`}
-          type="button"
-          role="tab"
-          aria-selected={i === 0 ? 'true' : 'false'}
-          aria-controls={`product-panel-${id}`}
-          tabindex={i === 0 ? 0 : -1}
-        >
-          <span class="tab-text">
-            <span class="number text-label-l">{String(i + 1).padStart(2, '0')}</span>
-            <span class="title text-h6">{title}</span>
-          </span>
-          <img class="chevron" src={forwardIcon.src} alt="" width="24" height="24" />
-        </button>
-      ))}
-    </div>
   </div>
 </section>
 
@@ -129,18 +147,19 @@ const features = [
     gap: var(--space-24);
   }
 
-  /* Inactive: 1px border-media. Active: 2px violet border on violet-50, padding trimmed by 1px
-     so the tabs stay the same size. */
+  /* Inactive: 1px border-media, number and title in heading-brand. Active: 2px violet border on
+     violet-50, title in text-primary; padding trimmed by 1px so the tabs stay the same size. */
   .tab {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--space-8);
     padding: var(--space-16);
     border: 1px solid var(--border-media);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     background: none;
-    font: inherit;
+    font-family: inherit;
     text-align: left;
+    white-space: nowrap;
     color: var(--text-heading-brand);
     cursor: pointer;
     transition: border-color var(--duration-fast) var(--ease-out);
@@ -161,27 +180,13 @@ const features = [
     background-color: var(--tertiary-2-50);
   }
 
-  .tab-text {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    gap: var(--space-8);
-    min-width: 0;
-  }
-
   .tab[aria-selected='true'] .title {
     color: var(--text-primary);
   }
 
-  .chevron {
-    flex: none;
-    width: 24px;
-    height: 24px;
-  }
-
-  /* Four across need about 1100px for "Assessment view" to stay on one line; narrower
-     content columns (small laptops, tablet) go two by two. */
-  @container (max-width: 1099px) {
+  /* Four across need about 800px for "04 Assessment view" to stay on one line; narrower
+     content columns (tablet) go two by two. */
+  @container (max-width: 799px) {
     .tabs {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }

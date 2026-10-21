@@ -79,6 +79,8 @@ Status values: `not started` · `in progress` · `approved`
 | Revised copy, Figma 212:797 (text only, all sections) | approved |
 | Context: story text vertically centred on its illustration | approved |
 | How it was built: pinned scroll stepper (still full-height ruler, marker travels down it, stages centred), Figma 215:1487 | approved |
+| The product: tabs moved above the preview, one-line title-m tabs with 8px corners, Figma 212:1049 | approved |
+| The product: own caption per tab (images still the Form canvas placeholder) | approved |
 
 ### Pearl case study
 | Section | Status |
