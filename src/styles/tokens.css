@@ -302,8 +302,8 @@
   --gradient-brand: linear-gradient(308deg, #2C3CE9 0%, #192283 100%);
   /* "Fintech" highlight in the Home hero (Figma 223:1934) */
   --gradient-fintech: linear-gradient(-30deg, #6F7AF6 19.5%, #192283 94%);
-  /* MEGT info-card icons */
-  --gradient-info-icon: linear-gradient(180deg, #FACAFF 0%, #C90FD7 100%);
+  /* MEGT info-card icons (the exported SVGs carry it; Figma 224:2028) */
+  --gradient-info-icon: linear-gradient(307deg, #02B2A6 0%, #016E66 100%);
 
   /* ── Typography ────────────────────────────────────────────────── */
 

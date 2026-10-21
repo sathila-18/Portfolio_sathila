@@ -83,6 +83,7 @@ Status values: `not started` · `in progress` · `approved`
 | The product: tabs moved above the preview, one-line title-m tabs with 8px corners, Figma 212:1049 | approved |
 | The product: own caption per tab (images still the Form canvas placeholder) | approved |
 | Portfolio blue on MEGT: blue links/Go back/tab text/focus ring, text-tertiary metadata labels, #008622 / #D00021 reflection marks (OKLCH L 0.54, a touch lighter than portfolio blue 500), Product active tab in blue | approved |
+| The challenge: card icons in the teal gradient (#02B2A6 → #016E66), Figma 224:2028 | approved |
 
 ### Pearl case study
 | Section | Status |

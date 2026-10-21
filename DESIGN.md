@@ -622,7 +622,8 @@ belongs to the image.
   `#2C3CE9 (primary-1-500) 0% → #192283 100%`, running diagonally bottom-right to
   top-left (CSS `308deg`), as in the exported logo SVG.
 - **"Fintech" highlight** in the Home hero: `#6F7AF6 19.5% → #192283 94%` at CSS `-30deg`.
-- **Info-card icons** (MEGT): `#FACAFF → #C90FD7` (pink to violet).
+- **Info-card icons** (MEGT): `#02B2A6 → #016E66` (teal), bottom-right to top-left
+  (CSS `307deg`), as in the exported SVGs (Figma 224:2028).
 
 Use gradients only on these elements. Never on large surfaces or body text.
 
@@ -968,7 +969,7 @@ values as a list (`body-m`, `text-secondary`) with 8px gap.
 row on desktop, 2×2 on tablet and mobile. Keep "+" and units exactly as written.
 
 **Info card** (MEGT): `bg-cards` on the `bg-subtle` page, `rounded.md`,
-padding 16, gap 16: 32px icon (pink-violet gradient), then copy (gap 12): title
+padding 16, gap 16: 32px icon (teal gradient), then copy (gap 12): title
 (`h6`, `text-primary`), body (`body-l`, `text-secondary`). Grid gap 24, 2 per
 row on desktop, 1 on mobile.
 
