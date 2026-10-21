@@ -89,6 +89,17 @@
   --raw-sampath-blue-800: #3C2284;
   --raw-sampath-blue-900: #2E1A65;
 
+  --raw-portfolio-blue-50: #EAECFD;
+  --raw-portfolio-blue-100: #BEC3F8;
+  --raw-portfolio-blue-200: #9EA5F5;
+  --raw-portfolio-blue-300: #727CF0;
+  --raw-portfolio-blue-400: #5663ED;
+  --raw-portfolio-blue-500: #2C3CE9;
+  --raw-portfolio-blue-600: #2837D4;
+  --raw-portfolio-blue-700: #1F2BA5;
+  --raw-portfolio-blue-800: #182180;
+  --raw-portfolio-blue-900: #121962;
+
   /* ── Colours · Layer 2 · Alias Colors (role ramps) ───────────────── */
 
   --primary-50: var(--raw-highland-green-50);
@@ -169,6 +180,18 @@
   --sampath-blue-800: var(--raw-sampath-blue-800);
   --sampath-blue-900: var(--raw-sampath-blue-900);
 
+  /* Primary1 (Figma): the portfolio blue, not used on any screen yet. */
+  --primary-1-50: var(--raw-portfolio-blue-50);
+  --primary-1-100: var(--raw-portfolio-blue-100);
+  --primary-1-200: var(--raw-portfolio-blue-200);
+  --primary-1-300: var(--raw-portfolio-blue-300);
+  --primary-1-400: var(--raw-portfolio-blue-400);
+  --primary-1-500: var(--raw-portfolio-blue-500);
+  --primary-1-600: var(--raw-portfolio-blue-600);
+  --primary-1-700: var(--raw-portfolio-blue-700);
+  --primary-1-800: var(--raw-portfolio-blue-800);
+  --primary-1-900: var(--raw-portfolio-blue-900);
+
   --primary: var(--primary-500);
 
   /* ── Colours · Layer 3 · Mapped Colors (USE THESE IN UI CODE) ────── */
@@ -192,7 +215,7 @@
   --text-pearl-tertiary: var(--tertiary-2-700);
   --text-sampath: var(--sampath-500);
   --text-sampath-secondary: var(--sampath-50);
-  --text-label: var(--primary-600);
+  --text-label: var(--primary-1-700); /* Home card category line; Figma #18239E, nearest step */
 
   --border-default: var(--tertiary-3-50);
   --border-white: var(--raw-white);
@@ -205,7 +228,7 @@
   /* Shared values the screens use that aren't in Mapped Colors. Treat as tokens. */
   --bg-subtle: #F7F7F7;
   --bg-inverse: var(--tertiary-3-700);
-  --bg-icon-subtle: var(--primary-50);
+  --bg-icon-subtle: var(--primary-1-50);
   --text-heading-brand: var(--primary-900);
   --text-link-active: var(--primary-500);
   --border-media: var(--tertiary-3-100);
@@ -270,10 +293,11 @@
 
   /* ── Gradients (only on the elements listed in DESIGN.md) ────────── */
 
-  /* "S" logo mark, footer social icons. Direction and end opacity from the exported logo SVG. */
-  --gradient-brand: linear-gradient(149deg, #333333 0%, #759563 54%, rgb(223 238 9 / 0.65) 100%);
-  /* "Fintech" highlight in the Home hero */
-  --gradient-fintech: linear-gradient(90deg, #333333 0%, #759563 54%, #B4B975 100%);
+  /* "S" logo mark, footer social icons: portfolio blue, bottom-right to top-left (from the
+     exported logo SVG). */
+  --gradient-brand: linear-gradient(308deg, #2C3CE9 0%, #192283 100%);
+  /* "Fintech" highlight in the Home hero (Figma 223:1934) */
+  --gradient-fintech: linear-gradient(-30deg, #6F7AF6 19.5%, #192283 94%);
   /* MEGT info-card icons */
   --gradient-info-icon: linear-gradient(180deg, #FACAFF 0%, #C90FD7 100%);
 

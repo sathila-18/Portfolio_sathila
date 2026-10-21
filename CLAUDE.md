@@ -58,6 +58,7 @@ Status values: `not started` · `in progress` · `approved`
 | Work | approved |
 | Clients and Brands | approved |
 | Footer (shared by all pages) | approved |
+| Portfolio blue (Figma 223:1785): logo, footer icons, Fintech gradient, card category lines | approved |
 
 ### MEGT case study
 | Section | Status |

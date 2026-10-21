@@ -91,6 +91,18 @@ colors:
   raw-sampath-blue-700: "#4D2CAA"
   raw-sampath-blue-800: "#3C2284"
   raw-sampath-blue-900: "#2E1A65"
+
+  # colors/portfolioBlue
+  raw-portfolio-blue-50: "#EAECFD"
+  raw-portfolio-blue-100: "#BEC3F8"
+  raw-portfolio-blue-200: "#9EA5F5"
+  raw-portfolio-blue-300: "#727CF0"
+  raw-portfolio-blue-400: "#5663ED"
+  raw-portfolio-blue-500: "#2C3CE9"
+  raw-portfolio-blue-600: "#2837D4"
+  raw-portfolio-blue-700: "#1F2BA5"
+  raw-portfolio-blue-800: "#182180"
+  raw-portfolio-blue-900: "#121962"
   # ── Layer 2 · Alias Colors (role ramps → primitives)
   # colors/primary → raw-highland-green
   primary-50: "{colors.raw-highland-green-50}"
@@ -171,6 +183,18 @@ colors:
   sampath-blue-700: "{colors.raw-sampath-blue-700}"
   sampath-blue-800: "{colors.raw-sampath-blue-800}"
   sampath-blue-900: "{colors.raw-sampath-blue-900}"
+
+  # colors/Primary1 → raw-portfolio-blue
+  primary-1-50: "{colors.raw-portfolio-blue-50}"
+  primary-1-100: "{colors.raw-portfolio-blue-100}"
+  primary-1-200: "{colors.raw-portfolio-blue-200}"
+  primary-1-300: "{colors.raw-portfolio-blue-300}"
+  primary-1-400: "{colors.raw-portfolio-blue-400}"
+  primary-1-500: "{colors.raw-portfolio-blue-500}"
+  primary-1-600: "{colors.raw-portfolio-blue-600}"
+  primary-1-700: "{colors.raw-portfolio-blue-700}"
+  primary-1-800: "{colors.raw-portfolio-blue-800}"
+  primary-1-900: "{colors.raw-portfolio-blue-900}"
   # ── Layer 3 · Mapped Colors (semantic). USE THESE IN UI CODE. ──────
   # White has no Alias Colors entry, so white-based tokens point at the primitive.
   bg-primary: "{colors.raw-white}"
@@ -189,7 +213,7 @@ colors:
   text-pearl-tertiary: "{colors.tertiary-2-700}"
   text-sampath: "{colors.sampath-500}"
   text-sampath-secondary: "{colors.sampath-50}"
-  text-label: "{colors.primary-600}"
+  text-label: "{colors.primary-1-700}" # Home card category line (Figma #18239E)
   border-default: "{colors.tertiary-3-50}"
   border-white: "{colors.raw-white}"
   border-sampath: "{colors.sampath-500}"
@@ -199,7 +223,7 @@ colors:
   # ── Shared values used in the screens that aren't in Mapped Colors ──
   bg-subtle: "#F7F7F7" # MEGT page background, project media wells, client-logo tiles
   bg-inverse: "{colors.tertiary-3-700}" # MEGT full-bleed dark sections + metrics band (#242424)
-  bg-icon-subtle: "{colors.primary-50}" # footer social-icon circles
+  bg-icon-subtle: "{colors.primary-1-50}" # footer social-icon circles
   text-heading-brand: "{colors.primary-900}" # case-study section headings (h2), metadata labels (#313E29)
   text-link-active: "{colors.primary-500}" # active sidebar link, "Go back"
   feedback-negative: "#E8706A" # ✗ marks in MEGT Honest reflections (the ✓ marks use primary-500)
@@ -547,7 +571,7 @@ own tokens (`text-pearl*`, `text-sampath*`).
 | `text-heading-brand` | #313E29 | Case-study section headings (`h2`), metadata labels |
 | `text-tertiary` | #5C5C5C | Nav links, hero eyebrows, section eyebrows, inactive sidebar links, metadata labels in hero bands |
 | `text-secondary` | #767676 | Lead paragraphs, body copy, metadata values, footer |
-| `text-label` | #6A8659 | Project category line ("Enterprise • Product Design • Web App") |
+| `text-label` | #1F2BA5 | Project category line ("Enterprise • Product Design • Web App") |
 | `text-link-active` | #749362 | Active sidebar link, "Go back" |
 | `feedback-negative` | #E8706A | ✗ marks in MEGT Honest reflections ("Would change"); the ✓ marks use `primary-500` |
 | `text-white` / `text-off-white` | #FFFFFF / #EBEBEB | Headings / body on dark sections (MEGT, Pearl) |
@@ -564,7 +588,7 @@ own tokens (`text-pearl*`, `text-sampath*`).
 | `bg-inverse` | #242424 | MEGT full-bleed dark sections and metrics band |
 | `bg-secondary` | #EBEBEB | Available. Not used as a surface in the current screens |
 | `bg-action` | #749362 | Primary buttons (none on current screens) |
-| `bg-icon-subtle` | #F1F4EF | Footer social-icon circles |
+| `bg-icon-subtle` | #EAECFD | Footer social-icon circles |
 | `border-default` | #EBEBEB | Hairlines, Pearl hero metadata band |
 | `border-media` | #C0C0C0 | 1px outline on product screenshots |
 
@@ -592,10 +616,10 @@ tokens. Text inside mockups and token diagrams (for example near-black #141412)
 belongs to the image.
 
 ### Gradients
-- **Brand gradient** on the "S" logo mark and the footer social icons:
-  `#333333 0% → #759563 54% → #DFEE09 @ 65% opacity 100%`, running diagonally
-  top-left to bottom-right (CSS `149deg`), as in the exported logo SVG.
-- **"Fintech" highlight** in the Home hero: `#333333 0% → #759563 54% → #B4B975 100%`.
+- **Brand gradient** on the "S" logo mark and the footer social icons (portfolio blue):
+  `#2C3CE9 (primary-1-500) 0% → #192283 100%`, running diagonally bottom-right to
+  top-left (CSS `308deg`), as in the exported logo SVG.
+- **"Fintech" highlight** in the Home hero: `#6F7AF6 19.5% → #192283 94%` at CSS `-30deg`.
 - **Info-card icons** (MEGT): `#FACAFF → #C90FD7` (pink to violet).
 
 Use gradients only on these elements. Never on large surfaces or body text.
@@ -605,16 +629,15 @@ Check contrast against the actual background:
 - On white: `text-primary` 12.6:1, `text-heading-brand` 11.3:1,
   `text-tertiary` 6.7:1 ✅. `text-secondary` 4.54:1 ✅.
 - On `bg-subtle` (#F7F7F7, the MEGT page): `text-secondary` is **4.24:1**,
-  just under AA for body text. `text-label` 3.79:1 and `text-link-active` 3.22:1
-  also fall short. Build as designed, note it in a code comment, and keep
+  just under AA for body text. `text-link-active` 3.22:1 also falls short. Build as designed, note it in a code comment, and keep
   `text-secondary` paragraphs at `body-xl` / `body-l`.
 - On dark sections: `text-light` (#A1A1A1) on #141416 is 7.1:1 ✅ and
   `text-sampath` (#F57921) on #141416 is 6.7:1 ✅. Both are fine there. On white
   or warm backgrounds they're 2.3–2.8:1. Sampath uses `text-sampath` for 14px
   eyebrows on warm sections (2.5:1): build as designed and flag it in a comment.
   Don't extend that use.
-- `text-label` on white is 4.06:1 ⚠️. It's used at 14px Medium for the category
-  line. Keep it to that use.
+- `text-label` (portfolio blue 700) on white is 10.8:1 ✅. It's used at 14px Medium for the
+  category line.
 - `button-primary`: white on `bg-action` is **3.45:1**, which fails AA for a 16px
   label. Build it as designed, use `primary-700` (#526846, 6.1:1) for
   hover/pressed, and flag it in a comment.
