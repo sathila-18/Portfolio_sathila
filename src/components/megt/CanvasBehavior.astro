@@ -16,15 +16,15 @@ const poster = await getImage({ src: posterFrame, width: 1960, format: 'webp' })
 const states = [
   {
     title: 'Default state',
-    body: 'Unselected elements remain clean and undisturbed, minimizing cognitive background noise for non-technical users.',
+    body: 'Until a question is clicked, the canvas reads like the finished form, with placeholder text showing where each question and answer will go. Nothing asks for attention it doesn’t need.',
   },
   {
     title: 'Active focus',
-    body: 'Tapping directly into any question wrapper instantly shifts the canvas container into an active inline editing mode.',
+    body: 'Clicking a question switches it into editing right where it sits. There’s no pop-up and no separate screen, and the right panel updates to show that question’s settings.',
   },
   {
     title: 'Real-time feedback',
-    body: 'A distinct blue border outline and an active text cursor pop up instantly to provide immediate visual confirmation.',
+    body: 'A blue outline and a text cursor appear the moment a question is selected, so it’s always clear which one is being edited, and what’s about to change.',
   },
 ];
 ---
@@ -33,10 +33,10 @@ const states = [
   <SectionHeading
     id="canvas-title"
     eyebrow="Canvas behavior"
-    lead="Eliminating the abstract configuration layer. If you see an element, you can edit it right there."
+    lead="Settings already had a home in the right panel, but long questions and answers would have crowded it fast, adding an extra click to every edit. So editing moved onto the canvas itself, and the right panel kept everything else. The idea first clicked for me in Figma, where text lights up in blue right where you’re working on it. But editing in place isn’t unique to Figma. It’s a pattern most editing tools share, so we brought it into ours and shaped it around our own scenarios."
     width={996}
   >
-    Designing zero-friction inline interactions
+    Edit the question right where it sits
   </SectionHeading>
 
   <div class="showcase">

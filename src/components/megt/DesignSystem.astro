@@ -37,16 +37,16 @@ const connectors = [77, 139, 201, 264];
 
 const principles = [
   {
-    title: 'Why a 3-layer token architecture?',
-    body: 'Bypassed a standard 2-layer variable system to future-proof the application logic. By routing global primitives through semantic aliases and into component-scoped tokens, the system can scale infinitely without breaking downstream layouts.',
+    title: 'Why a 3-Layer Token Architecture?',
+    body: 'Raw values, their roles in the brand, and where each one is used all sit in separate layers. That separation is what should let a new brand slot in by changing the base values, instead of redesigning every screen built on top of them.',
   },
   {
-    title: '2pt spacing scale for enterprise density',
-    body: 'Enterprise tables and dense forms need finer control than an 8pt scale. Made information-heavy screens breathe properly without wasting space.',
+    title: 'A 4px scale, with 2px where it counts',
+    body: 'Most of the system ran on a 4px scale. But dense tables and long forms kept running into spots where 4px was one step too far, so I added 2px half-steps for just those cases. It kept the busiest screens tight without making them feel cramped.',
   },
   {
     title: 'Accessibility built in, not bolted on',
-    body: 'WCAG AA on every color pair. 44×44px touch targets. Status indicators always pair icon with label and never color alone.',
+    body: 'Government services are held to a strict accessibility standard, so it shaped the system from the first screen. No color pair went into a component until it had passed Figma’s AA contrast check, which meant every screen built from the system started out readable.',
   },
 ];
 ---
@@ -56,7 +56,7 @@ const principles = [
   <SectionHeading
     id="system-title"
     eyebrow="Design system"
-    lead="Started with the client's font, color palette, and 12 core atomic components. Built the rest of the system as screens needed it, not speculatively."
+    lead="We built the system in one brand, but MEGT asked us to design with more in mind. Other partners might use the same tool one day, each with their own look. So every decision in the system had to hold up for a brand it hadn't met yet."
     width={647}
     dark
   >

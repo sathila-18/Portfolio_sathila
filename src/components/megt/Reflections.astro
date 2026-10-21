@@ -13,37 +13,37 @@ const reflections = [
     keep: true,
     title: 'Building the design system first was the right call',
     titleWidth: 446,
-    body: "The design system is not what you cut when time is tight. It's what makes cutting time elsewhere possible. Anywhere I control the timeline, foundation work happens before feature work, not after.",
-    takeaway: 'Front-load the foundation.\nAlways.',
+    body: 'It’s tempting to treat a system as something to tidy up once the features are done. On this project, it was the other way round. The weekend spent on foundations is what let six sprints of harder and harder features still look like one product.',
+    takeaway: 'Foundations first, features second.',
   },
   {
     keep: false,
     title: 'I got the type scale wrong early on',
     titleWidth: 298,
-    body: 'H6 at 16px, H5 at 26px — a 10px jump that reads dramatically heavy in a UI built around dense enterprise tables. I caught it mid-project, which meant reworking screens already in progress.',
-    takeaway: 'Test the type scale across 5–6 real screen types before committing. An hour upfront prevents days of rework.',
+    body: 'My H6 was 16px and my H5 was 26px, a jump far too big for a product built around dense tables. I only noticed once real screens were being built, and by then fixing it meant reworking screens already in progress. If I’d had wireframes first, I could have checked the scale against them before building anything.',
+    takeaway: 'Check the type scale against real layouts before building on it.',
   },
   {
     keep: true,
     title: 'Designing the dashboard last was the right decision',
     titleWidth: 446,
-    body: "This one paid off, but it's a bet. Deferring a visible deliverable requires a client who trusts the sequencing. Worth naming as a risk I'd flag upfront next time, not just a decision I got right this time.",
-    takeaway: "Don't design the summary view before you understand what it's summarising.",
+    body: 'Waiting until every flow was clear meant the dashboard showed what the product actually did. The developers still needed something to build around in the meantime, so we gave them one of our early dashboard ideas, the one we thought was closest to where the final would land. When the real dashboard arrived, it slotted into a layout they already knew.',
+    takeaway: 'Don’t design the summary before you know what it’s summarising.',
     takeawayWidth: 472,
   },
   {
     keep: false,
-    title: 'We did zero user testing with actual MEGT staff',
+    title: 'We never tested with the case workers themselves',
     titleWidth: 446,
-    body: "The client was happy with the designs. But client approval is not the same as user validation. We never ran a session with the case workers who'll be in this tool every day. The workflow builder in particular is complex — it deserved real user scrutiny before handoff.",
-    takeaway: 'Push for at least three usability sessions before dev handoff on any flow that introduces a new interaction pattern.',
+    body: 'The client was happy with the designs, but client approval isn’t the same as user validation. We didn’t have access to the case workers who’d use this tool every day, so their feedback never made it in before handoff. The workflow builder in particular deserved real user feedback before handoff.',
+    takeaway: 'Ask for user access early, even if the sessions have to be remote.',
   },
   {
     keep: true,
-    title: 'Desktop-only for the builder was the right constraint',
+    title: 'Leaning on patterns people already knew',
     titleWidth: 446,
-    body: "Not every interface needs to work on every screen. The form builder is an admin tool — it's used at a desk. The assessment view is used in the field. Designing for both contexts separately produced better outcomes for both.",
-    takeaway: 'Knowing what a tool is actually for is a design decision in itself.',
+    body: 'Typeform shaped the form builder, folders like Google Drive shaped the question library, Discord shaped the permissions, and editing tools shaped the canvas. None of it was copied, but each one meant case workers wouldn’t have to learn something new from scratch. With a complex tool and no access to its users, familiar patterns were the closest thing we had to their feedback.',
+    takeaway: 'When you can’t test with users, design with what they already know.',
     takeawayWidth: 417,
   },
 ];
@@ -51,7 +51,7 @@ const reflections = [
 
 <section id="reflections" class="reflections" aria-labelledby="reflections-title">
   <SectionHeading id="reflections-title" eyebrow="Honest reflections" width={687}>
-    What I’d do the same. What I’d change
+    What I’d keep.<br /> What I’d change
   </SectionHeading>
 
   <ul class="cards">

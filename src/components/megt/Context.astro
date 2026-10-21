@@ -59,7 +59,7 @@ const sheetsCrop = crop(-11.4, -12.34, 122.52, 123.64);
     lead="How we went from a blank slate to a winning concept in 48 hours"
     leadWidth={449}
   >
-    Replacing tools that were never built for this work.
+    A short brief, and two days to answer it
   </SectionHeading>
 
   <div class="stories">
@@ -94,20 +94,22 @@ const sheetsCrop = crop(-11.4, -12.34, 122.52, 123.64);
         </div>
       </div>
       <p class="text text-body-l">
-        MEGT is a not-for-profit partnered with Workforce Australia. Their case workers were building
-        assessments in Google forms and Typeform, and tracking conditional logic in spreadsheets
-        alongside them. It was fragile, inconsistent, and impossible to hand off.
+        The brief was simple. MEGT wanted a form-building platform of their own, to move their
+        assessments out of Google Forms and Typeform, and we had two days before the pitch. Our UX
+        researcher and I started with what case workers already knew.
       </p>
     </div>
 
     <!-- 2 · Two-hour benchmark: text on the left -->
     <div class="story text-first">
       <div class="text">
-        <h3 class="text-title-l">The 2-hour benchmark</h3>
+        <h3 class="text-title-l">The 2-Hour Benchmark</h3>
         <p class="text-body-l">
-          Facing a strict 2-day pitching window, me and our UX researcher time-boxed an intense
-          2-hour benchmarking sprint. We mapped common spatial layout patterns across
-          industry-standard creator tools like Figma, Photoshop, and Illustrator.
+          We time-boxed the research to a two-hour benchmarking sprint. We looked at how Typeform and
+          Google Forms handled building a form, and mapped the layout patterns that creator tools like
+          Figma, Photoshop and Illustrator share. With so little time, we chose to build on patterns
+          people already knew, leaning mostly on Typeform with a little from Google Forms, rather than
+          invent new ones.
         </p>
       </div>
       <div class="illus" role="img" aria-label="Screenshots of the form and workflow builders we benchmarked.">
@@ -133,12 +135,16 @@ const sheetsCrop = crop(-11.4, -12.34, 122.52, 123.64);
         </div>
       </div>
       <div class="text">
-        <h3 class="text-title-l">Leveraging familiar mental models</h3>
+        <h3 class="text-title-l">A layout people already trust</h3>
         <p class="text-body-l">
-          We realized that despite our users being non-designers, the classic 3-panel layout (Layers
-          on the left, Art board canvas in the center, Contextual Settings on the right) offered the
-          most stable, organized environment to transition them away from chaotic spreadsheets. The
-          client immediately bought into this vision during the pitch.
+          Case workers aren’t designers, and they’d been managing questions, answers and interventions
+          across spreadsheets. So we gave them a layout most people already know, the classic
+          three-panel layout, with questions and sections on the left, the form in the middle, and
+          settings on the right. For the logic behind each question, I suggested a node-based
+          workflow, drawing on how Typeform handles logic and on node tools like Flora AI. Our UX
+          researcher planned how interventions would work. The client loved both the thinking behind
+          the product and how clean the screens were, and by the end of the meeting, the project was
+          ours.
         </p>
       </div>
     </div>
@@ -163,7 +169,8 @@ const sheetsCrop = crop(-11.4, -12.34, 122.52, 123.64);
     display: grid;
     grid-template-columns: 716fr 460fr;
     gap: var(--space-24);
-    align-items: start;
+    /* Text sits vertically centred on its illustration (user's decision; Figma tops them). */
+    align-items: center;
   }
 
   .story.text-first {

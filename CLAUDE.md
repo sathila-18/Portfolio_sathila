@@ -75,6 +75,8 @@ Status values: `not started` · `in progress` · `approved`
 | Design system | approved |
 | Honest reflections | approved |
 | Mobile pass: spacing (48 between sections, tighter in-section gaps), stacked metrics, reflection animation on scroll | approved |
+| Revised copy, Figma 212:797 (text only, all sections) | approved |
+| Context: story text vertically centred on its illustration | approved |
 
 ### Pearl case study
 | Section | Status |

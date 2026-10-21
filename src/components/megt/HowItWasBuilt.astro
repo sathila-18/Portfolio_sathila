@@ -70,7 +70,7 @@ const stages: Record<string, Stage> = {
     cards: [
       {
         title: 'The brief',
-        body: 'We were told the client needed a form builder. That was it. Me and the UX researcher did a fast benchmark session, mapped a structure, and designed the form creation flow in 48 hours.',
+        body: 'We were told the client needed a form builder, and that was it. In 48 hours, our UX researcher and I designed the core flows, from form creation to the dashboard, workflows and interventions, enough to show how the whole product could work.',
         label: 'Form builders we benchmarked, including the Jotform builder.',
         bg: 'var(--tertiary-2-50)',
         layers: [
@@ -81,7 +81,7 @@ const stages: Record<string, Stage> = {
       },
       {
         title: 'The design',
-        body: "The rounded, friendly UI we showed wasn't what won the pitch, the structure was. We walked in with the flow and the 3-panel logic already worked out. The visual treatment was still provisional. That's the part that got refined later.",
+        body: 'What won it was the thinking, a structure that answered the client’s exact problems. The look was a different story. With no time to debate a visual direction, we locked one fast, with rounded corners, bright highlights and a friendly, almost playful feel made for the general public. It worked for a pitch. It wouldn’t hold up as an enterprise tool.',
         label: 'The pitch UI: a question with Yes and No branches leading to follow-up questions.',
         bgImage: pitchBg,
         layers: [
@@ -97,7 +97,7 @@ const stages: Record<string, Stage> = {
     cards: [
       {
         title: 'What the workshop revealed',
-        body: 'Our UX researcher ran workshops with MEGT. The briefed findings revealed the full scope: 3 user roles, conditional logic requirements, two responsive contexts, question library, drafts, and a full intervention system.',
+        body: 'Once the project was ours, our UX researcher ran workshops with MEGT, and the real scope came into view. Three user roles, conditional logic, two responsive contexts, a question library, drafts and a full intervention system.',
         label: 'Navigation for a Super Admin and an Admin, showing the different menus each role sees.',
         bg: '#3F6982',
         layers: [
@@ -107,7 +107,7 @@ const stages: Record<string, Stage> = {
       },
       {
         title: 'Direction shift',
-        body: 'The pitch UI was friendly, rounded, and the consumer-feeling was wrong for the audience. Case workers needed an enterprise tool. We made a deliberate call to rebuild the visual layer: professional, clean, minimal.',
+        body: 'Looking closer, one thing stood out. This tool was for corporate case workers, and enterprise products carry a certain quality a playful UI can’t meet. The login screens were the first I designed, and I explored several directions, from playful to fully professional. We chose the simplest, most straightforward one. At the first sprint review, the client said it was exactly what they’d been expecting.',
         label: 'The redesigned Workforce Australia login screen in the cleaner enterprise style.',
         bg: '#EFF6FA',
         layers: [{ src: enterprise, box: [-59, -34, 557, 313], radius: 4, shadow: true }],
@@ -119,7 +119,7 @@ const stages: Record<string, Stage> = {
     cards: [
       {
         title: 'What I built',
-        body: 'Client provided their brand guidelines with their font and color palette. I built the foundation and 12 core atomic components with variants before Sprint 1 started. Components grew from there as screens were built.',
+        body: 'The client shared their brand guidelines, with their font and color palette. In the first weekend of Sprint 1, I turned them into foundations in Figma, with variables and modes so text resized with the screen, and built the core components from there. The rest grew as the screens needed them.',
         label: "The brand typeface and colour palette from the client's guidelines.",
         bg: 'var(--bg-subtle)',
         layers: [
@@ -133,7 +133,7 @@ const stages: Record<string, Stage> = {
       },
       {
         title: 'Why it mattered',
-        body: 'By Sprint 3, having the system in place is why we moved fast without accumulating design debt. It felt like overhead at the start. It was the reason we could iterate quickly under pressure later.',
+        body: 'Every sprint after brought harder features, like form creation, logic, interventions and assessments. Because each one was built from the same pieces, they all behaved like one product. When the dashboard finally came, I could take its wireframe and bring it into line using components and styles that already existed.',
         label: 'Core components: input, tabs, buttons, toggle, avatar, badge, search and checkbox.',
         bg: 'var(--bg-subtle)',
         layers: [
@@ -169,7 +169,7 @@ const stages: Record<string, Stage> = {
       },
       userListCard(
         'Why it mattered',
-        'After Sprint 1, the client reviewed the UIs and responded positively, specifically praising the cleanliness of the interface. That response set the quality bar for every sprint that followed.',
+        'Before the first client review, every finalised screen moved into one file, organised with notes for both the client and the developers. Time didn’t allow separate files for each, so one file served both, and it kept everyone looking at the same version from then on.',
         'The All users screen from Sprint 1.',
       ),
     ],
@@ -179,14 +179,14 @@ const stages: Record<string, Stage> = {
     cards: [
       {
         title: 'The responsiveness pivot',
-        body: 'We initially assumed the admin builder needed full mobile responsiveness. A midpoint workshop revealed the client only needed mobile support for the end-user assessment view — so we halted admin mobile work and redirected all bandwidth to the desktop builder and final end-user views.',
+        body: 'In Sprint 1, we designed the admin screens for tablet and mobile too, and it was hard work. Buttons lost their labels and features hid behind More menus. After the first sprint, it became clear only the assessments needed to work on mobile. Because we caught it early, before any complex screens, every hour after went into the desktop builder and the assessments.',
         label: 'The admin builder on a phone, showing a "Desktop device required" message.',
         bgImage: darkBg,
         layers: [{ src: responsive, box: [164, 9, 111, 240], radius: 8 }],
       },
       userListCard(
         'Unblocking engineering velocity',
-        'Designing the dashboard last was right for data accuracy, but it blocked frontend developers from building the layout shell. We engineered an architecturally sound "dummy dashboard" skeleton to unblock the pipeline instantly and zero layout refactoring once real data was ready.',
+        'Holding the dashboard back was right for the data, but the frontend developers still needed a layout to build around. So we gave them one of our early dashboard ideas, the one closest to where we expected the final to land, letting them build and merge their work while the real one took shape.',
         'The dashboard layout shell with the All users table.',
       ),
     ],
@@ -207,7 +207,7 @@ const phases = [
   <SectionHeading
     id="built-title"
     eyebrow="How it was built"
-    lead="The project started before we knew its full scope. What we won the pitch with looked nothing like what we shipped."
+    lead="We won the pitch with an idea, before anyone knew the full scope. The thinking behind it held all the way to handoff. The way it looked did not."
     width={647}
     dark
   >

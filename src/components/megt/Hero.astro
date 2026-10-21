@@ -10,17 +10,14 @@ const list = (...items: string[]) => items.join(' · ');
 <section class="hero container" aria-labelledby="megt-hero-title">
   <p class="eyebrow text-h6">{list('MEGT Australia', 'Enterprise Web App', '2024')}</p>
   <div class="text">
-    <h1 id="megt-hero-title">
-      <span class="line">Replacing Google Forms</span>{' '}
-      <span class="line">and spreadsheets with a</span>{' '}
-      <span class="line">node-based form builder</span>{' '}
-      <span class="line">designed for case workers</span>{' '}
-      <span class="line">who can't afford to break it.</span>
-    </h1>
+    <h1 id="megt-hero-title">A form builder for case workers who can’t afford to break it</h1>
     <p class="lead text-body-xl">
-      MEGT were running workforce assessments through copy-pasted Google Forms, Typeform, and Excel
-      templates. Every new form was a manual process no one had time for. We designed a
-      purpose-built replacement, from pitch to dev handoff in two months.
+      MEGT helps job seekers back into work through Workforce Australia, the Australian Government’s
+      employment service. For every person they support, the first step is an assessment, and the
+      answers decide what help comes next. Yet those assessments were still being built by hand in
+      Google Forms and Typeform, tools that were never made for this work. Our answer started as a
+      two-day pitch, and over six sprints it grew into a full product, with developers building
+      alongside us from the first sprint onward.
     </p>
   </div>
 </section>
@@ -54,10 +51,4 @@ const list = (...items: string[]) => items.join(' · ');
     color: var(--text-secondary);
   }
 
-  /* Five lines from tablet up, as in Figma; on mobile the headline wraps naturally. */
-  @media (min-width: 768px) {
-    .line {
-      display: block;
-    }
-  }
 </style>
