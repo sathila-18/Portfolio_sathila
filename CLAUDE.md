@@ -38,6 +38,7 @@ Built with these defaults until the user confirms:
 - Gap above the footer on the case studies (user's decision): the footer has no top margin there (`footerFlush`); the last section sets the gap, 120 on desktop and 48 on mobile. Pearl's last band (white, like the footer) has no bottom padding at all. Home keeps the footer's 80.
 - Sampath hero (user's decisions, on top of Figma "hero 1"): text block centred in the white area (120/120 desktop, 80/80 tablet, 48/96 mobile); the band's grey overlay image is replaced by black at 19% with a 40px backdrop blur; the Team row from the revised copy is left out; Claude dropped from Tools. Mobile band keeps the silk background (the old light-background mobile band was not asked back yet). From 1200 up the hero fills the window below the nav so the band sits on the bottom edge; the text stays centred above it, with at least 48 above and below on short windows.
 - Revised Sampath copy (`~/Downloads/sampath-design-system-case-study.md`) is being applied section by section; desktop Figma updates must not change the agreed mobile spacing.
+- MEGT "How it was built" stepper (Figma 215:1487): pinned only at ≥ 1360 × 760 with reduced motion off and JS on, so the two cards stay side by side and a stage fits the window; elsewhere the earlier static timeline stays (mobile unchanged). The pin fills the window under the nav; the ruler stays still and stretches with it (labels spread evenly on the 16px tick grid, ticks ending 80 above the section's bottom). Each stage sits vertically centred in the window and the next slides up from the bottom; 80vh of scroll per stage, a 10% hold at each end of a step, and the stages glide after the scroll (~150ms) so wheel notches don't jump; only the marker and the cards move (user's decision). Both Build stages sit under "Sprint 1–6 Build"; the last one peeks in at 30% while the one before is showing. Native sticky + a small scroll script (no animation library; CSS scroll timelines skipped as Firefox lacks them).
 - On mobile only `number-xl` shrinks (to 56/72.8), so `number-l` (80) is larger than `number-xl` there. Left as specified.
 
 ## Progress
@@ -77,6 +78,7 @@ Status values: `not started` · `in progress` · `approved`
 | Mobile pass: spacing (48 between sections, tighter in-section gaps), stacked metrics, reflection animation on scroll | approved |
 | Revised copy, Figma 212:797 (text only, all sections) | approved |
 | Context: story text vertically centred on its illustration | approved |
+| How it was built: pinned scroll stepper (still full-height ruler, marker travels down it, stages centred), Figma 215:1487 | approved |
 
 ### Pearl case study
 | Section | Status |

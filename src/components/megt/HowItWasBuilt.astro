@@ -193,17 +193,23 @@ const stages: Record<string, Stage> = {
   },
 };
 
-// Four phases on the rail; the last one covers two stages.
+// Four phases on the rail; the last one covers two stages. `dial` is the label on the desktop
+// stepper's ruler (Figma 215:1487 has "48h pitch" on one line).
 const phases = [
-  { label: ['48h', 'Pitch'], stages: [stages.pitch] },
-  { label: ['Discovery', '& Pivot'], stages: [stages.discovery] },
-  { label: ['Pre-sprint', 'System'], stages: [stages.system] },
-  { label: ['Sprint 1–6', 'Build'], stages: [stages.sprints, stages.pivots] },
+  { label: ['48h', 'Pitch'], dial: ['48h pitch'], stages: [stages.pitch] },
+  { label: ['Discovery', '& Pivot'], dial: ['Discovery', '& Pivot'], stages: [stages.discovery] },
+  { label: ['Pre-sprint', 'System'], dial: ['Pre-sprint', 'System'], stages: [stages.system] },
+  { label: ['Sprint 1–6', 'Build'], dial: ['Sprint 1–6', 'Build'], stages: [stages.sprints, stages.pivots] },
 ];
+
+// Stepper ruler: every stage takes its phase's label, so both Build stages keep "Sprint 1–6 Build"
+// active.
+const firstStage = phases.map((_, p) => phases.slice(0, p).reduce((n, { stages }) => n + stages.length, 0));
+const stageCount = firstStage[phases.length - 1] + phases[phases.length - 1].stages.length;
 ---
 
 <!-- The nav goes white while this band is behind it; the sidebar links lighten over it. -->
-<section id="how-it-was-built" class="built" aria-labelledby="built-title" data-dark-hero>
+<section id="how-it-was-built" class="built" aria-labelledby="built-title" data-dark-hero data-stepper>
   <SectionHeading
     id="built-title"
     eyebrow="How it was built"
@@ -214,33 +220,163 @@ const phases = [
     From a 48-hour pitch to a full enterprise product.
   </SectionHeading>
 
-  <ol class="timeline">
-    {phases.map(({ label, stages }) => (
-      <li class="phase">
-        <p class="phase-label text-label-m">{label[0]}<br /> {label[1]}</p>
-        <span class="rail" aria-hidden="true"></span>
-        <div class="stages">
-          {stages.map(({ title, cards }) => (
-            <div class="stage">
-              <h3 class="text-h6">{title}</h3>
-              <ul class="cards">
-                {cards.map(({ title, body, label, layers, bg, bgImage }) => (
-                  <li class="card">
-                    <Collage layers={layers} bg={bg} bgImage={bgImage} label={label} />
-                    <div class="copy">
-                      <h4 class="text-title-l">{title}</h4>
-                      <p class="text-body-m">{body}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+  <!-- Desktop: the track is tall (80vh of scroll per stage) and the pin sticks inside it.
+       Elsewhere both are plain blocks and the timeline reads top to bottom. -->
+  <div class="track" style={`--count: ${stageCount}`}>
+    <div class="pin">
+      <nav class="ruler" aria-label="Project phases">
+        <span class="marker" aria-hidden="true"></span>
+        <ol class="dial" style={`--last: ${phases.length - 1}`}>
+          {phases.map(({ dial }, p) => (
+            <li class="notch" style={`--phase: ${p}; --t: ${p === 0 ? 1 : 0}`} data-phase={p}>
+              <span class="major" aria-hidden="true"></span>
+              <button class="jump" type="button" data-step={firstStage[p]} aria-current={p === 0 ? 'step' : undefined}>
+                {dial.map((line) => <span>{line}</span>)}
+              </button>
+            </li>
           ))}
-        </div>
-      </li>
-    ))}
-  </ol>
+        </ol>
+      </nav>
+
+      <div class="viewport">
+        <ol class="timeline">
+          {phases.map(({ label, stages }, p) => (
+            <li class="phase">
+              <p class="phase-label text-label-m">{label[0]}<br /> {label[1]}</p>
+              <span class="rail" aria-hidden="true"></span>
+              <div class="stages">
+                {stages.map(({ title, cards }, s) => (
+                  <div class="stage" data-phase={p} style={`--o: ${firstStage[p] + s === 0 ? 1 : 0}`}>
+                    <h3 class="text-h6">{title}</h3>
+                    <ul class="cards">
+                      {cards.map(({ title, body, label, layers, bg, bgImage }) => (
+                        <li class="card">
+                          <Collage layers={layers} bg={bg} bgImage={bgImage} label={label} />
+                          <div class="copy">
+                            <h4 class="text-title-l">{title}</h4>
+                            <p class="text-body-m">{body}</p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </div>
 </section>
+
+<script>
+  // Desktop stepper: scroll position alone drives it (no wheel handling). Progress through the
+  // track picks the stage, and the stages glide after it (see FOLLOW).
+  // The query must match the stepper's media query in the styles below.
+  const QUERY = '(min-width: 1360px) and (min-height: 760px) and (prefers-reduced-motion: no-preference)';
+  // The last stage peeks in, faded, while the one before it is on screen.
+  const PEEK = 0.3;
+
+  const section = document.querySelector<HTMLElement>('[data-stepper]');
+  if (section) {
+    const track = section.querySelector<HTMLElement>('.track')!;
+    const pin = section.querySelector<HTMLElement>('.pin')!;
+    const viewport = section.querySelector<HTMLElement>('.viewport')!;
+    const column = section.querySelector<HTMLElement>('.timeline')!;
+    const ruler = section.querySelector<HTMLElement>('.ruler')!;
+    const stages = [...section.querySelectorAll<HTMLElement>('.stage')];
+    const notches = [...section.querySelectorAll<HTMLElement>('.notch')];
+    const phases = stages.map((stage) => Number(stage.dataset.phase));
+    const last = stages.length - 1;
+    const media = matchMedia(QUERY);
+
+    const clamp = (v: number, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+    const ease = (t: number) => t * t * (3 - 2 * t);
+
+    // The stages follow the scroll with a short glide (about 150ms to settle), so wheel notches and
+    // trackpad flicks move them smoothly instead of in jumps. Scrolling itself is never touched.
+    const FOLLOW = 0.2; // share of the remaining distance covered per 60fps frame
+    let offsets: number[] = [];
+    let queued = false;
+    let shown = -1; // progress on screen, in stages; -1 until the first render
+    let lastFrame = 0;
+
+    // Scroll available while pinned, and where the pin sticks (just under the nav).
+    const distance = () => Math.max(1, track.offsetHeight - pin.offsetHeight);
+    const stickTop = () => parseFloat(getComputedStyle(pin).top) || 0;
+
+    const render = (now: number) => {
+      queued = false;
+      if (!media.matches) return;
+      const scrolled = clamp(stickTop() - track.getBoundingClientRect().top, 0, distance());
+      const target = (scrolled / distance()) * last;
+      if (shown < 0) shown = target;
+      else shown += (target - shown) * (1 - Math.pow(1 - FOLLOW, Math.min(now - lastFrame, 100) / 16.7));
+      if (Math.abs(target - shown) < 0.001) shown = target;
+      lastFrame = now;
+      // Keep gliding until the stages catch up with the scroll.
+      if (shown !== target) queue();
+
+      // Each step holds still for its first and last 10% and moves in between.
+      const step = Math.min(Math.floor(shown), last - 1);
+      const t = ease(clamp((shown - step - 0.1) / 0.8));
+      const current = step + t;
+
+      column.style.setProperty('--y', lerp(offsets[step], offsets[step + 1], t).toFixed(1));
+      stages.forEach((stage, i) => {
+        let opacity = clamp(1 - Math.abs(i - current));
+        if (i === last) opacity = Math.max(opacity, PEEK * clamp(current - (last - 2)));
+        stage.style.setProperty('--o', opacity.toFixed(3));
+      });
+
+      // The marker travels down the still ruler, in phases.
+      const position = lerp(phases[step], phases[step + 1], t);
+      ruler.style.setProperty('--pos', position.toFixed(3));
+      const activePhase = phases[Math.round(current)];
+      for (const notch of notches) {
+        const phase = Number(notch.dataset.phase);
+        notch.style.setProperty('--t', clamp(1 - Math.abs(position - phase)).toFixed(3));
+        const button = notch.querySelector('button')!;
+        if (phase === activePhase) button.setAttribute('aria-current', 'step');
+        else button.removeAttribute('aria-current');
+      }
+    };
+
+    const queue = () => {
+      if (!queued) {
+        queued = true;
+        requestAnimationFrame((now) => {
+          if (!lastFrame) lastFrame = now;
+          render(now);
+        });
+      }
+    };
+    const measure = () => {
+      // Each stage's scroll offset that centres it in the window.
+      const middle = viewport.clientHeight / 2;
+      offsets = stages.map((stage) => stage.offsetTop + stage.offsetHeight / 2 - middle);
+      queue();
+    };
+
+    // A label scrolls the page to where its stage has fully settled.
+    section.querySelectorAll<HTMLButtonElement>('.jump').forEach((button) => {
+      button.addEventListener('click', () => {
+        const step = Number(button.dataset.step);
+        const trackTop = scrollY + track.getBoundingClientRect().top - stickTop();
+        scrollTo({ top: trackTop + (step / last) * distance(), behavior: 'smooth' });
+      });
+    });
+
+    addEventListener('scroll', queue, { passive: true });
+    addEventListener('resize', measure);
+    media.addEventListener('change', measure);
+    // Images and fonts settling change the stage heights.
+    new ResizeObserver(measure).observe(column);
+    measure();
+  }
+</script>
 
 <style>
   /* Full-bleed band from inside the content column: the shadow paints the colour out to the
@@ -365,6 +501,171 @@ const phases = [
   @container (max-width: 600px) {
     .cards {
       grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  /* ── Desktop stepper (Figma 215:1487) ─────────────────────────────
+     Only where two cards fit side by side and a stage fits the window; the query matches QUERY
+     in the script. Elsewhere, or with reduced motion or without JS, the timeline above stays. */
+  .ruler {
+    display: none;
+  }
+
+  @media (min-width: 1360px) and (min-height: 760px) and (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+    /* Figma: stages 80 under the heading; the pin's 48 top padding is part of that. */
+    .built {
+      gap: var(--space-32);
+      padding-bottom: 0;
+    }
+
+    /* The pin fills the window under the nav; then 80vh of scroll per stage. */
+    .track {
+      --pin-height: calc(100vh - var(--nav-height));
+      height: calc(var(--pin-height) + (var(--count) - 1) * 80vh);
+    }
+
+    /* ruler 120 | 108 | stages, so the stages start 228 in, as before (Figma 232). */
+    .pin {
+      position: sticky;
+      top: var(--nav-height);
+      display: grid;
+      grid-template-columns: var(--space-120) minmax(0, 1fr);
+      /* One row, the pin's height: the stage column clips inside it rather than growing it. */
+      grid-template-rows: minmax(0, 1fr);
+      column-gap: calc(var(--space-120) - var(--space-12));
+      height: var(--pin-height);
+    }
+
+    /* The current stage sits centred in the window; the next slides up from the bottom. Both
+       edges fade as they slide. */
+    .viewport {
+      position: relative;
+      overflow: clip;
+      mask-image: linear-gradient(
+        to bottom,
+        transparent,
+        black var(--space-48),
+        black calc(100% - var(--space-120)),
+        transparent
+      );
+    }
+
+    /* The ruler stays still and fills the pin's height: the first label 48 from the top, the
+       ticks ending 80 above the bottom (two past the last label, as in Figma), the labels evenly
+       between, on the 16px tick grid. */
+    .ruler {
+      position: relative;
+      display: block;
+      container-type: size;
+      /* Whole pixels, so the 1px ticks land on the pixel grid (half pixels blur or drop them). */
+      --top: round(calc(var(--space-48) + var(--label-m-line) / 2), 1px);
+      --gap: round(
+        down,
+        calc((100cqh - var(--top) - var(--space-80) - 2 * var(--space-16)) / var(--last, 3)),
+        var(--space-16)
+      );
+    }
+
+    /* The marker travels down the ruler to the current phase. */
+    .marker {
+      position: absolute;
+      z-index: 1;
+      top: calc(var(--top) + var(--pos, 0) * var(--gap));
+      left: var(--space-8);
+      width: var(--space-8);
+      height: var(--space-8);
+      translate: 0 -50%;
+      border-radius: var(--radius-full);
+      background-color: var(--border-white);
+    }
+
+    /* Minor ticks every 16px, from the first label to two past the last (as in Figma). */
+    .dial {
+      position: absolute;
+      inset: var(--top) 0 auto 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .dial::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: var(--space-24);
+      width: var(--space-12);
+      height: calc(var(--last) * var(--gap) + 2 * var(--space-16) + 1px);
+      /* One 16px tile per tick, repeated, keeps every line exactly 1px (a repeating gradient
+         anti-aliases some of them away). */
+      background-image: linear-gradient(to bottom, var(--border-white) 1px, transparent 1px);
+      background-size: 100% var(--space-16);
+      background-repeat: repeat-y;
+      opacity: 0.56; /* Figma's tick opacity */
+    }
+
+    /* --t: 1 at the marker, easing to 0 a phase away. Size and colour move between Figma's
+       inactive (label-xs, text-light) and active (label-m, off-white) labels. */
+    .notch {
+      position: absolute;
+      top: calc(var(--phase) * var(--gap));
+      left: 0;
+      right: 0;
+    }
+
+    .major {
+      position: absolute;
+      left: var(--space-24);
+      width: var(--space-24);
+      height: 1px;
+      background-color: var(--border-white);
+      opacity: calc(0.56 + 0.44 * var(--t));
+    }
+
+    .jump {
+      position: absolute;
+      right: 0;
+      translate: 0 -50%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding: var(--space-12) 0 var(--space-12) var(--space-8);
+      border: 0;
+      background: none;
+      font: inherit;
+      font-size: calc(var(--label-xs-size) + (var(--label-m-size) - var(--label-xs-size)) * var(--t));
+      line-height: calc(var(--label-xs-line) + (var(--label-m-line) - var(--label-xs-line)) * var(--t));
+      font-weight: var(--weight-semibold);
+      text-align: right;
+      white-space: nowrap;
+      color: color-mix(in srgb, var(--text-off-white) calc(var(--t) * 100%), var(--text-light));
+      cursor: pointer;
+    }
+
+    .jump:hover {
+      color: var(--text-white);
+    }
+
+    /* One column of stages that slides up as the steps advance. */
+    .timeline {
+      position: relative;
+      gap: var(--space-64);
+      container-type: inline-size;
+      translate: 0 calc(var(--y, 0) * -1px);
+    }
+
+    .phase,
+    .phase > .stages {
+      position: static;
+      display: contents;
+    }
+
+    .phase-label,
+    .rail {
+      display: none;
+    }
+
+    .stage {
+      opacity: var(--o, 0);
     }
   }
 
